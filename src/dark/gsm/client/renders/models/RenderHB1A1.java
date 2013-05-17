@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLiving;
 
 import org.lwjgl.opengl.GL11;
 
-import dark.gsm.common.machines.bots.EntityHumanBot;
+import dark.gsm.common.artillects.bots.EntityHumanBot;
 
 public class RenderHB1A1 extends RenderLiving
 {
