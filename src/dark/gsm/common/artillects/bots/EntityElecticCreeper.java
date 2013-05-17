@@ -1,6 +1,6 @@
 package dark.gsm.common.artillects.bots;
 
-import universalelectricity.prefab.implement.IDisableable;
+import icbm.api.ICBM;
 import icbm.api.explosion.IExplosive;
 import icbm.api.explosion.IExplosiveContainer;
 import net.minecraft.entity.Entity;
@@ -18,22 +18,40 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityElecticCreeper extends EntityRobot implements IExplosiveContainer
 {
-	/**
-	 * Time when this creeper was last in an active state (Messed up code here, probably causes
-	 * creeper animation to go weird)
-	 */
 	private int lastActiveTime;
-
-	/**
-	 * The amount of time since the creeper was close enough to the player to ignite
-	 */
+	/* Time since the entity started to blow up */
 	private int timeSinceIgnited;
+	/* Length of time it takes for entity to blow up */
 	private int fuseTime = 30;
+	/* Name of the explosive to be used */
+	private String explosiveName = "emp";
+	private String[] validTNT = new String[] { "tnt", "emp", "shrapnel", "incendiary", "chemical" };
+
+	public EntityElecticCreeper(World world, String explosive)
+	{
+		this(world);
+		if (!Loader.isModLoaded("ICBM|Explosion"))
+		{
+			this.explosiveName = "tnt";
+		}
+		else if (explosive != null && !explosive.isEmpty())
+		{
+			for (int i = 0; i < validTNT.length; i++)
+			{
+				if (explosive.equalsIgnoreCase(validTNT[i]))
+				{
+					this.explosiveName = explosive;
+				}
+			}
+		}
+
+	}
 
 	public EntityElecticCreeper(World par1World)
 	{
@@ -147,8 +165,14 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 		if (!this.worldObj.isRemote)
 		{
 			boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-
-			
+			if (this.getExplosiveType() != null)
+			{
+				ICBM.createExplosion(this.worldObj, this.posX, this.posY, this.posZ, this, this.getExplosiveType().getID());
+			}
+			else
+			{
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 30, flag);
+			}
 			this.setDead();
 		}
 	}
@@ -169,12 +193,6 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 	public void onDeath(DamageSource par1DamageSource)
 	{
 		super.onDeath(par1DamageSource);
-
-		if (par1DamageSource.getEntity() instanceof EntitySkeleton)
-		{
-			int i = Item.record13.itemID + this.rand.nextInt(Item.recordWait.itemID - Item.record13.itemID + 1);
-			this.dropItem(i, 1);
-		}
 	}
 
 	@Override
@@ -219,25 +237,19 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 		this.dataWatcher.updateObject(16, Byte.valueOf((byte) par1));
 	}
 
-	@Override
-	public void onStruckByLightning(EntityLightningBolt par1EntityLightningBolt)
-	{
-		super.onStruckByLightning(par1EntityLightningBolt);
-		this.dataWatcher.updateObject(17, Byte.valueOf((byte) 1));
-	}
+	
 
 	@Override
 	public IExplosive getExplosiveType()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return ICBM.getExplosive(this.explosiveName);
 	}
 
 	@Override
 	public void runningUpdate()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
