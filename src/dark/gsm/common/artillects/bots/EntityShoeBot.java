@@ -1,4 +1,4 @@
-package dark.gsm.common.machines.bots;
+package dark.gsm.common.artillects.bots;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.World;

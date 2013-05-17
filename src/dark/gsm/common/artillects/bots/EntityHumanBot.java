@@ -1,14 +1,13 @@
-package dark.gsm.common.machines.bots;
+package dark.gsm.common.artillects.bots;
 
 import net.minecraft.world.World;
 
-public class EntityCollector extends EntityRobot
+public class EntityHumanBot extends EntityRobot
 {
 
-	public EntityCollector(World par1World)
+	public EntityHumanBot(World par1World)
 	{
 		super(par1World);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -1,8 +1,8 @@
-package dark.gsm.common.machines;
+package dark.gsm.common.artillects;
 
 import java.util.ArrayList;
 
-import dark.gsm.common.machines.bots.EntityShoeBot;
+import dark.gsm.common.artillects.bots.EntityShoeBot;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

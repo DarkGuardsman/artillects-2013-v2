@@ -1,12 +1,13 @@
-package dark.gsm.common.machines.bots;
+package dark.gsm.common.artillects.bots;
 
 import hydraulic.helpers.FluidHelper;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.implement.IDisableable;
 
-public abstract class EntityRobot extends EntityCreature
+public abstract class EntityRobot extends EntityCreature implements IDisableable
 {
 	/* Energy stored in the internal battery */
 	private double wattsStored = 0;
@@ -15,6 +16,8 @@ public abstract class EntityRobot extends EntityCreature
 	private String displayName = "Robot";
 	/* Data watch values */
 	private static final int powerWatcher = 17;
+
+	private int disableTime = 0;
 
 	public EntityRobot(World par1World)
 	{
@@ -34,7 +37,10 @@ public abstract class EntityRobot extends EntityCreature
 	public void onLivingUpdate()
 	{
 		this.updateArmSwingProgress();
-
+		if (this.disableTime > 0)
+		{
+			this.disableTime--;
+		}
 		if (this.getHealth() < ((int) this.getMaxHealth() / 10))
 		{
 			for (int i = 0; i < 2; ++i)
@@ -46,7 +52,7 @@ public abstract class EntityRobot extends EntityCreature
 		{
 			/* Solor power handler */// TODO check for sight of sky
 			double solorPower = this.getSolorPower(this.getBrightness(1.0F));
-			if (solorPower > 0 && this.worldObj.canBlockSeeTheSky((int)this.posX, (int)this.posY, (int)this.posZ))
+			if (solorPower > 0 && this.worldObj.canBlockSeeTheSky((int) this.posX, (int) this.posY, (int) this.posZ))
 			{
 				this.wattsStored += solorPower;
 			}
@@ -141,13 +147,26 @@ public abstract class EntityRobot extends EntityCreature
 	@Override
 	public float getBlockPathWeight(int x, int y, int z)
 	{
-		Vector3 vec = new Vector3(x,y,z);
+		Vector3 vec = new Vector3(x, y, z);
 		int blockID = vec.getBlockID(this.worldObj);
 		int meta = vec.getBlockMetadata(this.worldObj);
-		if(FluidHelper.getLiquidFromBlockId(blockID) != null)
+		if (FluidHelper.getLiquidFromBlockId(blockID) != null)
 		{
 			return -10.0F;
 		}
 		return 0.0F;
+	}
+
+	@Override
+	public void onDisable(int duration)
+	{
+		this.disableTime += duration;
+	}
+
+	@Override
+	public boolean isDisabled()
+	{
+
+		return this.disableTime > 0;
 	}
 }

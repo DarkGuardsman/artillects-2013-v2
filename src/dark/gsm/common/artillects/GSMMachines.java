@@ -1,4 +1,4 @@
-package dark.gsm.common;
+package dark.gsm.common.artillects;
 
 import java.io.File;
 import java.util.Arrays;
@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import net.minecraftforge.common.Configuration;
 
 import org.modstats.ModstatInfo;
-import org.modstats.Modstats;
 
 import universalelectricity.prefab.TranslationHelper;
 import universalelectricity.prefab.network.PacketManager;
@@ -26,12 +25,14 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import dark.library.DarkMain;
+import dark.gsm.common.CommonProxy;
+import dark.gsm.common.core.GSMCore;
+import dark.gsm.common.core.IMod;
 
 @ModstatInfo(prefix = "GSMMachines")
 @Mod(modid = GSMMachines.MOD_ID, name = GSMMachines.MOD_NAME, version = GSMMachines.VERSION, dependencies = "after:BasicComponents", useMetadata = true)
 @NetworkMod(channels = { GSMMachines.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
-public class GSMMachines extends DummyModContainer
+public class GSMMachines extends DummyModContainer implements IMod
 {
 
 	// @Mod Prerequisites
@@ -90,7 +91,7 @@ public class GSMMachines extends DummyModContainer
 		instance = this;
 
 		/* UPDATE NOTIFIER */
-		//Modstats.instance().getReporter().registerMod(this);
+		// Modstats.instance().getReporter().registerMod(this);
 
 		/* CONFIGS */
 		CONFIGURATION.load();
@@ -135,8 +136,14 @@ public class GSMMachines extends DummyModContainer
 		/* LOGGER */
 		FMLog.info("Finalizing...");
 		proxy.postInit();
-		DarkMain.forceLoadBCItems(this, GSMMachines.CHANNEL);
+		GSMCore.registerMod(this);
 
 		FMLog.info("Done Loading");
+	}
+
+	@Override
+	public String getChannel()
+	{
+		return GSMMachines.CHANNEL;
 	}
 }
