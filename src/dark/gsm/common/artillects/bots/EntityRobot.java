@@ -1,16 +1,22 @@
 package dark.gsm.common.artillects.bots;
 
+import java.util.Random;
+
 import hydraulic.helpers.FluidHelper;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
+import universalelectricity.prefab.CustomDamageSource;
 import universalelectricity.prefab.implement.IDisableable;
 
 public abstract class EntityRobot extends EntityCreature implements IDisableable
 {
+	Random random = new Random();
 	/* Energy stored in the internal battery */
 	private double wattsStored = 0;
+	
 	/* Temp value for the robots group */
 	private String faction = "world";
 	private String displayName = "Robot";
@@ -37,10 +43,13 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 	public void onLivingUpdate()
 	{
 		this.updateArmSwingProgress();
+		/* Disable timer update */
 		if (this.disableTime > 0)
 		{
 			this.disableTime--;
 		}
+
+		/* Generates smoke particles if the bot is bellow 10% health */
 		if (this.getHealth() < ((int) this.getMaxHealth() / 10))
 		{
 			for (int i = 0; i < 2; ++i)
@@ -48,6 +57,8 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 				this.worldObj.spawnParticle("largesmoke", this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width, this.posY + this.rand.nextDouble() * (double) this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
 			}
 		}
+
+		/* Power update */
 		if (!this.worldObj.isRemote)
 		{
 			/* Solor power handler */// TODO check for sight of sky
@@ -64,7 +75,9 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 		{
 			this.wattsStored = this.getPower();
 		}
-		if (this.wattsStored >= this.getRunningWatts())
+
+		/* Running update */
+		if (!this.isDisabled() && this.wattsStored >= this.getRunningWatts())
 		{
 			this.wattsStored -= this.getRunningWatts();
 			super.onLivingUpdate();
@@ -166,7 +179,14 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 	@Override
 	public boolean isDisabled()
 	{
-
 		return this.disableTime > 0;
+	}
+	
+	@Override
+	public void onStruckByLightning(EntityLightningBolt par1EntityLightningBolt)
+	{
+		this.onDisable(random.nextInt(360));
+		this.wattsStored = 0;
+		this.damageEntity(CustomDamageSource.electrocution, 30);
 	}
 }
