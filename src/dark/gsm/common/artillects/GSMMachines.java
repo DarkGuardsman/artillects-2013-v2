@@ -30,7 +30,7 @@ import dark.gsm.common.core.GSMCore;
 import dark.gsm.common.core.IMod;
 
 @ModstatInfo(prefix = "GSMMachines")
-@Mod(modid = GSMMachines.MOD_ID, name = GSMMachines.MOD_NAME, version = GSMMachines.VERSION, dependencies = "after:BasicComponents", useMetadata = true)
+@Mod(modid = GSMMachines.MOD_ID, name = GSMMachines.MOD_NAME, version = GSMMachines.VERSION, dependencies = "after:ICBM|Sentry;after:ICBM|Explosion;after:AtomicScience", useMetadata = true)
 @NetworkMod(channels = { GSMMachines.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
 public class GSMMachines extends DummyModContainer implements IMod
 {
