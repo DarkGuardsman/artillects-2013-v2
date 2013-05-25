@@ -8,11 +8,8 @@ import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,6 +30,18 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 	private String explosiveName = "emp";
 	private String[] validTNT = new String[] { "tnt", "emp", "shrapnel", "incendiary", "chemical" };
 
+	public EntityElecticCreeper(World par1World)
+	{
+		super(par1World);
+		this.texture = "/mob/creeper.png";
+		this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 0.25F, false));
+		this.tasks.addTask(5, new EntityAIWander(this, 0.2F));
+		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(6, new EntityAILookIdle(this));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 16.0F, 0, true));
+		this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
+	}
+
 	public EntityElecticCreeper(World world, String explosive)
 	{
 		this(world);
@@ -51,19 +60,6 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 			}
 		}
 
-	}
-
-	public EntityElecticCreeper(World par1World)
-	{
-		super(par1World);
-		this.texture = "/mob/creeper.png";
-		this.tasks.addTask(1, new EntityAISwimming(this));
-		this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 0.25F, false));
-		this.tasks.addTask(5, new EntityAIWander(this, 0.2F));
-		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 16.0F, 0, true));
-		this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
 	}
 
 	@Override
@@ -165,7 +161,7 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 		if (!this.worldObj.isRemote)
 		{
 			boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
-			if (this.getExplosiveType() != null)
+			if (!this.explosiveName.equalsIgnoreCase("tnt") && this.getExplosiveType() != null)
 			{
 				ICBM.createExplosion(this.worldObj, this.posX, this.posY, this.posZ, this, this.getExplosiveType().getID());
 			}
@@ -191,7 +187,11 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 
 	@Override
 	public void onDeath(DamageSource par1DamageSource)
-	{
+	{	
+		if(this.isDisabled())
+		{
+			//ItemStack stack = ICBM.getExplosive(this.explosiveName).getExplosiveName()
+		}
 		super.onDeath(par1DamageSource);
 	}
 
@@ -236,8 +236,6 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 	{
 		this.dataWatcher.updateObject(16, Byte.valueOf((byte) par1));
 	}
-
-	
 
 	@Override
 	public IExplosive getExplosiveType()

@@ -1,8 +1,9 @@
 package dark.gsm.common.artillects.bots;
 
+import hydraulic.helpers.FluidHelper;
+
 import java.util.Random;
 
-import hydraulic.helpers.FluidHelper;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,7 +17,7 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 	Random random = new Random();
 	/* Energy stored in the internal battery */
 	private double wattsStored = 0;
-	
+
 	/* Temp value for the robots group */
 	private String faction = "world";
 	private String displayName = "Robot";
@@ -181,7 +182,7 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 	{
 		return this.disableTime > 0;
 	}
-	
+
 	@Override
 	public void onStruckByLightning(EntityLightningBolt par1EntityLightningBolt)
 	{
