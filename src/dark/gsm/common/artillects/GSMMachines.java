@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.Item;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.BiomeGenPlains;
 import net.minecraftforge.common.Configuration;
 
 import org.modstats.ModstatInfo;
@@ -26,8 +30,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dark.gsm.common.artillects.blocks.BlockCreep;
+import dark.gsm.common.artillects.bots.EntityEyeBot;
 import dark.gsm.common.core.GSMCore;
 import dark.gsm.common.core.IMod;
 
@@ -76,7 +82,9 @@ public class GSMMachines extends DummyModContainer implements IMod
 
 	Block creepBlock;
 
-	@SidedProxy(clientSide = "dark.gsm.common.artillects.CommonProxy", serverSide = "dark.gsm.common.artillects.CommonProxy")
+	Item botSpawner;
+
+	@SidedProxy(clientSide = "dark.gsm.common.artillects.ClientProxy", serverSide = "dark.gsm.common.artillects.CommonProxy")
 	public static dark.gsm.common.artillects.CommonProxy proxy;
 
 	@Instance(GSMMachines.MOD_NAME)
@@ -99,14 +107,22 @@ public class GSMMachines extends DummyModContainer implements IMod
 
 		/* CONFIGS */
 		CONFIGURATION.load();
-		creepBlock = new BlockCreep((this.CONFIGURATION.getBlock("Generator", BLOCK_ID_PREFIX).getInt()));
+		creepBlock = new BlockCreep((this.CONFIGURATION.getBlock("creep", GSMMachines.BLOCK_ID_PREFIX).getInt()));
+		botSpawner = new ItemRobot((this.CONFIGURATION.getItem("spawnTool", GSMMachines.ITEM_ID_PREFIX).getInt()));
 		if (CONFIGURATION.hasChanged())
 		{
 			CONFIGURATION.save();
 		}
+		// RenderingRegistry.registerEntityRenderingHandler(EntityCollector.class, new
+		// RenderSpidBot());
+		// EyeBot
+		EntityRegistry.registerGlobalEntityID(EntityEyeBot.class, "GSMEyeBot", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityEyeBot.class, "GSMEyeBot", EntityRegistry.findGlobalUniqueEntityId(), instance, 60, 1, true);
+		EntityRegistry.addSpawn(EntityEyeBot.class, 100, 10, 100, EnumCreatureType.creature, BiomeGenBase.forest, BiomeGenBase.plains);
+
 		/* CONFIG END */
 		GameRegistry.registerBlock(creepBlock, "blockCreep");
-		proxy.preInit();
+		this.proxy.preInit();
 
 	}
 
