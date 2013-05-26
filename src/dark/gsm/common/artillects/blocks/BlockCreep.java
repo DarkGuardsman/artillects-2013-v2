@@ -3,6 +3,8 @@ package dark.gsm.common.artillects.blocks;
 import java.util.List;
 import java.util.Random;
 
+import universalelectricity.core.vector.Vector3;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -14,6 +16,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -125,5 +128,11 @@ public class BlockCreep extends Block
 	public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.blockIcon = par1IconRegister.registerIcon(GSMMachines.TEXTURE_NAME_PREFIX + "wireCreep");
+	}
+
+	@Override
+	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
+	{
+		MinecraftForge.EVENT_BUS.post(new CreepBreakEvent(world, new Vector3(x, y, z)));
 	}
 }
