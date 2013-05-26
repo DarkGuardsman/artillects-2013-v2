@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 
 import org.modstats.ModstatInfo;
@@ -25,7 +26,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import dark.gsm.common.CommonProxy;
+import cpw.mods.fml.common.registry.GameRegistry;
+import dark.gsm.common.artillects.blocks.BlockCreep;
 import dark.gsm.common.core.GSMCore;
 import dark.gsm.common.core.IMod;
 
@@ -53,13 +55,13 @@ public class GSMMachines extends DummyModContainer implements IMod
 	public static ModMetadata meta;
 
 	/* RESOURCE FILE PATHS */
-	public static final String RESOURCE_PATH = "/mods/fluidmech/";
+	public static final String RESOURCE_PATH = "/mods/gsm/";
 	public static final String TEXTURE_DIRECTORY = RESOURCE_PATH + "textures/";
 	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 	public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
 	public static final String ITEM_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "items/";
 	public static final String MODEL_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "models/";
-	public static final String TEXTURE_NAME_PREFIX = "fluidmech:";
+	public static final String TEXTURE_NAME_PREFIX = "gsm:";
 	public static final String LANGUAGE_PATH = RESOURCE_PATH + "languages/";
 
 	/* SUPPORTED LANGS */
@@ -69,11 +71,13 @@ public class GSMMachines extends DummyModContainer implements IMod
 	public static final Configuration CONFIGURATION = new Configuration(new File(Loader.instance().getConfigDir() + "/GSM/", GSMMachines.MOD_NAME + ".cfg"));
 
 	/* START IDS */
-	public final static int BLOCK_ID_PREFIX = 3100;
-	public final static int ITEM_ID_PREFIX = 13200;
+	public final static int BLOCK_ID_PREFIX = 3150;
+	public final static int ITEM_ID_PREFIX = 13250;
 
-	@SidedProxy(clientSide = "fluidmech.client.ClientProxy", serverSide = "fluidmech.common.CommonProxy")
-	public static CommonProxy proxy;
+	Block creepBlock;
+
+	@SidedProxy(clientSide = "dark.gsm.common.artillects.CommonProxy", serverSide = "dark.gsm.common.artillects.CommonProxy")
+	public static dark.gsm.common.artillects.CommonProxy proxy;
 
 	@Instance(GSMMachines.MOD_NAME)
 	public static GSMMachines instance;
@@ -95,13 +99,13 @@ public class GSMMachines extends DummyModContainer implements IMod
 
 		/* CONFIGS */
 		CONFIGURATION.load();
-
+		creepBlock = new BlockCreep((this.CONFIGURATION.getBlock("Generator", BLOCK_ID_PREFIX).getInt()));
 		if (CONFIGURATION.hasChanged())
 		{
 			CONFIGURATION.save();
 		}
 		/* CONFIG END */
-
+		GameRegistry.registerBlock(creepBlock, "blockCreep");
 		proxy.preInit();
 
 	}
