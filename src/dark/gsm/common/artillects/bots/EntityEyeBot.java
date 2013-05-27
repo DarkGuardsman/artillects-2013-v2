@@ -1,7 +1,22 @@
 package dark.gsm.common.artillects.bots;
 
+import icbm.api.sentry.IAATarget;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import universalelectricity.core.vector.Vector3;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.IMerchant;
+import net.minecraft.entity.INpc;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.item.Item;
@@ -12,9 +27,21 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import dark.gsm.common.artillects.GSMMachines;
+import dark.gsm.common.artillects.ai.combat.EnumRange;
+import dark.gsm.common.artillects.ai.combat.IAttacker;
+import dark.gsm.common.artillects.ai.combat.SearchHelper;
+import dark.library.access.AccessLevel;
+import dark.library.access.UserAccess;
+import dark.library.access.interfaces.ISpecialAccess;
 
-public class EntityEyeBot extends EntityFlying
+public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAccess
 {
+	SearchHelper targetFinder;
+
+	public boolean targetPlayers = true;
+	public boolean targetAir = true;
+	public boolean targetHostile = true;
+	public boolean targetFriendly = true;
 
 	public int courseChangeCooldown = 0;
 	public double waypointX;
@@ -37,6 +64,21 @@ public class EntityEyeBot extends EntityFlying
 		this.setSize(1.0F, 1.0F);
 		this.isImmuneToFire = true;
 		this.experienceValue = 15;
+	}
+
+	public SearchHelper getTargetHelper()
+	{
+		if (this.targetFinder == null)
+		{
+			this.targetFinder = new SearchHelper(this.worldObj, new Vector3(this), this);
+		}
+		return this.targetFinder;
+	}
+
+	@Override
+	protected boolean canDespawn()
+	{
+		return false;
 	}
 
 	/**
@@ -123,7 +165,7 @@ public class EntityEyeBot extends EntityFlying
 
 		if (this.targetedEntity == null || this.aggroCooldown-- <= 0)
 		{
-			this.targetedEntity = this.worldObj.getClosestVulnerablePlayerToEntity(this, 100.0D);
+			this.getTargetHelper().findTarget();
 
 			if (this.targetedEntity != null)
 			{
@@ -272,6 +314,139 @@ public class EntityEyeBot extends EntityFlying
 		{
 			this.explosionStrength = par1NBTTagCompound.getInteger("ExplosionPower");
 		}
+	}
+
+	@Override
+	public AxisAlignedBB getTargetingBox()
+	{
+		return AxisAlignedBB.getBoundingBox(this.posX - this.getRange(EnumRange.MAX), this.posY - 5, this.posZ - this.getRange(EnumRange.MAX), this.posX + this.getRange(EnumRange.MAX), this.posY + 5, this.posZ + this.getRange(EnumRange.MAX));
+	}
+
+	@Override
+	public Entity getTarget()
+	{
+		return this.targetedEntity;
+	}
+
+	@Override
+	public boolean setTarget(Entity target, boolean override)
+	{
+		if (this.targetedEntity == null || !this.isValidTarget(this.targetedEntity) || override)
+		{
+			this.targetedEntity = target;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isValidTarget(Entity entity)
+	{
+		if (entity != null)
+		{
+			if (!entity.isDead && !entity.isEntityInvulnerable())
+			{
+				if (entity.getDistance(this.posX, this.posY, this.posZ) < this.getRange(EnumRange.GROUND_MAX))
+				{
+					if (this.canEntityBeSeen(entity))
+					{
+						if (this.targetAir)
+						{
+							if (entity instanceof IMob && entity instanceof EntityFlying)
+							{
+								return true;
+							}
+
+							if (entity instanceof IAATarget && ((IAATarget) entity).canBeTargeted(this))
+							{
+								return true;
+							}
+						}
+
+						if (this.targetPlayers)
+						{
+							if (entity instanceof EntityPlayer || entity.riddenByEntity instanceof EntityPlayer)
+							{
+								EntityPlayer player;
+
+								if (entity.riddenByEntity instanceof EntityPlayer)
+								{
+									player = (EntityPlayer) entity.riddenByEntity;
+								}
+								else
+								{
+									player = ((EntityPlayer) entity);
+								}
+
+								if (!player.capabilities.isCreativeMode)
+								{
+									if (this.getUserAccess(player.username).ordinal() >= AccessLevel.BASIC.ordinal())
+									{
+										return true;
+									}
+								}
+							}
+						}
+
+						if (this.targetHostile)
+						{
+							if (entity instanceof IMob)
+							{
+								return true;
+							}
+						}
+
+						if (this.targetFriendly)
+						{
+							if (entity instanceof IAnimals || entity instanceof INpc || entity instanceof IMerchant)
+							{
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public double getRange(EnumRange rangeType)
+	{
+		return 100D;
+	}
+
+	@Override
+	public AccessLevel getUserAccess(String username)
+	{
+		return AccessLevel.NONE;
+	}
+
+	@Override
+	public List<UserAccess> getUsers()
+	{
+		return new ArrayList<UserAccess>();
+	}
+
+	@Override
+	public boolean addUserAccess(String username, AccessLevel level, boolean save)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeUserAccess(String username)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<UserAccess> getUsersWithAcess(AccessLevel level)
+	{
+		// TODO Auto-generated method stub
+		return new ArrayList<UserAccess>();
 	}
 
 }
