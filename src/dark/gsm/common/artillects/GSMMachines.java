@@ -8,13 +8,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenPlains;
 import net.minecraftforge.common.Configuration;
 
 import org.modstats.ModstatInfo;
 
 import universalelectricity.prefab.TranslationHelper;
-import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
@@ -39,7 +37,7 @@ import dark.gsm.common.core.IMod;
 
 @ModstatInfo(prefix = "GSMMachines")
 @Mod(modid = GSMMachines.MOD_ID, name = GSMMachines.MOD_NAME, version = GSMMachines.VERSION, dependencies = "after:ICBM|Sentry;after:ICBM|Explosion;after:AtomicScience", useMetadata = true)
-@NetworkMod(channels = { GSMMachines.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
+@NetworkMod(channels = { GSMMachines.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class GSMMachines extends DummyModContainer implements IMod
 {
 

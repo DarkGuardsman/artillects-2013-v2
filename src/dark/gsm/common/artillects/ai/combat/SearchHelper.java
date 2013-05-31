@@ -1,14 +1,15 @@
 package dark.gsm.common.artillects.ai.combat;
 
-import icbm.api.sentry.IAutoSentry;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import dark.library.access.AccessLevel;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
@@ -17,13 +18,26 @@ public class SearchHelper
 {
 	private IAttacker attacker;
 	private World world;
-	private Vector3 loc;
+	private Vector3 loct;
 
 	public SearchHelper(World world, Vector3 location, IAttacker attack)
 	{
 		this.attacker = attack;
 		this.world = world;
-		this.loc = location;
+		this.loct = location;
+	}
+
+	public Vector3 getLoc()
+	{
+		if (attacker instanceof TileEntity)
+		{
+			return new Vector3((Entity) attacker);
+		}
+		if (attacker instanceof Entity)
+		{
+			return new Vector3((Entity) attacker);
+		}
+		return loct;
 	}
 
 	/**
@@ -31,11 +45,11 @@ public class SearchHelper
 	 */
 	public void findTarget()
 	{
-		if (this.attacker.getTarget() == null || !this.attacker.isValidTarget(this.attacker.getTarget()))
+		if (!this.attacker.isValidTarget(this.attacker.getTarget()))
 		{
 			if (this.attacker.getTargetingBox() != null)
 			{
-				List<Entity> entities = this.refineList(world, loc, attacker.getTargetingBox(), attacker.getRange(EnumRange.GOUND_MIN), attacker.getRange(EnumRange.GROUND_MAX));
+				List<Entity> entities = this.refineList(world, getLoc(), attacker.getTargetingBox(), attacker.getRange(EnumRange.MIN), attacker.getRange(EnumRange.MAX));
 				for (Entity entity : entities)
 				{
 					if (this.isValidTarget(entity))
@@ -63,8 +77,6 @@ public class SearchHelper
 		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, bounds);
 		SearchHelper.sortClosest(entities, location);
 		Iterator<Entity> iterator = entities.iterator();
-
-		double smallestDis = max;
 
 		while (iterator.hasNext())
 		{
@@ -104,6 +116,14 @@ public class SearchHelper
 		if (entity == null || entity.isDead || !entity.isEntityAlive() || entity.isEntityInvulnerable())
 		{
 			return false;
+		}
+
+		if (entity instanceof EntityPlayer)
+		{
+			if (((EntityPlayer) entity).capabilities.isCreativeMode)
+			{
+				return false;
+			}
 		}
 		return this.attacker.isValidTarget(entity);
 	}

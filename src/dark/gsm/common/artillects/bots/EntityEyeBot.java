@@ -1,34 +1,24 @@
 package dark.gsm.common.artillects.bots;
 
-import icbm.api.sentry.IAATarget;
-
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import universalelectricity.core.vector.Vector3;
-
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IMerchant;
-import net.minecraft.entity.INpc;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import universalelectricity.core.vector.Vector3;
 import dark.gsm.common.artillects.GSMMachines;
 import dark.gsm.common.artillects.ai.combat.EnumRange;
 import dark.gsm.common.artillects.ai.combat.IAttacker;
+import dark.gsm.common.artillects.ai.combat.LaserHelper;
 import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.library.access.AccessLevel;
 import dark.library.access.UserAccess;
@@ -37,7 +27,7 @@ import dark.library.access.interfaces.ISpecialAccess;
 public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAccess
 {
 	SearchHelper targetFinder;
-
+	LaserHelper laserHelp;
 	public boolean targetPlayers = true;
 	public boolean targetAir = true;
 	public boolean targetHostile = true;
@@ -73,6 +63,16 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 			this.targetFinder = new SearchHelper(this.worldObj, new Vector3(this), this);
 		}
 		return this.targetFinder;
+	}
+
+	public LaserHelper getLaser()
+	{
+		if (this.laserHelp == null)
+		{
+			this.laserHelp = new LaserHelper(this);
+		}
+
+		return this.laserHelp;
 	}
 
 	@Override
@@ -120,16 +120,13 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	@Override
 	protected void updateEntityActionState()
 	{
-		if (!this.worldObj.isRemote && this.worldObj.difficultySetting == 0)
-		{
-			this.setDead();
-		}
-
-		this.despawnEntity();
 		this.prevAttackCounter = this.attackCounter;
+
+		/* START PATH FINDING OR MAKING A NEW PATH */
 		double d0 = this.waypointX - this.posX;
 		double d1 = this.waypointY - this.posY;
 		double d2 = this.waypointZ - this.posZ;
+
 		double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 		if (d3 < 1.0D || d3 > 3600.0D)
@@ -158,13 +155,10 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 			}
 		}
 
-		if (this.targetedEntity != null && this.targetedEntity.isDead)
+		/* TARGETING / TARGET FINDING */
+		if (!this.isValidTarget(this.targetedEntity) || this.aggroCooldown-- <= 0)
 		{
 			this.targetedEntity = null;
-		}
-
-		if (this.targetedEntity == null || this.aggroCooldown-- <= 0)
-		{
 			this.getTargetHelper().findTarget();
 
 			if (this.targetedEntity != null)
@@ -173,41 +167,18 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 			}
 		}
 
-		double d4 = 64.0D;
-
-		if (this.targetedEntity != null && this.targetedEntity.getDistanceSqToEntity(this) < d4 * d4)
+		/* ATTACK TARGET */
+		if (this.isValidTarget(this.targetedEntity))
 		{
-			double d5 = this.targetedEntity.posX - this.posX;
-			double d6 = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
-			double d7 = this.targetedEntity.posZ - this.posZ;
-			this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(d5, d7)) * 180.0F / (float) Math.PI;
+			double x = this.targetedEntity.posX - this.posX;
+			double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
+			double z = this.targetedEntity.posZ - this.posZ;
+			this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(x, z)) * 180.0F / (float) Math.PI;
 
-			if (this.canEntityBeSeen(this.targetedEntity))
+			if (++this.attackCounter == this.getFireRate())
 			{
-				if (this.attackCounter == 10)
-				{
-					this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1007, (int) this.posX, (int) this.posY, (int) this.posZ, 0);
-				}
-
-				++this.attackCounter;
-
-				if (this.attackCounter == 20)
-				{
-					this.worldObj.playAuxSFXAtEntity((EntityPlayer) null, 1008, (int) this.posX, (int) this.posY, (int) this.posZ, 0);
-					EntityLargeFireball entitylargefireball = new EntityLargeFireball(this.worldObj, this, d5, d6, d7);
-					entitylargefireball.field_92057_e = this.explosionStrength;
-					double d8 = 4.0D;
-					Vec3 vec3 = this.getLook(1.0F);
-					entitylargefireball.posX = this.posX + vec3.xCoord * d8;
-					entitylargefireball.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
-					entitylargefireball.posZ = this.posZ + vec3.zCoord * d8;
-					this.worldObj.spawnEntityInWorld(entitylargefireball);
-					this.attackCounter = -40;
-				}
-			}
-			else if (this.attackCounter > 0)
-			{
-				--this.attackCounter;
+				this.fireAtTarget(x, y, z);
+				this.attackCounter = 0;
 			}
 		}
 		else
@@ -220,6 +191,7 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 			}
 		}
 
+		/* UPDATE CLIENT */
 		if (!this.worldObj.isRemote)
 		{
 			byte b0 = this.dataWatcher.getWatchableObjectByte(16);
@@ -228,6 +200,35 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 			if (b0 != b1)
 			{
 				this.dataWatcher.updateObject(16, Byte.valueOf(b1));
+			}
+		}
+	}
+
+	public int getFireRate()
+	{
+		return 40;
+	}
+
+	/**
+	 * Fire the built in weapon at the target
+	 * 
+	 * @param x y z - taget location for arrows, fireballs, or dummy fire weapons
+	 */
+	public void fireAtTarget(double x, double y, double z)
+	{
+		if (this.targetedEntity != null)
+		{
+			try
+			{
+				System.out.println("EyeBot>>>Weapon Activation>>>At Target>>>" + this.targetedEntity.toString());
+				this.getLaser().generateLaser(this.worldObj, this.targetedEntity, Color.red, 10, 5);
+				// ProjectileFiringMethods.fireGhastBalls(this, this.targetedEntity,
+				// this.explosionStrength, 4D, true);
+			}
+			catch (Exception e)
+			{
+				System.out.println("EyeBot >>> Weapon activation >>> critical error");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -258,26 +259,13 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	@Override
 	protected int getDropItemId()
 	{
-		return Item.gunpowder.itemID;
+		return Block.glass.blockID;
 	}
 
 	@Override
 	protected void dropFewItems(boolean par1, int par2)
 	{
-		int j = this.rand.nextInt(2) + this.rand.nextInt(1 + par2);
-		int k;
 
-		for (k = 0; k < j; ++k)
-		{
-			this.dropItem(Item.ghastTear.itemID, 1);
-		}
-
-		j = this.rand.nextInt(3) + this.rand.nextInt(1 + par2);
-
-		for (k = 0; k < j; ++k)
-		{
-			this.dropItem(Item.gunpowder.itemID, 1);
-		}
 	}
 
 	@Override
@@ -331,7 +319,7 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	@Override
 	public boolean setTarget(Entity target, boolean override)
 	{
-		if (this.targetedEntity == null || !this.isValidTarget(this.targetedEntity) || override)
+		if (!this.isValidTarget(this.targetedEntity) || override)
 		{
 			this.targetedEntity = target;
 			return true;
@@ -344,75 +332,49 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	{
 		if (entity != null)
 		{
-			if (!entity.isDead && !entity.isEntityInvulnerable())
+			if (!entity.isDead && !entity.isEntityInvulnerable() && entity instanceof EntityLiving)
 			{
-				if (entity.getDistance(this.posX, this.posY, this.posZ) < this.getRange(EnumRange.GROUND_MAX))
+				if (this.canEntityBeSeen(entity))
 				{
-					if (this.canEntityBeSeen(entity))
+					if (entity instanceof EntityPlayer || entity.riddenByEntity instanceof EntityPlayer)
 					{
-						if (this.targetAir)
-						{
-							if (entity instanceof IMob && entity instanceof EntityFlying)
-							{
-								return true;
-							}
+						EntityPlayer player;
 
-							if (entity instanceof IAATarget && ((IAATarget) entity).canBeTargeted(this))
-							{
-								return true;
-							}
+						if (entity.riddenByEntity instanceof EntityPlayer)
+						{
+							player = (EntityPlayer) entity.riddenByEntity;
+						}
+						else
+						{
+							player = ((EntityPlayer) entity);
 						}
 
-						if (this.targetPlayers)
+						if (!player.capabilities.isCreativeMode)
 						{
-							if (entity instanceof EntityPlayer || entity.riddenByEntity instanceof EntityPlayer)
-							{
-								EntityPlayer player;
-
-								if (entity.riddenByEntity instanceof EntityPlayer)
-								{
-									player = (EntityPlayer) entity.riddenByEntity;
-								}
-								else
-								{
-									player = ((EntityPlayer) entity);
-								}
-
-								if (!player.capabilities.isCreativeMode)
-								{
-									if (this.getUserAccess(player.username).ordinal() >= AccessLevel.BASIC.ordinal())
-									{
-										return true;
-									}
-								}
-							}
-						}
-
-						if (this.targetHostile)
-						{
-							if (entity instanceof IMob)
+							if (this.getUserAccess(player.username).ordinal() >= AccessLevel.BASIC.ordinal())
 							{
 								return true;
 							}
 						}
-
-						if (this.targetFriendly)
-						{
-							if (entity instanceof IAnimals || entity instanceof INpc || entity instanceof IMerchant)
-							{
-								return false;
-							}
-						}
+					}
+					else if (this.getUsers().size() <= 0 && !(entity instanceof EntityEyeBot))
+					{
+						return true;
 					}
 				}
 			}
 		}
+
 		return false;
 	}
 
 	@Override
 	public double getRange(EnumRange rangeType)
 	{
+		if (rangeType == EnumRange.MIN || rangeType == EnumRange.AIR_MIN || rangeType == EnumRange.GOUND_MIN)
+		{
+			return 10D;
+		}
 		return 100D;
 	}
 

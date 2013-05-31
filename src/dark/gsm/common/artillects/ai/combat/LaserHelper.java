@@ -6,15 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.gsm.common.artillects.GSMMachines;
+import dark.gsm.common.artillects.PacketHandler;
 import dark.library.DarkMain;
 import dark.library.effects.FXBeam;
 
@@ -25,6 +27,19 @@ public class LaserHelper
 	public LaserHelper(IAttacker attacker)
 	{
 		this.attacker = attacker;
+	}
+
+	public Vector3 getLoc()
+	{
+		if (attacker instanceof TileEntity)
+		{
+			return new Vector3((Entity) attacker);
+		}
+		if (attacker instanceof Entity)
+		{
+			return new Vector3((Entity) attacker);
+		}
+		return null;
 	}
 
 	/**
@@ -41,33 +56,34 @@ public class LaserHelper
 	{
 		if (world.isRemote)
 		{
-			this.renderLaser(world, start, end, color, time);
+			Packet packet = PacketHandler.getPacketWithID(GSMMachines.CHANNEL, PacketHandler.PacketType.EFFECTS.ordinal(), new Object[] { "Laser", start.x, start.y, start.z, end.x, end.y, end.z, color.getRed(), color.getBlue(), color.getGreen(), time });
+			PacketHandler.sendPacketToClients(packet, world, start, start.distanceTo(end));
 		}
 		else
 		{
-			this.generateDamageField(world, start, end, damage, time);
+			this.generateDamageField(world, start, end, damage);
 		}
 	}
 
-	public void generateDamageField(World world, Vector3 start, Vector3 end, int damage, int time)
+	public void generateLaser(World world, Entity entity, Color color, int damage, int time)
+	{
+		entity.attackEntityFrom(DamageSource.inFire, damage);
+		entity.setFire(5);
+		this.generateLaser(world, this.getLoc(), new Vector3(entity).add(new Vector3(0, entity.getEyeHeight() / 2, 0)), color, damage, time);
+	}
+
+	public void generateDamageField(World world, Vector3 start, Vector3 end, int damage)
 	{
 		if (!world.isRemote)
 		{
+			//System.out.println("LaserHelper>>>Doing Damage to Path");
 			List<Entity> effectedTargets = this.getEntitiesInPath(world, start, end);
 			for (Entity entity : effectedTargets)
 			{
-				entity.attackEntityFrom(DamageSource.inFire, (int) (15 - (15 * Math.max(this.isPointOnLine(start, end, new Vector3(entity)), 0))));
+				//System.out.println("LaserHelper>>>Doing Damage>>To Entity>>>" + entity.toString());
+				entity.attackEntityFrom(DamageSource.inFire, (int) (damage - (damage * Math.max(this.isPointOnLine(start, end, new Vector3(entity)), 0))));
 				entity.setFire(5);
 			}
-		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void renderLaser(World world, Vector3 start, Vector3 end, Color color, int time)
-	{
-		if (world.isRemote)
-		{
-			FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(world, start, end, color, DarkMain.TEXTURE_DIRECTORY + "", time));
 		}
 	}
 
@@ -76,14 +92,14 @@ public class LaserHelper
 		List<Entity> entities = new ArrayList<Entity>();
 		if (start != null && end != null)
 		{
-			AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(start.x > end.x ? end.x : start.x, start.y > end.y ? end.y : start.y, start.z > end.z ? end.z : start.z, start.x < end.x ? end.x : start.x, start.y < end.y ? end.y : start.y, start.z < end.z ? end.z : start.z);
+			AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(start.x > end.x ? end.x - 1 : start.x - 1, start.y > end.y ? end.y - 1 : start.y - 1, start.z > end.z ? end.z - 1 : start.z - 1, start.x < end.x ? end.x + 1 : start.x + 1, start.y < end.y ? end.y + 1 : start.y + 1, start.z < end.z ? end.z + 1 : start.z + 1);
 
 			List<Entity> list = world.getEntitiesWithinAABB(Entity.class, bound);
-			Iterator it = list.iterator();
+			Iterator<Entity> it = list.iterator();
 			if (it.hasNext())
 			{
 				Entity entity = (Entity) it.next();
-				if ((this.isPointOnLine(start, end, new Vector3(entity)) > (entity.width > 0.2 ? entity.width : 0.2)) || !this.isValidTarget(entity))
+				if ((this.attacker instanceof Entity && entity == this.attacker) || (this.isPointOnLine(start, end, new Vector3(entity)) > (entity.width > 0.2 ? entity.width : 0.2)) || !this.isValidTarget(entity))
 				{
 					it.remove();
 				}
@@ -94,6 +110,12 @@ public class LaserHelper
 		return entities;
 	}
 
+	/**
+	 * Check to make sure that the entity is valid for being damaged by the laser
+	 * 
+	 * @param entity - any entity that extends the Entity.class
+	 * @return true if it can apply damage
+	 */
 	private boolean isValidTarget(Entity entity)
 	{
 		if (entity.isDead || !entity.isEntityAlive() || entity.isEntityInvulnerable())
