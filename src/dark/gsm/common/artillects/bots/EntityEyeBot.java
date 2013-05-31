@@ -56,6 +56,11 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 		this.experienceValue = 15;
 	}
 
+	public String getNameTag()
+	{
+		return "EyeBot" + Integer.valueOf(this.entityId);
+	}
+
 	public SearchHelper getTargetHelper()
 	{
 		if (this.targetFinder == null)

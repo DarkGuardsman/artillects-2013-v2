@@ -54,13 +54,10 @@ public class LaserHelper
 	 */
 	public void generateLaser(World world, Vector3 start, Vector3 end, Color color, int damage, int time)
 	{
-		if (world.isRemote)
+		if (!world.isRemote)
 		{
-			Packet packet = PacketHandler.getPacketWithID(GSMMachines.CHANNEL, PacketHandler.PacketType.EFFECTS.ordinal(), new Object[] { "Laser", start.x, start.y, start.z, end.x, end.y, end.z, color.getRed(), color.getBlue(), color.getGreen(), time });
-			PacketHandler.sendPacketToClients(packet, world, start, start.distanceTo(end));
-		}
-		else
-		{
+			Packet packet = PacketHandler.getPacketWithID(GSMMachines.CHANNEL, PacketHandler.PacketType.EFFECTS.ordinal(), 0, start.x, start.y, start.z, end.x, end.y, end.z, color.getRed(), color.getBlue(), color.getGreen(), time);
+			PacketHandler.sendPacketToClients(packet, world, start, 64);
 			this.generateDamageField(world, start, end, damage);
 		}
 	}
@@ -76,11 +73,12 @@ public class LaserHelper
 	{
 		if (!world.isRemote)
 		{
-			//System.out.println("LaserHelper>>>Doing Damage to Path");
+			// System.out.println("LaserHelper>>>Doing Damage to Path");
 			List<Entity> effectedTargets = this.getEntitiesInPath(world, start, end);
 			for (Entity entity : effectedTargets)
 			{
-				//System.out.println("LaserHelper>>>Doing Damage>>To Entity>>>" + entity.toString());
+				// System.out.println("LaserHelper>>>Doing Damage>>To Entity>>>" +
+				// entity.toString());
 				entity.attackEntityFrom(DamageSource.inFire, (int) (damage - (damage * Math.max(this.isPointOnLine(start, end, new Vector3(entity)), 0))));
 				entity.setFire(5);
 			}

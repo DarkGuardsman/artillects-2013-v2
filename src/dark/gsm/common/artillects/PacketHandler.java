@@ -36,13 +36,13 @@ public class PacketHandler extends PacketManager
 		PacketType packetType = PacketType.get(packetID);
 		if (packetType == PacketType.EFFECTS)
 		{
-			String effectName = data.readUTF();
-			if (effectName == "Laser")
+			int effectName = data.readInt();
+			if (effectName == 0)
 			{
 				if (player.worldObj != null && player.worldObj.isRemote)
 				{
-					Vector3 start = new Vector3(data.readInt(), data.readInt(), data.readInt());
-					Vector3 end = new Vector3(data.readInt(), data.readInt(), data.readInt());
+					Vector3 start = new Vector3(data.readDouble(), data.readDouble(), data.readDouble());
+					Vector3 end = new Vector3(data.readDouble(), data.readDouble(), data.readDouble());
 
 					int red = data.readInt();
 					int blue = data.readInt();
@@ -51,7 +51,6 @@ public class PacketHandler extends PacketManager
 
 					int time = data.readInt();
 
-					System.out.println("LaserHelper>>>Drawing Laser");
 					FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(player.worldObj, start, end, color, DarkMain.TEXTURE_DIRECTORY + "", time));
 				}
 				else
