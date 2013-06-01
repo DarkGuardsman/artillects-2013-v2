@@ -1,5 +1,7 @@
 package dark.gsm.common.artillects.bots;
 
+import icbm.api.IMissile;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +30,6 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 {
 	SearchHelper targetFinder;
 	LaserHelper laserHelp;
-	public boolean targetPlayers = true;
-	public boolean targetAir = true;
-	public boolean targetHostile = true;
-	public boolean targetFriendly = true;
 
 	public int courseChangeCooldown = 0;
 	public double waypointX;
@@ -39,13 +37,12 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	public double waypointZ;
 	private Entity targetedEntity = null;
 
+	boolean shellClosed = false;
+
 	/** Cooldown time between target loss and new target aquirement. */
 	private int aggroCooldown = 0;
 	public int prevAttackCounter = 0;
 	public int attackCounter = 0;
-
-	/** The explosion radius of spawned fireballs. */
-	private int explosionStrength = 1;
 
 	public EntityEyeBot(World par1World)
 	{
@@ -92,7 +89,7 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	@Override
 	public boolean attackEntityFrom(DamageSource par1DamageSource, int par2)
 	{
-		if (this.isEntityInvulnerable())
+		if (this.isEntityInvulnerable() || par1DamageSource == DamageSource.drown)
 		{
 			return false;
 		}
@@ -127,7 +124,7 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	{
 		this.prevAttackCounter = this.attackCounter;
 
-		/* START PATH FINDING OR MAKING A NEW PATH */
+		/* START PATH FINDING */
 		double d0 = this.waypointX - this.posX;
 		double d1 = this.waypointY - this.posY;
 		double d2 = this.waypointZ - this.posZ;
@@ -148,6 +145,13 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 
 			if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
 			{
+				List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, this.getBoundingBox().offset(0, 1.5, 0));
+				for (EntityLiving entity : entities)
+				{
+					entity.motionX += d0 / d3 * 0.1D;
+					entity.motionY += d1 / d3 * 0.1D;
+					entity.motionZ += d2 / d3 * 0.1D;
+				}
 				this.motionX += d0 / d3 * 0.1D;
 				this.motionY += d1 / d3 * 0.1D;
 				this.motionZ += d2 / d3 * 0.1D;
@@ -223,23 +227,16 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	{
 		if (this.targetedEntity != null)
 		{
-			try
-			{
-				System.out.println("EyeBot>>>Weapon Activation>>>At Target>>>" + this.targetedEntity.toString());
-				this.getLaser().generateLaser(this.worldObj, this.targetedEntity, Color.red, 10, 5);
-				// ProjectileFiringMethods.fireGhastBalls(this, this.targetedEntity,
-				// this.explosionStrength, 4D, true);
-			}
-			catch (Exception e)
-			{
-				System.out.println("EyeBot >>> Weapon activation >>> critical error");
-				e.printStackTrace();
-			}
+			this.getLaser().generateLaser(this.worldObj, this.targetedEntity, Color.red, 10, 5);
 		}
 	}
 
 	/**
-	 * True if the ghast has an unobstructed line of travel to the waypoint.
+	 * Used to check if a point can be moved too
+	 * 
+	 * @param point - point traveling too
+	 * @param par7 - unkown??
+	 * @return true if this point can be moved too
 	 */
 	private boolean isCourseTraversable(double par1, double par3, double par5, double par7)
 	{
@@ -262,57 +259,31 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	}
 
 	@Override
-	protected int getDropItemId()
-	{
-		return Block.glass.blockID;
-	}
-
-	@Override
-	protected void dropFewItems(boolean par1, int par2)
-	{
-
-	}
-
-	@Override
-	protected float getSoundVolume()
-	{
-		return 10.0F;
-	}
-
-	@Override
-	public boolean getCanSpawnHere()
-	{
-		return super.getCanSpawnHere();
-	}
-
-	@Override
-	public int getMaxSpawnedInChunk()
-	{
-		return 5;
-	}
-
-	@Override
 	public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		super.writeEntityToNBT(par1NBTTagCompound);
-		par1NBTTagCompound.setInteger("ExplosionPower", this.explosionStrength);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
 	{
 		super.readEntityFromNBT(par1NBTTagCompound);
+	}
 
-		if (par1NBTTagCompound.hasKey("ExplosionPower"))
+	@Override
+	public AxisAlignedBB getBoundingBox()
+	{
+		if (this.shellClosed)
 		{
-			this.explosionStrength = par1NBTTagCompound.getInteger("ExplosionPower");
+			AxisAlignedBB.getBoundingBox(this.posX - .3, this.posY - .3, this.posZ - .3, this.posX + .3, this.posY + .3, this.posZ + .3);
 		}
+		return AxisAlignedBB.getBoundingBox(this.posX - .5, this.posY - .5, this.posZ - .5, this.posX + .5, this.posY + .5, this.posZ + .5);
 	}
 
 	@Override
 	public AxisAlignedBB getTargetingBox()
 	{
-		return AxisAlignedBB.getBoundingBox(this.posX - this.getRange(EnumRange.MAX), this.posY - 5, this.posZ - this.getRange(EnumRange.MAX), this.posX + this.getRange(EnumRange.MAX), this.posY + 5, this.posZ + this.getRange(EnumRange.MAX));
+		return this.getBoundingBox().expand(this.getRange(EnumRange.MAX), this.getRange(EnumRange.MAX), this.getRange(EnumRange.MAX));
 	}
 
 	@Override
@@ -337,7 +308,7 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	{
 		if (entity != null)
 		{
-			if (!entity.isDead && !entity.isEntityInvulnerable() && entity instanceof EntityLiving)
+			if (!entity.isDead && !entity.isEntityInvulnerable() && (entity instanceof EntityLiving || entity instanceof IMissile))
 			{
 				if (this.canEntityBeSeen(entity))
 				{
