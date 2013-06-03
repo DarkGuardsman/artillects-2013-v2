@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -284,6 +285,12 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	public AxisAlignedBB getTargetingBox()
 	{
 		return this.getBoundingBox().expand(this.getRange(EnumRange.MAX), this.getRange(EnumRange.MAX), this.getRange(EnumRange.MAX));
+	}
+
+	@Override
+	public boolean isPotionApplicable(PotionEffect par1PotionEffect)
+	{
+		return false;
 	}
 
 	@Override
