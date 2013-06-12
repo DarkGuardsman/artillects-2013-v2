@@ -18,6 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
+import dark.core.api.terminal.ISpecialAccess;
 import dark.gsm.common.artillects.GSMMachines;
 import dark.gsm.common.artillects.ai.combat.EnumRange;
 import dark.gsm.common.artillects.ai.combat.IAttacker;
@@ -25,7 +26,6 @@ import dark.gsm.common.artillects.ai.combat.LaserHelper;
 import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.library.access.AccessLevel;
 import dark.library.access.UserAccess;
-import dark.library.access.interfaces.ISpecialAccess;
 
 public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAccess
 {

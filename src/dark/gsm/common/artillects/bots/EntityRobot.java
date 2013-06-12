@@ -1,8 +1,9 @@
 package dark.gsm.common.artillects.bots;
 
-import hydraulic.helpers.FluidHelper;
 
 import java.util.Random;
+
+import dark.core.hydraulic.helpers.FluidHelper;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.effect.EntityLightningBolt;

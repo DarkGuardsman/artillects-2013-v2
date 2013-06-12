@@ -1,6 +1,6 @@
 package dark.gsm.common.core;
 
-import dark.library.DarkMain;
+import dark.core.DarkMain;
 
 public class GSMCore
 {

@@ -15,9 +15,9 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.core.DarkMain;
 import dark.gsm.common.artillects.GSMMachines;
 import dark.gsm.common.artillects.PacketHandler;
-import dark.library.DarkMain;
 import dark.library.effects.FXBeam;
 
 public class LaserHelper
@@ -58,14 +58,25 @@ public class LaserHelper
 		{
 			Packet packet = PacketHandler.getPacketWithID(GSMMachines.CHANNEL, PacketHandler.PacketType.EFFECTS.ordinal(), 0, start.x, start.y, start.z, end.x, end.y, end.z, color.getRed(), color.getBlue(), color.getGreen(), time);
 			PacketHandler.sendPacketToClients(packet, world, start, 64);
-			this.generateDamageField(world, start, end, damage);
+			if (damage > 0)
+			{
+				this.generateDamageField(world, start, end, damage);
+			}
+		}
+		else
+		{
+			FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(FMLClientHandler.instance().getClient().thePlayer.worldObj, start, end, color, DarkMain.TEXTURE_DIRECTORY + "", time));
+
 		}
 	}
 
 	public void generateLaser(World world, Entity entity, Color color, int damage, int time)
 	{
-		entity.attackEntityFrom(DamageSource.inFire, damage);
-		entity.setFire(5);
+		if (damage > 0)
+		{
+			entity.attackEntityFrom(DamageSource.inFire, damage);
+			entity.setFire(5);
+		}
 		this.generateLaser(world, this.getLoc(), new Vector3(entity).add(new Vector3(0, entity.getEyeHeight() / 2, 0)), color, damage, time);
 	}
 

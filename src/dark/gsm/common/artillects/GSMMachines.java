@@ -31,6 +31,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dark.gsm.common.artillects.blocks.BlockCreep;
+import dark.gsm.common.artillects.blocks.BlockWireRotation;
+import dark.gsm.common.artillects.blocks.TileEntityWireFrame;
 import dark.gsm.common.artillects.bots.EntityEyeBot;
 import dark.gsm.common.core.GSMCore;
 import dark.gsm.common.core.IMod;
@@ -79,6 +81,7 @@ public class GSMMachines extends DummyModContainer implements IMod
 	public final static int ITEM_ID_PREFIX = 13250;
 
 	Block creepBlock;
+	Block wireFrameBlock;
 
 	Item botSpawner;
 
@@ -106,6 +109,7 @@ public class GSMMachines extends DummyModContainer implements IMod
 		/* CONFIGS */
 		CONFIGURATION.load();
 		creepBlock = new BlockCreep((this.CONFIGURATION.getBlock("creep", GSMMachines.BLOCK_ID_PREFIX).getInt()));
+		wireFrameBlock = new BlockWireRotation((this.CONFIGURATION.getBlock("wireFrame", GSMMachines.BLOCK_ID_PREFIX + 1).getInt()));
 		botSpawner = new ItemRobot((this.CONFIGURATION.getItem("spawnTool", GSMMachines.ITEM_ID_PREFIX).getInt()));
 		if (CONFIGURATION.hasChanged())
 		{
@@ -120,6 +124,7 @@ public class GSMMachines extends DummyModContainer implements IMod
 
 		/* CONFIG END */
 		GameRegistry.registerBlock(creepBlock, "blockCreep");
+		GameRegistry.registerBlock(wireFrameBlock, "blockWireFrame");
 		this.proxy.preInit();
 
 	}
@@ -142,6 +147,8 @@ public class GSMMachines extends DummyModContainer implements IMod
 		/* LOGGER */
 		FMLog.info("Loading...");
 		proxy.Init();
+
+		GameRegistry.registerTileEntity(TileEntityWireFrame.class, "WireFrameTest");
 
 		/* LANG LOADING */
 		FMLog.info(" Loaded: " + TranslationHelper.loadLanguages(LANGUAGE_PATH, LANGUAGES_SUPPORTED) + " Languages.");
