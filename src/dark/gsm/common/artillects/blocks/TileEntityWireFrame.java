@@ -42,7 +42,7 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 			List<EntityEyeBot> botListNew = this.worldObj.getEntitiesWithinAABB(EntityEyeBot.class, bound);
 			for (EntityEyeBot bot : botListNew)
 			{
-				if (!botList.contains(bot) && this.botList.size() < 5)
+				if (!botList.contains(bot) && this.botList.size() < 10)
 				{
 					botList.add(bot);
 				}
@@ -67,11 +67,12 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 
 			}
 
-			double r = (5 * botList.size()) / (2 * Math.PI);
+			double r = (3 * botList.size()) / (2 * Math.PI);
 			double s = (2 * Math.PI) / this.botList.size();
 			Vector3 vec = new Vector3(this.xCoord + 0.5D, this.yCoord + 2D, this.zCoord + 0.5D);
 
 			this.rotation.z += 5;
+			this.rotation.x += 5;
 			Vector3 prevPoint = null;
 			for (int i = 0; i < botList.size(); i++)
 			{
