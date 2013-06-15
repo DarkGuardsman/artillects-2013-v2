@@ -1,9 +1,9 @@
 package dark.gsm.common.artillects.bots;
 
-
 import java.util.Random;
 
 import dark.core.hydraulic.helpers.FluidHelper;
+import dark.gsm.common.artillects.blocks.IBotController;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.effect.EntityLightningBolt;
@@ -27,11 +27,18 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 
 	private int disableTime = 0;
 
+	protected IBotController controler;
+
 	public EntityRobot(World par1World)
 	{
 		super(par1World);
 		this.isImmuneToFire = true;
 		this.experienceValue = 10;
+	}
+
+	public void setControler(IBotController con)
+	{
+		this.controler = con;
 	}
 
 	@Override
@@ -50,7 +57,13 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
 		{
 			this.disableTime--;
 		}
-
+		if (this.controler != null)
+		{
+			if (!this.controler.isConnected(this))
+			{
+				this.controler = null;
+			}
+		}
 		/* Generates smoke particles if the bot is bellow 10% health */
 		if (this.getHealth() < ((int) this.getMaxHealth() / 10))
 		{

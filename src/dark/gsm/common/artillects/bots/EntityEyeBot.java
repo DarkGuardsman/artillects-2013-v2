@@ -27,7 +27,7 @@ import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.library.access.AccessLevel;
 import dark.library.access.UserAccess;
 
-public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAccess
+public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecialAccess
 {
 	SearchHelper targetFinder;
 	LaserHelper laserHelp;
@@ -39,8 +39,9 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	private Entity targetedEntity = null;
 
 	boolean shellClosed = false;
+	boolean moveNow = false;
 
-	/** Cooldown time between target loss and new target aquirement. */
+	/** Cooldown time between target loss and new target. */
 	private int aggroCooldown = 0;
 	public int prevAttackCounter = 0;
 	public int attackCounter = 0;
@@ -120,6 +121,17 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 		byte b0 = this.dataWatcher.getWatchableObjectByte(16);
 	}
 
+	/**
+	 * Sets the way point of this bots flight AI
+	 */
+	public void setWayPoint(Vector3 vec)
+	{
+		this.waypointX = vec.x;
+		this.waypointY = vec.y;
+		this.waypointZ = vec.z;
+		this.moveNow = true;
+	}
+
 	@Override
 	protected void updateEntityActionState()
 	{
@@ -131,37 +143,40 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 		double d2 = this.waypointZ - this.posZ;
 
 		double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-
-		if (d3 < 1.0D || d3 > 3600.0D)
+		if (this.controler == null)
 		{
-			this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-		}
-
-		if (this.courseChangeCooldown-- <= 0)
-		{
-			this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-			d3 = (double) MathHelper.sqrt_double(d3);
-
-			if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
+			if ((d3 < 1.0D || d3 > 3600.0D))
 			{
-				List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, this.getBoundingBox().offset(0, 1.5, 0));
-				for (EntityLiving entity : entities)
-				{
-					entity.motionX += d0 / d3 * 0.1D;
-					entity.motionY += d1 / d3 * 0.1D;
-					entity.motionZ += d2 / d3 * 0.1D;
-				}
-				this.motionX += d0 / d3 * 0.1D;
-				this.motionY += d1 / d3 * 0.1D;
-				this.motionZ += d2 / d3 * 0.1D;
+				this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+				this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+				this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
 			}
-			else
+
+			if (this.courseChangeCooldown-- <= 0 || this.moveNow)
 			{
-				this.waypointX = this.posX;
-				this.waypointY = this.posY;
-				this.waypointZ = this.posZ;
+				this.courseChangeCooldown += this.rand.nextInt(5) + 2;
+				d3 = (double) MathHelper.sqrt_double(d3);
+
+				if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
+				{
+					/* MOVES THE ENTITY ABOVE */
+					List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, this.getBoundingBox().offset(0, 1.5, 0));
+					for (EntityLiving entity : entities)
+					{
+						entity.motionX += d0 / d3 * 0.1D;
+						entity.motionY += d1 / d3 * 0.1D;
+						entity.motionZ += d2 / d3 * 0.1D;
+					}
+					this.motionX += d0 / d3 * 0.1D;
+					this.motionY += d1 / d3 * 0.1D;
+					this.motionZ += d2 / d3 * 0.1D;
+				}
+				else
+				{
+					this.waypointX = this.posX;
+					this.waypointY = this.posY;
+					this.waypointZ = this.posZ;
+				}
 			}
 		}
 
@@ -392,6 +407,19 @@ public class EntityEyeBot extends EntityFlying implements IAttacker, ISpecialAcc
 	{
 		// TODO Auto-generated method stub
 		return new ArrayList<UserAccess>();
+	}
+
+	@Override
+	public void runningUpdate()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getRunningWatts()
+	{
+		return 0;
 	}
 
 }
