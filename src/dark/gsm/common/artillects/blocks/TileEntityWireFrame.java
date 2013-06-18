@@ -1,18 +1,25 @@
 package dark.gsm.common.artillects.blocks;
 
+import icbm.api.IMissile;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.tile.TileEntityAdvanced;
 import dark.gsm.common.artillects.ai.combat.EnumRange;
 import dark.gsm.common.artillects.ai.combat.IAttacker;
 import dark.gsm.common.artillects.ai.combat.LaserHelper;
+import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.gsm.common.artillects.bots.EntityEyeBot;
+import dark.library.access.AccessLevel;
 import dark.library.orbit.NetworkOrbit;
 
 public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker, IBotController
@@ -20,6 +27,14 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 	Vector3 rotation = new Vector3(0, 0, 0);
 	LaserHelper laser = new LaserHelper(this);
 	List<EntityEyeBot> botList = new ArrayList<EntityEyeBot>();
+
+	private Entity targetedEntity = null;
+	SearchHelper targetFinder;
+
+	/** Cooldown time between target loss and new target. */
+	private int aggroCooldown = 0;
+	public int prevAttackCounter = 0;
+	public int attackCounter = 0;
 
 	@Override
 	public void invalidate()
@@ -31,12 +46,55 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 		super.invalidate();
 	}
 
+	public SearchHelper getTargetHelper()
+	{
+		if (this.targetFinder == null)
+		{
+			this.targetFinder = new SearchHelper(this.worldObj, new Vector3(this), this);
+		}
+		return this.targetFinder;
+	}
+
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
 		if (this.ticks % 1 == 0)
 		{
+			if (!this.isValidTarget(this.targetedEntity) || this.aggroCooldown-- <= 0)
+			{
+				this.targetedEntity = null;
+				this.getTargetHelper().findTarget();
+
+				if (this.targetedEntity != null)
+				{
+					this.aggroCooldown = 20;
+				}
+			}
+
+			/* ATTACK TARGET */
+			if (this.isValidTarget(this.targetedEntity))
+			{
+				double x = this.targetedEntity.posX - this.xCoord;
+				double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.yCoord + 0.5);
+				double z = this.targetedEntity.posZ - this.zCoord;
+				this.rotation.y = this.getYaw(new Vector3(this), new Vector3(this.targetedEntity));
+				this.rotation.z = -this.getPitch(new Vector3(this), new Vector3(this.targetedEntity));
+				if (++this.attackCounter == 20)
+				{
+					if (this.targetedEntity != null)
+					{
+						this.laser.generateLaser(this.worldObj, this.targetedEntity, Color.red, 10, 5);
+					}
+					this.attackCounter = 0;
+				}
+			}
+			else
+			{
+				this.rotation.z = 0;
+				this.rotation.y = 0;
+			}
+
 			AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1);
 			bound = bound.copy().expand(100, 100, 100);
 			List<EntityEyeBot> botListNew = this.worldObj.getEntitiesWithinAABB(EntityEyeBot.class, bound);
@@ -67,12 +125,10 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 
 			}
 
-			double r = (3 * botList.size()) / (2 * Math.PI);
+			double r = (2 * botList.size()) / (2 * Math.PI);
 			double s = (2 * Math.PI) / this.botList.size();
-			Vector3 vec = new Vector3(this.xCoord + 0.5D, this.yCoord + 2D, this.zCoord + 0.5D);
+			Vector3 vec = new Vector3(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D);
 
-			this.rotation.z += 5;
-			this.rotation.x += 5;
 			Vector3 prevPoint = null;
 			for (int i = 0; i < botList.size(); i++)
 			{
@@ -105,29 +161,83 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
 	@Override
 	public AxisAlignedBB getTargetingBox()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return AxisAlignedBB.getBoundingBox(this.xCoord - 30, this.yCoord - 30, this.zCoord - 30, this.xCoord + 30, this.yCoord + 30, this.zCoord + 30);
 	}
 
 	@Override
 	public Entity getTarget()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.targetedEntity;
 	}
 
 	@Override
 	public boolean setTarget(Entity target, boolean override)
 	{
-		// TODO Auto-generated method stub
+		if (!this.isValidTarget(this.targetedEntity) || override)
+		{
+			this.targetedEntity = target;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isValidTarget(Entity entity)
 	{
-		// TODO Auto-generated method stub
+		if (entity != null)
+		{
+			if (!entity.isDead && !entity.isEntityInvulnerable() && (entity instanceof EntityLiving || entity instanceof IMissile))
+			{
+				if (this.canEntityBeSeen(new Vector3(entity)))
+				{
+					if (entity instanceof EntityPlayer || entity.riddenByEntity instanceof EntityPlayer)
+					{
+						EntityPlayer player;
+
+						if (entity.riddenByEntity instanceof EntityPlayer)
+						{
+							player = (EntityPlayer) entity.riddenByEntity;
+						}
+						else
+						{
+							player = ((EntityPlayer) entity);
+						}
+
+						if (!player.capabilities.isCreativeMode)
+						{
+							return true;
+						}
+					}
+					else if (!(entity instanceof EntityEyeBot))
+					{
+						return true;
+					}
+				}
+			}
+		}
+
 		return false;
+	}
+
+	public boolean canEntityBeSeen(Vector3 target)
+	{
+		return this.worldObj.rayTraceBlocks(new Vector3(this).toVec3(), target.toVec3()) == null;
+	}
+
+	public static float getPitch(Vector3 position, Vector3 target)
+	{
+		Vector3 difference = Vector3.subtract(target, position);
+		double verticleDistance = MathHelper.sqrt_double(difference.x * difference.x + difference.z * difference.z);
+		return -MathHelper.wrapAngleTo180_float((float) (Math.atan2(difference.y, verticleDistance) * 180.0D / Math.PI));
+	}
+
+	/**
+	 * Gets the rotation yaw between the two points in angles
+	 */
+	public static float getYaw(Vector3 position, Vector3 target)
+	{
+		Vector3 difference = Vector3.subtract(target, position);
+		return MathHelper.wrapAngleTo180_float((float) (Math.atan2(difference.z, difference.x) * 180.0D / Math.PI) - 90.0F);
 	}
 
 	@Override

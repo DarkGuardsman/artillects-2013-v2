@@ -33,7 +33,7 @@ public class LaserHelper
 	{
 		if (attacker instanceof TileEntity)
 		{
-			return new Vector3((Entity) attacker);
+			return new Vector3((TileEntity) attacker);
 		}
 		if (attacker instanceof Entity)
 		{

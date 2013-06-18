@@ -136,87 +136,88 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
 	protected void updateEntityActionState()
 	{
 		this.prevAttackCounter = this.attackCounter;
-
-		/* START PATH FINDING */
-		double d0 = this.waypointX - this.posX;
-		double d1 = this.waypointY - this.posY;
-		double d2 = this.waypointZ - this.posZ;
-
-		double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 		if (this.controler == null)
 		{
-			if ((d3 < 1.0D || d3 > 3600.0D))
-			{
-				this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-				this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-				this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-			}
+			/* START PATH FINDING */
+			double d0 = this.waypointX - this.posX;
+			double d1 = this.waypointY - this.posY;
+			double d2 = this.waypointZ - this.posZ;
 
-			if (this.courseChangeCooldown-- <= 0 || this.moveNow)
+			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+			if (this.controler == null)
 			{
-				this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-				d3 = (double) MathHelper.sqrt_double(d3);
-
-				if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
+				if ((d3 < 1.0D || d3 > 3600.0D))
 				{
-					/* MOVES THE ENTITY ABOVE */
-					List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, this.getBoundingBox().offset(0, 1.5, 0));
-					for (EntityLiving entity : entities)
+					this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+					this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+					this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+				}
+
+				if (this.courseChangeCooldown-- <= 0 || this.moveNow)
+				{
+					this.courseChangeCooldown += this.rand.nextInt(5) + 2;
+					d3 = (double) MathHelper.sqrt_double(d3);
+
+					if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
 					{
-						entity.motionX += d0 / d3 * 0.1D;
-						entity.motionY += d1 / d3 * 0.1D;
-						entity.motionZ += d2 / d3 * 0.1D;
+						/* MOVES THE ENTITY ABOVE */
+						List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, this.getBoundingBox().offset(0, 1.5, 0));
+						for (EntityLiving entity : entities)
+						{
+							entity.motionX += d0 / d3 * 0.1D;
+							entity.motionY += d1 / d3 * 0.1D;
+							entity.motionZ += d2 / d3 * 0.1D;
+						}
+						this.motionX += d0 / d3 * 0.1D;
+						this.motionY += d1 / d3 * 0.1D;
+						this.motionZ += d2 / d3 * 0.1D;
 					}
-					this.motionX += d0 / d3 * 0.1D;
-					this.motionY += d1 / d3 * 0.1D;
-					this.motionZ += d2 / d3 * 0.1D;
+					else
+					{
+						this.waypointX = this.posX;
+						this.waypointY = this.posY;
+						this.waypointZ = this.posZ;
+					}
 				}
-				else
+			}
+
+			/* TARGETING / TARGET FINDING */
+			if (!this.isValidTarget(this.targetedEntity) || this.aggroCooldown-- <= 0)
+			{
+				this.targetedEntity = null;
+				this.getTargetHelper().findTarget();
+
+				if (this.targetedEntity != null)
 				{
-					this.waypointX = this.posX;
-					this.waypointY = this.posY;
-					this.waypointZ = this.posZ;
+					this.aggroCooldown = 20;
 				}
 			}
-		}
 
-		/* TARGETING / TARGET FINDING */
-		if (!this.isValidTarget(this.targetedEntity) || this.aggroCooldown-- <= 0)
-		{
-			this.targetedEntity = null;
-			this.getTargetHelper().findTarget();
-
-			if (this.targetedEntity != null)
+			/* ATTACK TARGET */
+			if (this.isValidTarget(this.targetedEntity))
 			{
-				this.aggroCooldown = 20;
+				double x = this.targetedEntity.posX - this.posX;
+				double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
+				double z = this.targetedEntity.posZ - this.posZ;
+				this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(x, z)) * 180.0F / (float) Math.PI;
+
+				if (++this.attackCounter == this.getFireRate())
+				{
+					this.fireAtTarget(x, y, z);
+					this.attackCounter = 0;
+				}
 			}
-		}
-
-		/* ATTACK TARGET */
-		if (this.isValidTarget(this.targetedEntity))
-		{
-			double x = this.targetedEntity.posX - this.posX;
-			double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
-			double z = this.targetedEntity.posZ - this.posZ;
-			this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(x, z)) * 180.0F / (float) Math.PI;
-
-			if (++this.attackCounter == this.getFireRate())
+			else
 			{
-				this.fireAtTarget(x, y, z);
-				this.attackCounter = 0;
-			}
-		}
-		else
-		{
-			this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI;
+				this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(this.motionX, this.motionZ)) * 180.0F / (float) Math.PI;
 
-			if (this.attackCounter > 0)
-			{
-				--this.attackCounter;
+				if (this.attackCounter > 0)
+				{
+					--this.attackCounter;
+				}
 			}
-		}
 
-		/* UPDATE CLIENT */
+		}/* UPDATE CLIENT */
 		if (!this.worldObj.isRemote)
 		{
 			byte b0 = this.dataWatcher.getWatchableObjectByte(16);
