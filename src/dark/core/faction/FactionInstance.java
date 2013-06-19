@@ -22,7 +22,7 @@ public class FactionInstance
 	public String name;
 	public String creator;
 	public String date = "unkown";
-	public String prefix;	
+	public String prefix;
 
 	public FactionInstance(String prefix, String name, String maker, Pair<String, Date> date)
 	{

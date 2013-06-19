@@ -35,7 +35,7 @@ public class FactionManager
 	{
 		if (name != null && !name.isEmpty())
 		{
-			
+
 		}
 		return NEUTRIAL;
 

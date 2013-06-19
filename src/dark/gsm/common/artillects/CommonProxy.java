@@ -24,19 +24,19 @@ public class CommonProxy implements IGuiHandler
 	public void preInit()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void Init()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void postInit()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

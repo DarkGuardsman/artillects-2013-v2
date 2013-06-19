@@ -15,6 +15,7 @@ public class EntityShoeBot extends EntityRobot
 		this.moveSpeed = 0.23F;
 		this.texture = "/mobs/char.png";
 	}
+
 	@Override
 	public int getMaxHealth()
 	{
@@ -32,15 +33,17 @@ public class EntityShoeBot extends EntityRobot
 		return "harvest";
 
 	}
+
 	@Override
 	public int getRunningWatts()
 	{
 		return 0;
 	}
+
 	@Override
 	public void runningUpdate()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

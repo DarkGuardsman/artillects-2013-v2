@@ -10,5 +10,5 @@ import universalelectricity.core.vector.Vector3;
 
 public class PlayerInteraction
 {
-	
+
 }

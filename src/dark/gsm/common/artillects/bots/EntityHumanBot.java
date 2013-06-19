@@ -14,7 +14,7 @@ public class EntityHumanBot extends EntityRobot
 	public void runningUpdate()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

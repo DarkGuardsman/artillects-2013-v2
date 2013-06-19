@@ -187,10 +187,10 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 
 	@Override
 	public void onDeath(DamageSource par1DamageSource)
-	{	
-		if(this.isDisabled())
+	{
+		if (this.isDisabled())
 		{
-			//ItemStack stack = ICBM.getExplosive(this.explosiveName).getExplosiveName()
+			// ItemStack stack = ICBM.getExplosive(this.explosiveName).getExplosiveName()
 		}
 		super.onDeath(par1DamageSource);
 	}

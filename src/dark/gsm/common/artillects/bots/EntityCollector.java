@@ -15,7 +15,7 @@ public class EntityCollector extends EntityRobot
 	public void runningUpdate()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

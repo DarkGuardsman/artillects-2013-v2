@@ -18,7 +18,10 @@ public class PacketHandler extends PacketManager
 {
 	public enum PacketType
 	{
-		UNSPECIFIED, TILEENTITY, EFFECTS, USER_LIST;
+		UNSPECIFIED,
+		TILEENTITY,
+		EFFECTS,
+		USER_LIST;
 
 		public static PacketType get(int id)
 		{
