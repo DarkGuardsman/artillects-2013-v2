@@ -18,7 +18,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
-import dark.core.api.terminal.ISpecialAccess;
+import dark.core.api.ISpecialAccess;
 import dark.gsm.common.artillects.GSMMachines;
 import dark.gsm.common.artillects.ai.combat.EnumRange;
 import dark.gsm.common.artillects.ai.combat.IAttacker;

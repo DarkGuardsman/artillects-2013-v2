@@ -17,10 +17,10 @@ import universalelectricity.prefab.tile.TileEntityAdvanced;
 import dark.gsm.common.artillects.ai.combat.EnumRange;
 import dark.gsm.common.artillects.ai.combat.IAttacker;
 import dark.gsm.common.artillects.ai.combat.LaserHelper;
+import dark.gsm.common.artillects.ai.combat.NetworkOrbit;
 import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.gsm.common.artillects.bots.EntityEyeBot;
 import dark.library.access.AccessLevel;
-import dark.library.orbit.NetworkOrbit;
 
 public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker, IBotController
 {
