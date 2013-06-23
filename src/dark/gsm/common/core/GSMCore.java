@@ -1,14 +1,21 @@
 package dark.gsm.common.core;
 
+import icbm.api.ICBM;
+
+import java.io.File;
+
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.event.world.WorldEvent.Save;
+import universalelectricity.prefab.multiblock.BlockMulti;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.world.WorldEvent.Save;
-import dark.core.DarkMain;
 
 public class GSMCore implements IMod
 {
@@ -30,7 +37,13 @@ public class GSMCore implements IMod
 	public static final String PREFIX = "dark:";
 	public static final String LANGUAGE_PATH = RESOURCE_PATH + "languages/";
 
-	public static final String CONFIGURATION = null;
+	public static final Configuration gsmCoreConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/DarkMain.cfg"));
+
+	public static boolean preInit = false;
+	public static boolean init = false;
+	public static boolean postInit = false;
+
+	public static Block multiBlock;
 
 	public static void registerMod(IMod mod)
 	{
@@ -40,7 +53,7 @@ public class GSMCore implements IMod
 		}
 	}
 
-	// CreativeTab GreaterSecurity.tabGreaterSecurity 
+	/** Creative tab for generic items and block that don't belong in any other tab */
 	public static CreativeTabs tabGSMGeneral = new CreativeTabs("GSM General")
 	{
 
@@ -49,6 +62,8 @@ public class GSMCore implements IMod
 			return new ItemStack(Item.ingotIron, 1, 0);
 		}
 	};
+	/** Creative tab for High tech and industrial based items and blocks that don't belong in any
+	 * other tab */
 	public static CreativeTabs tabGSMIndustrial = new CreativeTabs("GSM Machines")
 	{
 
@@ -57,6 +72,8 @@ public class GSMCore implements IMod
 			return new ItemStack(Item.ingotIron, 1, 0);
 		}
 	};
+	/** Creative tab for general castle and fortress related items and blocks that don't belong in
+	 * any other tab */
 	public static CreativeTabs tabGSMCastle = new CreativeTabs("GSM Fortress")
 	{
 
@@ -68,20 +85,35 @@ public class GSMCore implements IMod
 
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		// TODO Auto-generated method stub
-		
+		if (!preInit)
+		{
+			gsmCoreConfig.load();
+			multiBlock = new BlockMulti(gsmCoreConfig.getBlock("Multiblock", ICBM.BLOCK_ID_PREFIX + 6).getInt()).setTextureName(PREFIX + "machine").setChannel(this.getChannel());
+			if (gsmCoreConfig.hasChanged())
+			{
+				gsmCoreConfig.save();
+			}
+			preInit = true;
+		}
+
 	}
 
 	public void init(FMLInitializationEvent event)
 	{
-		// TODO Auto-generated method stub
-		
+		if (!init)
+		{
+			init = true;
+		}
+
 	}
 
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		// TODO Auto-generated method stub
-		
+		if (!postInit)
+		{
+			postInit = true;
+		}
+
 	}
 
 	@Override
@@ -105,12 +137,12 @@ public class GSMCore implements IMod
 	public void worldSave(Save evt)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void serverStarting(FMLServerStartingEvent event)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -10,6 +10,8 @@ import icbm.gangshao.api.ProjectileTypes;
 import java.util.HashMap;
 import java.util.List;
 
+import dark.gsm.common.core.GSMCore;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -186,7 +188,7 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 	@Override
 	public void onCreate(Vector3 position)
 	{
-		this.worldObj.setBlock(position.intX(), position.intY() + 1, position.intZ(), ZhuYaoBase.bJia.blockID, 0, 2);
+		this.worldObj.setBlock(position.intX(), position.intY() + 1, position.intZ(), GSMCore.multiBlock.blockID, 0, 2);
 		((TileEntityMulti) this.worldObj.getBlockTileEntity(position.intX(), position.intY() + 1, position.intZ())).setMainBlock(position);
 	}
 

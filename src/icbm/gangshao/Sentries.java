@@ -89,7 +89,7 @@ public class Sentries extends GSMCore
 
 	public static final String FLAG_RAILGUN = FlagRegistry.registerFlag("ban_railgun");
 
-	private static Configuration config = new Configuration(new File(Loader.instance().getConfigDir(), NAME + ".cfg"));
+	private static Configuration sentryConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/AutoSentries.cfg"));
 	@Override
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -99,14 +99,17 @@ public class Sentries extends GSMCore
 		NetworkRegistry.instance().registerGuiHandler(this, Sentries.proxy);
 		MinecraftForge.EVENT_BUS.register(this);
 
-		config.load();
+		sentryConfig.load();
 
-		blockTurret = new BlockTurret(BLOCK_ID_PREFIX,config);
-		blockPlatform = new BlockTurretPlatform(BLOCK_ID_PREFIX + 1, config);
+		blockTurret = new BlockTurret(BLOCK_ID_PREFIX,sentryConfig);
+		blockPlatform = new BlockTurretPlatform(BLOCK_ID_PREFIX + 1, sentryConfig);
 
-		itemAmmo = new ItemAmmo(ITEM_ID_PREFIX + 1, config);
-		itemUpgrades = new ItemTurretUpgrades(ITEM_ID_PREFIX + 2, config);
-		config.save();
+		itemAmmo = new ItemAmmo(ITEM_ID_PREFIX + 1, sentryConfig);
+		itemUpgrades = new ItemTurretUpgrades(ITEM_ID_PREFIX + 2, sentryConfig);
+		if (sentryConfig.hasChanged())
+		{
+			sentryConfig.save();
+		}
 
 		bulletShell = new ItemStack(itemAmmo, 1, 0);
 		conventionalBullet = new ItemStack(itemAmmo, 1, 1);
