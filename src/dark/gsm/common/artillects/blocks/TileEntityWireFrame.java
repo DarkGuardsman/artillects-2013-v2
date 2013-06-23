@@ -20,7 +20,6 @@ import dark.gsm.common.artillects.ai.combat.LaserHelper;
 import dark.gsm.common.artillects.ai.combat.NetworkOrbit;
 import dark.gsm.common.artillects.ai.combat.SearchHelper;
 import dark.gsm.common.artillects.bots.EntityEyeBot;
-import dark.library.access.AccessLevel;
 
 public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker, IBotController
 {

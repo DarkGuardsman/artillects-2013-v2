@@ -1,4 +1,4 @@
-package icbm.api.sentry;
+package icbm.gangshao.api;
 
 public class AmmoPair<IAmmo, ItemStack>
 {

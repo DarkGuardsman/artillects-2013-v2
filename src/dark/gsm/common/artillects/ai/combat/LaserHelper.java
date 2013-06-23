@@ -13,8 +13,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.DarkMain;
 import dark.gsm.common.artillects.GSMMachines;
 import dark.gsm.common.artillects.PacketHandler;

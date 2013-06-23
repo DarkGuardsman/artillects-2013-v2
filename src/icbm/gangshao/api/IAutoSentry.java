@@ -1,4 +1,4 @@
-package icbm.api.sentry;
+package icbm.gangshao.api;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;

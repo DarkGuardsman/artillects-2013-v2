@@ -1,8 +1,8 @@
 package dark.gsm.common.artillects.blocks;
 
-import universalelectricity.core.vector.Vector3;
 import net.minecraft.world.World;
 import net.minecraftforge.event.Event;
+import universalelectricity.core.vector.Vector3;
 
 public class CreepBreakEvent extends Event
 {

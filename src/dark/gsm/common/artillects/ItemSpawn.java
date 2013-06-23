@@ -2,13 +2,12 @@ package dark.gsm.common.artillects;
 
 import java.util.ArrayList;
 
-import dark.gsm.common.artillects.bots.EntityShoeBot;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
 import net.minecraft.world.World;
+import dark.gsm.common.artillects.bots.EntityShoeBot;
 
 public class ItemSpawn extends Item
 {

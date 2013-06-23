@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import dark.helpers.Pair;
-import dark.library.math.LinearAlg;
-import dark.library.math.Quaternion;
-
 import net.minecraft.entity.Entity;
 import universalelectricity.core.vector.Vector3;
+import dark.library.math.Quaternion;
 
 /**
  * Designed to be used by flying Entities to create an orbit pattern around a central point

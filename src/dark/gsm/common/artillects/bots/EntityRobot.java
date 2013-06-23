@@ -2,9 +2,6 @@ package dark.gsm.common.artillects.bots;
 
 import java.util.Random;
 
-import dark.core.hydraulic.helpers.FluidHelper;
-import dark.gsm.common.artillects.blocks.IBotController;
-
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +9,8 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
 import universalelectricity.prefab.implement.IDisableable;
+import dark.core.hydraulic.helpers.FluidHelper;
+import dark.gsm.common.artillects.blocks.IBotController;
 
 public abstract class EntityRobot extends EntityCreature implements IDisableable
 {

@@ -1,7 +1,6 @@
 package dark.gsm.common.artillects.bots;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 

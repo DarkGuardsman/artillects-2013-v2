@@ -1,4 +1,4 @@
-package icbm.api.sentry;
+package icbm.gangshao.api;
 
 /**
  * Used by sentries to tell what type of projectile its using

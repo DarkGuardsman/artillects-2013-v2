@@ -1,4 +1,4 @@
-package icbm.api.sentry;
+package icbm.gangshao.api;
 
 /**
  * Apply this to an entity if it is meant to be targeted by the AA Turret.
