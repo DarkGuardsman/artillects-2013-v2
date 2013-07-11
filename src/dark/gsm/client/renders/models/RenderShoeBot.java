@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
 
-import dark.gsm.common.artillects.bots.EntityShoeBot;
+import dark.gsm.artillects.common.bots.EntityShoeBot;
 
 public class RenderShoeBot extends Render
 {

@@ -1,12 +1,9 @@
 package icbm.api.explosion;
 
-/**
- * An object that contains a reference to IExplosive. Carried by explosives, grenades and missile
+/** An object that contains a reference to IExplosive. Carried by explosives, grenades and missile
  * entities etc.
  * 
- * @author Calclavia
- * 
- */
+ * @author Calclavia */
 public interface IExplosiveContainer
 {
 	public IExplosive getExplosiveType();

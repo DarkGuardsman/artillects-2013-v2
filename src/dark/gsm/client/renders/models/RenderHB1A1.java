@@ -5,10 +5,11 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 
 import org.lwjgl.opengl.GL11;
 
-import dark.gsm.common.artillects.bots.EntityHumanBot;
+import dark.gsm.artillects.common.bots.EntityHumanBot;
 
 public class RenderHB1A1 extends RenderLiving
 {
@@ -21,7 +22,7 @@ public class RenderHB1A1 extends RenderLiving
 	}
 
 	@Override
-	protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3)
+	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3)
 	{
 		this.loadTexture("/atextures/Bots/Droid.png");
 		return 1;

@@ -7,47 +7,34 @@ import java.lang.reflect.Method;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-/**
- * General ICBM references.
+/** General ICBM references.
  * 
- * @author Calclavia
- * 
- */
+ * @author Calclavia */
 public class ICBM
 {
-	/**
-	 * Name of the channel and mod ID.
-	 */
+	/** Name of the channel and mod ID. */
 	public static final String NAME = "ICBM";
 
-	/**
-	 * The version of ICBM.
-	 */
+	/** The version of ICBM. */
 	public static final String MAJOR_VERSION = "@MAJOR@";
 	public static final String MINOR_VERSION = "@MINOR@";
 	public static final String REVISION_VERSION = "@REVIS@";
 	public static final String BUILD_VERSION = "@BUILD@";
 	public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION_VERSION;
 
-	/**
-	 * The block ID in which ICBM starts with. ICBM Explosion will count up, ICBM Contraption will
-	 * count down.
-	 */
+	/** The block ID in which ICBM starts with. ICBM Explosion will count up, ICBM Contraption will
+	 * count down. */
 	public static final int BLOCK_ID_PREFIX = 3880;
 
-	/**
-	 * The item ID in which ICBM starts with.
-	 */
+	/** The item ID in which ICBM starts with. */
 	public static final int ITEM_ID_PREFIX = 3900;
 
 	public static Class explosionManager;
 
-	/**
-	 * Created an ICBM explosion.
+	/** Created an ICBM explosion.
 	 * 
 	 * @param entity - The entity that created this explosion. The explosion source.
-	 * @param explosiveID - The ID of the explosive.
-	 */
+	 * @param explosiveID - The ID of the explosive. */
 	public static void createExplosion(World worldObj, double x, double y, double z, Entity entity, int explosiveID)
 	{
 		try
@@ -62,9 +49,7 @@ public class ICBM
 		}
 	}
 
-	/**
-	 * @return Gets an explosive object based on the name of the explosive.
-	 */
+	/** @return Gets an explosive object based on the name of the explosive. */
 	public static IExplosive getExplosive(String name)
 	{
 		if (name != null)

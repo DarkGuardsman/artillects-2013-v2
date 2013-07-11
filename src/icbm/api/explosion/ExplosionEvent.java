@@ -3,28 +3,19 @@ package icbm.api.explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.event.Event;
 
-/**
- * Use ForgeSubscribe to subscribe to this event. This event is called every single time when an
+/** Use ForgeSubscribe to subscribe to this event. This event is called every single time when an
  * ICBM explosion happens.
  * 
- * @author Calclavia
- * 
- */
+ * @author Calclavia */
 public class ExplosionEvent extends Event
 {
-	/**
-	 * The world in which the explosion happened.
-	 */
+	/** The world in which the explosion happened. */
 	public final World world;
 
-	/**
-	 * The position of the explosion.
-	 */
+	/** The position of the explosion. */
 	public final double x, y, z;
 
-	/**
-	 * The explosive type of the explosion.
-	 */
+	/** The explosive type of the explosion. */
 	public IExplosive explosive;
 
 	public ExplosionEvent(World world, double x, double y, double z, IExplosive explosive)
@@ -36,12 +27,9 @@ public class ExplosionEvent extends Event
 		this.explosive = explosive;
 	}
 
-	/**
-	 * Called before an explosion happens.
+	/** Called before an explosion happens.
 	 * 
-	 * @author Calclavia
-	 * 
-	 */
+	 * @author Calclavia */
 	public static class PreExplosionEvent extends ExplosionEvent
 	{
 		public PreExplosionEvent(World world, double x, double y, double z, IExplosive explosive)
@@ -50,12 +38,9 @@ public class ExplosionEvent extends Event
 		}
 	}
 
-	/**
-	 * Called after an explosion happens.
+	/** Called after an explosion happens.
 	 * 
-	 * @author Calclavia
-	 * 
-	 */
+	 * @author Calclavia */
 	public static class PostExplosionEvent extends ExplosionEvent
 	{
 		public PostExplosionEvent(World world, double x, double y, double z, IExplosive explosive)

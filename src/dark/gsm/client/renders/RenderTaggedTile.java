@@ -14,9 +14,7 @@ import net.minecraft.util.MovingObjectPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * @author Rseifert & Calclavia
- */
+/** @author Rseifert & Calclavia */
 @SideOnly(Side.CLIENT)
 public abstract class RenderTaggedTile extends TileEntitySpecialRenderer
 {
@@ -72,9 +70,7 @@ public abstract class RenderTaggedTile extends TileEntitySpecialRenderer
 		}
 	}
 
-	/**
-	 * gets the player linked with the renderer
-	 */
+	/** gets the player linked with the renderer */
 	public EntityPlayer getPlayer()
 	{
 		EntityLiving entity = this.tileEntityRenderer.entityLivingPlayer;

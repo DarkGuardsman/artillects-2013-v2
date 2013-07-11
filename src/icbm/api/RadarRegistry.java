@@ -12,14 +12,11 @@ import universalelectricity.core.vector.Vector2;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.vector.Region2;
 
-/**
- * This class allows you to register TileEntities and Entities to be detectable by the ICBM radar.
+/** This class allows you to register TileEntities and Entities to be detectable by the ICBM radar.
  * 
  * Make sure you unregister your object when it invalidates!
  * 
- * @author Calclavia
- * 
- */
+ * @author Calclavia */
 public class RadarRegistry
 {
 	private static Set<TileEntity> detectableTileEntities = new HashSet<TileEntity>();

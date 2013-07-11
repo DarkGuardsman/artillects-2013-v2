@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.gsm.common.artillects.bots.EntityEyeBot;
+import dark.gsm.artillects.common.bots.EntityEyeBot;
 
 @SideOnly(Side.CLIENT)
 public class RenderEyeBot extends RenderLiving

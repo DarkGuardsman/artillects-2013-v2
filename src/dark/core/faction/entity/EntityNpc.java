@@ -10,11 +10,9 @@ import dark.core.faction.FactionManager;
 import dark.gsm.common.IFactionObject;
 import dark.library.math.MathHelper;
 
-/**
- * NPC that simulate being players in an empire controlled environment
+/** NPC that simulate being players in an empire controlled environment
  * 
- * @author Darkguardsman
- */
+ * @author Darkguardsman */
 public class EntityNpc extends EntityCreature implements IFactionObject
 {
 	protected Random random = new Random();
@@ -35,10 +33,8 @@ public class EntityNpc extends EntityCreature implements IFactionObject
 		this.female = random.nextBoolean();
 	}
 
-	/**
-	 * @param stats - Strength, endurance, dexterity, Intelligence, wit, memory, willpower,
-	 * perception, luck http://en.wikipedia.org/wiki/Attribute_(role-playing_games)
-	 */
+	/** @param stats - Strength, endurance, dexterity, Intelligence, wit, memory, willpower,
+	 * perception, luck http://en.wikipedia.org/wiki/Attribute_(role-playing_games) */
 	public EntityNpc(World world, int... stats)
 	{
 		this(world);
@@ -52,9 +48,7 @@ public class EntityNpc extends EntityCreature implements IFactionObject
 		}
 	}
 
-	/**
-	 * Gets the value of the stat
-	 */
+	/** Gets the value of the stat */
 	public int getStat(CharStats stat)
 	{
 		if (this.stats == null)
@@ -63,12 +57,6 @@ public class EntityNpc extends EntityCreature implements IFactionObject
 		}
 		return stat.ordinal() < this.stats.length ? this.stats[stat.ordinal()] : 10;
 
-	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		return 10 + this.getStat(CharStats.endurance);
 	}
 
 	public String getName()

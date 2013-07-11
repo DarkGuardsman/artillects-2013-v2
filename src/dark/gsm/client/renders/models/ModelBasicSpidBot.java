@@ -254,16 +254,14 @@ public class ModelBasicSpidBot extends ModelBase
 		this.MAINCAM.rotateAngleX = par5 / (180F / (float) Math.PI);
 		this.CAMLENS.rotateAngleY = par4 / (180F / (float) Math.PI);
 		this.CAMLENS.rotateAngleX = par5 / (180F / (float) Math.PI);
-		/**
-		 * float var7 = ((float)Math.PI / 4F); this.LEG1la.rotateAngleZ = -var7;
+		/** float var7 = ((float)Math.PI / 4F); this.LEG1la.rotateAngleZ = -var7;
 		 * this.LEG1lb.rotateAngleZ = -var7; this.LEG2La.rotateAngleZ = var7;
 		 * this.LEG2lb.rotateAngleZ = var7; this.LEG3la.rotateAngleZ = -var7 * 0.74F;
 		 * this.LEG3Lb.rotateAngleZ = -var7 * 0.74F;
 		 * 
 		 * this.LEG1ra.rotateAngleZ = var7 * 0.74F; this.LEG1rb.rotateAngleZ = var7 * 0.74F;
 		 * this.LEG2ra.rotateAngleZ = -var7 * 0.74F; this.LEG2rb.rotateAngleZ = -var7 * 0.74F;
-		 * this.LEG3ra.rotateAngleZ = var7 * 0.74F; this.LEG3rb.rotateAngleZ = var7 * 0.74F;
-		 */
+		 * this.LEG3ra.rotateAngleZ = var7 * 0.74F; this.LEG3rb.rotateAngleZ = var7 * 0.74F; */
 		float var8 = -0.0F;
 		float var9 = 0.3926991F;
 		this.LEG1la.rotateAngleY = 0.1745329F;

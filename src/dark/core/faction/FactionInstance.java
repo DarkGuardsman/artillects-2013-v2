@@ -11,11 +11,9 @@ import dark.library.access.AccessLevel;
 import dark.library.access.GlobalAccessManager;
 import dark.library.access.UserAccess;
 
-/**
- * Class used to track and manage a player/NPC faction
+/** Class used to track and manage a player/NPC faction
  * 
- * @author DarkGuardsman
- */
+ * @author DarkGuardsman */
 public class FactionInstance
 {
 	public List<UserAccess> userList;
@@ -76,17 +74,13 @@ public class FactionInstance
 		return this.date;
 	}
 
-	/**
-	 * The person who original created the faction
-	 */
+	/** The person who original created the faction */
 	public String getCreator()
 	{
 		return (creator != null && !creator.isEmpty()) ? this.creator : "World";
 	}
 
-	/**
-	 * The name of the faction
-	 */
+	/** The name of the faction */
 	public String getName()
 	{
 		return (name != null && !name.isEmpty()) ? this.name : "FactionName";

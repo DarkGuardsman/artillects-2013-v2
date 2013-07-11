@@ -25,9 +25,7 @@ import org.lwjgl.opengl.GL11;
 
 public class CalclaviaRenderHelper
 {
-	/**
-	 * Enables blending.
-	 */
+	/** Enables blending. */
 	public static void enableBlending()
 	{
 		glShadeModel(GL_SMOOTH);
@@ -35,9 +33,7 @@ public class CalclaviaRenderHelper
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	/**
-	 * Disables blending.
-	 */
+	/** Disables blending. */
 	public static void disableBlending()
 	{
 		glShadeModel(GL_FLAT);
@@ -51,9 +47,7 @@ public class CalclaviaRenderHelper
 		RenderHelper.enableStandardItemLighting();
 	}
 
-	/**
-	 * Disables lighting and turns glow on.
-	 */
+	/** Disables lighting and turns glow on. */
 	public static void disableLighting()
 	{
 		RenderHelper.disableStandardItemLighting();
@@ -102,12 +96,9 @@ public class CalclaviaRenderHelper
 		renderFloatingText(text, x, y, z, 0xFFFFFF);
 	}
 
-	/**
-	 * Renders a floating text in a specific position.
+	/** Renders a floating text in a specific position.
 	 * 
-	 * @author Briman0094
-	 * 
-	 */
+	 * @author Briman0094 */
 	public static void renderFloatingText(String text, float x, float y, float z, int color)
 	{
 		RenderManager renderManager = RenderManager.instance;
