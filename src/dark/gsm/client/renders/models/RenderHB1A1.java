@@ -4,8 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -24,7 +26,7 @@ public class RenderHB1A1 extends RenderLiving
 	@Override
 	protected int shouldRenderPass(EntityLivingBase par1EntityLiving, int par2, float par3)
 	{
-		this.loadTexture("/atextures/Bots/Droid.png");
+		//this.loadTexture("/atextures/Bots/Droid.png");
 		return 1;
 	}
 
@@ -83,6 +85,13 @@ public class RenderHB1A1 extends RenderLiving
 	{
 		this.renderLivingLabel(par1EntityLiving, par2, par4, par6);
 		this.renderBot((EntityHumanBot) par1EntityLiving);
+	}
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity entity)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

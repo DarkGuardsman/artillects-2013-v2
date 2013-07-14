@@ -32,12 +32,6 @@ public class TileEntityLaserTurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getVoltage()
-	{
-		return 480;
-	}
-
-	@Override
 	public double getHeatPerShot()
 	{
 		return 100;

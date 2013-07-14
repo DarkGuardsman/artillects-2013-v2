@@ -214,7 +214,7 @@ public abstract class TileEntityAutoTurret extends TileEntityTurretBase implemen
 			}
 			else
 			{
-				return this.tickSinceFired == 0 && (this.getPlatform().wattsReceived >= this.getFiringRequest()) && this.getPlatform().hasAmmunition(this.baseAmmoType) != null;
+				return this.tickSinceFired == 0 && (this.getPlatform().getEnergyStored() >= this.getFiringRequest()) && this.getPlatform().hasAmmunition(this.baseAmmoType) != null;
 			}
 		}
 
@@ -258,7 +258,7 @@ public abstract class TileEntityAutoTurret extends TileEntityTurretBase implemen
 			int meta = ammo.getStack().getItemDamage();
 			if (this.target instanceof EntityLiving)
 			{
-				this.getPlatform().wattsReceived -= this.getFiringRequest();
+				//this.getPlatform().wattsReceived -= this.getFiringRequest();
 
 				if (bullet.applyDirectDamage(meta))
 				{

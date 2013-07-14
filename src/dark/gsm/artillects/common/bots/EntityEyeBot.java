@@ -17,7 +17,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import dark.core.api.ISpecialAccess;
-import dark.gsm.artillects.common.GSMMachines;
 import dark.gsm.artillects.common.ai.combat.EnumRange;
 import dark.gsm.artillects.common.ai.combat.IAttacker;
 import dark.gsm.artillects.common.ai.combat.LaserHelper;

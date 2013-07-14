@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.IPacketReceiver;
@@ -28,7 +27,7 @@ import dark.library.machine.TileEntityMulti;
 /** Railgun
  * 
  * @author Calclavia */
-public class TileEntityRailTurret extends TileEntityMountableTurret implements IPacketReceiver, IRedstoneReceptor, IMultiBlock
+public class TileEntityRailTurret extends TileEntityMountableTurret implements IPacketReceiver, IMultiBlock
 {
 
 	private int gunChargingTicks = 0;
@@ -95,33 +94,31 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 
 			if (objectMouseOver != null)
 			{
-				if (!Sentries.isProtected(this.worldObj, new Vector3(objectMouseOver), Sentries.FLAG_RAILGUN) && objectMouseOver.typeOfHit == EnumMovingObjectType.TILE)
+				if (this.isAntimatter)
 				{
-					if (this.isAntimatter)
-					{
-						/** Remove Redmatter Explosions. */
-						int radius = 50;
-						AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(objectMouseOver.blockX - radius, objectMouseOver.blockY - radius, objectMouseOver.blockZ - radius, objectMouseOver.blockX + radius, objectMouseOver.blockY + radius, objectMouseOver.blockZ + radius);
-						List<Entity> missilesNearby = worldObj.getEntitiesWithinAABB(Entity.class, bounds);
+					/** Remove Redmatter Explosions. */
+					int radius = 50;
+					AxisAlignedBB bounds = AxisAlignedBB.getBoundingBox(objectMouseOver.blockX - radius, objectMouseOver.blockY - radius, objectMouseOver.blockZ - radius, objectMouseOver.blockX + radius, objectMouseOver.blockY + radius, objectMouseOver.blockZ + radius);
+					List<Entity> missilesNearby = worldObj.getEntitiesWithinAABB(Entity.class, bounds);
 
-						for (Entity entity : missilesNearby)
+					for (Entity entity : missilesNearby)
+					{
+						if (entity instanceof IExplosive)
 						{
-							if (entity instanceof IExplosive)
-							{
-								entity.setDead();
-							}
+							entity.setDead();
 						}
 					}
-					int blockID = this.worldObj.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
-					Block block = Block.blocksList[blockID];
-					/* Any hardness under zero is unbreakable  */
-					if (block != null && block.getBlockHardness(this.worldObj, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ) > 0)
-					{
-						this.worldObj.setBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, 0, 0, 2);
-					}
-
-					this.worldObj.newExplosion(this.mountedPlayer, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, explosionSize, true, true);
 				}
+				int blockID = this.worldObj.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+				Block block = Block.blocksList[blockID];
+				/* Any hardness under zero is unbreakable  */
+				if (block != null && block.getBlockHardness(this.worldObj, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ) > 0)
+				{
+					this.worldObj.setBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, 0, 0, 2);
+				}
+
+				this.worldObj.newExplosion(this.mountedPlayer, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, explosionSize, true, true);
+
 			}
 
 			this.explosionDepth--;
@@ -171,12 +168,6 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 	}
 
 	@Override
-	public double getVoltage()
-	{
-		return 220;
-	}
-
-	@Override
 	public void onDestroy(TileEntity callingBlock)
 	{
 		this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, 0);
@@ -211,18 +202,6 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 	}
 
 	@Override
-	public void onPowerOn()
-	{
-		this.redstonePowerOn = true;
-	}
-
-	@Override
-	public void onPowerOff()
-	{
-		this.redstonePowerOn = false;
-	}
-
-	@Override
 	public double getFiringRequest()
 	{
 		return 300000;
@@ -248,8 +227,6 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 			}
 		}
 
-		this.getPlatform().wattsReceived = 0;
-
 		this.explosionSize = 5f;
 		this.explosionDepth = 5;
 
@@ -267,7 +244,7 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 		{
 			if (this.getPlatform().hasAmmunition(ProjectileTypes.RAILGUN) != null)
 			{
-				if (this.getPlatform().wattsReceived >= this.getFiringRequest())
+				if (this.getPlatform().getEnergyStored() >= this.getFiringRequest())
 				{
 					return true;
 				}

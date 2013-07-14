@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
@@ -73,7 +74,7 @@ public abstract class RenderTaggedTile extends TileEntitySpecialRenderer
 	/** gets the player linked with the renderer */
 	public EntityPlayer getPlayer()
 	{
-		EntityLiving entity = this.tileEntityRenderer.entityLivingPlayer;
+		EntityLivingBase entity = this.tileEntityRenderer.entityLivingPlayer;
 
 		if (entity instanceof EntityPlayer)
 		{

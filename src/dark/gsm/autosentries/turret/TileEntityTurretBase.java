@@ -37,7 +37,7 @@ import dark.library.damage.IHpTile;
 /** Class that handles all the basic movement, and block based updates of a turret.
  * 
  * @author Rseifert */
-public abstract class TileEntityTurretBase extends TileEntityAdvanced implements IPacketReceiver, ITagRender, IVoltage, ISentry, IHpTile, IHeatObject
+public abstract class TileEntityTurretBase extends TileEntityAdvanced implements IPacketReceiver, ITagRender, ISentry, IHpTile, IHeatObject
 {
 	/** OFFSET OF BARREL ROTATION */
 	public final float rotationTranslation = 0.0175f;
@@ -334,7 +334,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
 		Vector3 muzzlePosition = this.getMuzzle();
 		Vector3 lookDistance = LookHelper.getDeltaPositionFromRotation(this.wantedRotationYaw / this.rotationTranslation, this.wantedRotationPitch / this.rotationTranslation);
 		Vector3 var6 = Vector3.add(muzzlePosition, Vector3.multiply(lookDistance, distance));
-		return this.worldObj.rayTraceBlocks(muzzlePosition.toVec3(), var6.toVec3());
+		return this.worldObj.clip(muzzlePosition.toVec3(), var6.toVec3());
 	}
 
 	@Override
@@ -396,7 +396,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
 	}
 
 	@Override
-	public boolean onDamageTaken(DamageSource source, int amount)
+	public boolean onDamageTaken(DamageSource source, float amount)
 	{
 		if (this.isInvul())
 		{

@@ -56,7 +56,7 @@ public abstract class TileEntityMountableTurret extends TileEntityTurretBase imp
 		if (this.mountedPlayer != null && entityPlayer == this.mountedPlayer)
 		{
 			this.mountedPlayer = null;
-			entityPlayer.unmountEntity(this.entityFake);
+			entityPlayer.mountEntity(this.entityFake);
 
 			if (this.entityFake != null)
 			{

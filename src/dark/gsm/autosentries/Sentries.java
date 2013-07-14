@@ -1,38 +1,27 @@
 package dark.gsm.autosentries;
 
-import icbm.api.ICBMFlags;
-
 import java.io.File;
 
 import net.minecraft.block.Block;
-import net.minecraft.command.ICommandManager;
-import net.minecraft.command.ServerCommandManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.world.WorldEvent.Save;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.Metadata;
-import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
-import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
@@ -52,7 +41,6 @@ import dark.library.damage.EntityTileDamage;
 import dark.library.machine.terminal.CommandHelp;
 import dark.library.machine.terminal.CommandRegistry;
 import dark.library.machine.terminal.CommandUser;
-import dark.library.saving.NBTFileLoader;
 
 @Mod(modid = Sentries.NAME, name = Sentries.NAME, version = GSMCore.VERSION, useMetadata = true)
 @NetworkMod(channels = { Sentries.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)
@@ -76,12 +64,10 @@ public class Sentries extends GSMCore
 	/** ItemStack helpers. Do not modify theses. */
 	public static ItemStack conventionalBullet, railgunBullet, antimatterBullet, bulletShell;
 
-	public static final String FLAG_RAILGUN = FlagRegistry.registerFlag("ban_railgun");
-
 	private static Configuration sentryConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/AutoSentries.cfg"));
 
 	@Override
-	@PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
@@ -120,7 +106,7 @@ public class Sentries extends GSMCore
 	}
 
 	@Override
-	@Init
+	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
@@ -128,7 +114,7 @@ public class Sentries extends GSMCore
 	}
 
 	@Override
-	@PostInit
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		super.postInit(event);
@@ -160,38 +146,6 @@ public class Sentries extends GSMCore
 		CommandRegistry.register(new CommandGet());
 		CommandRegistry.register(new CommandTarget());
 		proxy.init();
-	}
-
-	/** Is a specific position being protected from a specific type of danger? */
-	public static boolean isProtected(World world, Vector3 diDian, String banFlag)
-	{
-		if (FlagRegistry.getModFlag(FlagRegistry.DEFAULT_NAME).containsValue(world, ICBMFlags.FLAG_BAN_GLOBAL, "true", diDian))
-		{
-			return true;
-		}
-
-		return FlagRegistry.getModFlag(FlagRegistry.DEFAULT_NAME).containsValue(world, banFlag, "true", diDian);
-	}
-
-	@Override
-	@ServerStarting
-	public void serverStarting(FMLServerStartingEvent event)
-	{
-		FlagRegistry.registerModFlag(FlagRegistry.DEFAULT_NAME, new ModFlag(NBTFileLoader.loadData(FlagRegistry.DEFAULT_NAME)));
-
-		ICommandManager commandManager = FMLCommonHandler.instance().getMinecraftServerInstance().getCommandManager();
-		ServerCommandManager serverCommandManager = ((ServerCommandManager) commandManager);
-		serverCommandManager.registerCommand(new CommandFlag(FlagRegistry.getModFlag(FlagRegistry.DEFAULT_NAME)));
-	}
-
-	@Override
-	@ForgeSubscribe
-	public void worldSave(Save evt)
-	{
-		if (!evt.world.isRemote)
-		{
-			NBTFileLoader.saveData(FlagRegistry.DEFAULT_NAME, FlagRegistry.getModFlag(FlagRegistry.DEFAULT_NAME).getNBT());
-		}
 	}
 
 	@Override

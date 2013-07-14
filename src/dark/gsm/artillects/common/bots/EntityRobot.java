@@ -6,9 +6,9 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import universalelectricity.core.block.IDisableable;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
+import dark.core.IDisableable;
 import dark.core.hydraulic.helpers.FluidHelper;
 import dark.gsm.artillects.common.blocks.IBotController;
 

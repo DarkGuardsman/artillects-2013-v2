@@ -5,6 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -75,7 +76,7 @@ public class RenderShoeBot extends Render
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y + .2, z);
 		GL11.glRotatef(0, 0, 1, 0);
-		this.loadTexture("");
+		//this.loadTexture("");
 		model.render(par1Entity, 0, 0, 0, 0, 0, .0625f);
 		GL11.glPopMatrix();
 	}
@@ -85,6 +86,13 @@ public class RenderShoeBot extends Render
 	{
 		this.renderBot(par1Entity, par2, par4, par6, par8, par9);
 		this.renderName(par1Entity, par2, par4, par6);
+	}
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity entity)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -99,7 +99,7 @@ public class LookHelper
 	public boolean canEntityBeSeen(Vector3 target)
 	{
 		Vector3 barrel = Vector3.add(this.sentry.getMuzzle(), new Vector3(Math.sin(sentry.wantedRotationYaw) * 1, 0, Math.cos(sentry.wantedRotationYaw) * 1));
-		return this.sentry.worldObj.rayTraceBlocks(barrel.toVec3(), target.toVec3()) == null;
+		return this.sentry.worldObj.clip(barrel.toVec3(), target.toVec3()) == null;
 	}
 
 	public boolean canEntityBeSeen(Entity entity)

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -100,7 +101,7 @@ public class BlockTurret extends BasicBlock
 
 	/** Called when the block is placed in the world. */
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving par5EntityLiving, ItemStack itemStack)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack itemStack)
 	{
 		int angle = MathHelper.floor_double((par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
@@ -113,16 +114,16 @@ public class BlockTurret extends BasicBlock
 			switch (angle)
 			{
 				case 0:
-					rotatableEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(3));
+					rotatableEntity.setDirection(ForgeDirection.getOrientation(3));
 					break;
 				case 1:
-					rotatableEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(4));
+					rotatableEntity.setDirection(ForgeDirection.getOrientation(4));
 					break;
 				case 2:
-					rotatableEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(2));
+					rotatableEntity.setDirection(ForgeDirection.getOrientation(2));
 					break;
 				case 3:
-					rotatableEntity.setDirection(world, x, y, z, ForgeDirection.getOrientation(5));
+					rotatableEntity.setDirection(ForgeDirection.getOrientation(5));
 					break;
 			}
 		}
@@ -176,27 +177,8 @@ public class BlockTurret extends BasicBlock
 
 		if (tileEntity instanceof TileEntityTurretBase)
 		{
-			if (this.canBlockStay(world, x, y, z))
+			if (!this.canBlockStay(world, x, y, z))
 			{
-				if (tileEntity instanceof IRedstoneReceptor)
-				{
-					if (world.isBlockIndirectlyGettingPowered(x, y, z))
-					{
-						((IRedstoneReceptor) tileEntity).onPowerOn();
-					}
-					else
-					{
-						((IRedstoneReceptor) tileEntity).onPowerOff();
-					}
-				}
-			}
-			else
-			{
-				/*
-				 * if (tileEntity instanceof IMultiBlock) { ((IMultiBlock)
-				 * tileEntity).onDestroy(tileEntity); }
-				 */
-
 				if (tileEntity != null)
 				{
 					((TileEntityTurretBase) tileEntity).destroy(false);

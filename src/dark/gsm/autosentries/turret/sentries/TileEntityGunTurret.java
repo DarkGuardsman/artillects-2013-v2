@@ -20,12 +20,6 @@ public class TileEntityGunTurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getVoltage()
-	{
-		return 240;
-	}
-
-	@Override
 	public int getMaxHealth()
 	{
 		return 120;

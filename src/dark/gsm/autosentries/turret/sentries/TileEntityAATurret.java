@@ -32,12 +32,6 @@ public class TileEntityAATurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getVoltage()
-	{
-		return 240;
-	}
-
-	@Override
 	public double getFiringRequest()
 	{
 		return 2;
