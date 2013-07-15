@@ -16,10 +16,8 @@ import dark.gsm.autosentries.gui.GuiPlatformTerminal;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.autosentries.render.BlockRenderingHandler;
 import dark.gsm.autosentries.render.RenderAATurret;
-import dark.gsm.autosentries.render.RenderFakeMountable;
 import dark.gsm.autosentries.render.RenderGunTurret;
 import dark.gsm.autosentries.render.RenderRailgun;
-import dark.gsm.autosentries.turret.mount.EntityFakeMountable;
 import dark.gsm.autosentries.turret.mount.TileEntityRailTurret;
 import dark.gsm.autosentries.turret.sentries.TileEntityAATurret;
 import dark.gsm.autosentries.turret.sentries.TileEntityGunTurret;
@@ -43,7 +41,6 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAATurret.class, new RenderAATurret());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRailTurret.class, new RenderRailgun());
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityFakeMountable.class, new RenderFakeMountable());
 		RenderingRegistry.registerBlockHandler(new BlockRenderingHandler());
 	}
 

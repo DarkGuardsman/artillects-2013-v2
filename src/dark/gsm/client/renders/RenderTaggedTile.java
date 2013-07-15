@@ -14,10 +14,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.core.render.RenderMachine;
 
 /** @author Rseifert & Calclavia */
 @SideOnly(Side.CLIENT)
-public abstract class RenderTaggedTile extends TileEntitySpecialRenderer
+public abstract class RenderTaggedTile extends RenderMachine
 {
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)

@@ -2,6 +2,7 @@ package dark.gsm.autosentries.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -13,7 +14,7 @@ import dark.gsm.core.common.GSMCore;
 public class GuiButtonArrow extends GuiButton
 {
 	boolean isLeft = false;
-
+	ResourceLocation gui_pic = new ResourceLocation(GSMCore.DOMAIN, GSMCore.GUI_DIRECTORY + "gui@.png");
 	public GuiButtonArrow(int par1, int par2, int par3, boolean left)
 	{
 		super(par1, par2, par3, 10, 10, "");
@@ -26,7 +27,7 @@ public class GuiButtonArrow extends GuiButton
 	{
 		if (this.drawButton)
 		{
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, par1Minecraft.renderEngine.getTexture(GSMCore.GUI_PATH + "gui@.png"));
+			par1Minecraft.func_110434_K().func_110577_a(gui_pic);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			boolean var4 = width >= this.xPosition && hight >= this.yPosition && width < this.xPosition + this.width && hight < this.yPosition + this.height;
 			int var5 = 126;

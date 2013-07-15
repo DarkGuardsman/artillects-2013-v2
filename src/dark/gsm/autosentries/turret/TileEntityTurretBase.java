@@ -140,10 +140,10 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
 	public abstract void onUpdate();
 
 	/** Energy consumed each time the weapon activates */
-	public abstract double getFiringRequest();
+	public abstract float getFiringRequest();
 
 	/** Energy consumed per tick to keep the sentry running */
-	public abstract double getRunningRequest();
+	public abstract float getRunningRequest();
 
 	/** is this sentry currently operating */
 	public boolean isRunning()

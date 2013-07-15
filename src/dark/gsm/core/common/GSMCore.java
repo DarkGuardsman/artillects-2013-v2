@@ -25,17 +25,22 @@ public class GSMCore
 	public static final String MINOR_VERSION = "@MINOR@";
 	public static final String REVISION_VERSION = "@REVIS@";
 	public static final String BUILD_VERSION = "@BUILD@";
+	
 	public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION_VERSION;
-
+	public static final String DOMAIN = "dark";
+	public static final String PREFIX = DOMAIN + ":";
+	
 	/* RESOURCE FILE PATHS */
-	public static final String RESOURCE_PATH = "/mods/dark/";
-	public static final String TEXTURE_DIRECTORY = RESOURCE_PATH + "textures/";
-	public static final String GUI_PATH = TEXTURE_DIRECTORY + "gui/";
-	public static final String BLOCK_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
-	public static final String ITEM_TEXTURE_DIRECTORY = TEXTURE_DIRECTORY + "items/";
-	public static final String MODEL_PATH = TEXTURE_DIRECTORY + "models/";
-	public static final String PREFIX = "dark:";
-	public static final String LANGUAGE_PATH = RESOURCE_PATH + "languages/";
+	public static final String DIRECTORY_NO_SLASH = "assets/" + DOMAIN + "/";
+	public static final String DIRECTORY = "/" + DIRECTORY_NO_SLASH;
+	public static final String LANGUAGE_PATH = DIRECTORY + "languages/";
+	public static final String SOUND_PATH = DIRECTORY + "audio/";
+
+	public static final String TEXTURE_DIRECTORY = "textures/";
+	public static final String BLOCK_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
+	public static final String ITEM_DIRECTORY = TEXTURE_DIRECTORY + "items/";
+	public static final String MODEL_DIRECTORY = TEXTURE_DIRECTORY + "models/";
+	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 
 	public static final Configuration gsmCoreConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/DarkMain.cfg"));
 

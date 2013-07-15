@@ -5,6 +5,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -26,7 +27,9 @@ public abstract class GuiPlatformContainer extends GuiContainer
 	protected static final int MAX_BUTTON_ID = 3;
 	protected TileEntityTurretPlatform tileEntity;
 	protected EntityPlayer entityPlayer;
-
+	
+	ResourceLocation base_gui = new ResourceLocation(GSMCore.DOMAIN, GSMCore.GUI_DIRECTORY + "gui_base.png");
+	
 	public GuiPlatformContainer(InventoryPlayer inventoryPlayer, TileEntityTurretPlatform tileEntity)
 	{
 		super(new ContainerTurretPlatform(inventoryPlayer, tileEntity));
@@ -126,7 +129,7 @@ public abstract class GuiPlatformContainer extends GuiContainer
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float par1, int x, int y)
 	{
-		this.mc.renderEngine.bindTexture(GSMCore.GUI_PATH + "gui_base.png");
+		this.mc.func_110434_K().func_110577_a(base_gui);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int containerWidth = (this.width - this.xSize) / 2;

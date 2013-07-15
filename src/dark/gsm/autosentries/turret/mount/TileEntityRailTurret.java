@@ -202,7 +202,7 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 	}
 
 	@Override
-	public double getFiringRequest()
+	public float getFiringRequest()
 	{
 		return 300000;
 	}
@@ -268,7 +268,7 @@ public class TileEntityRailTurret extends TileEntityMountableTurret implements I
 	}
 
 	@Override
-	public double getRunningRequest()
+	public float getRunningRequest()
 	{
 		return 10;
 	}

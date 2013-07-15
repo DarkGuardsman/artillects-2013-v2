@@ -1,8 +1,10 @@
 package dark.gsm.autosentries.gui;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -15,20 +17,25 @@ import dark.gsm.autosentries.CommonProxy;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
+import dark.library.gui.ContainerFake;
 import dark.library.machine.terminal.TileEntityTerminal.PacketType;
 
 /** A base class for all ICBM Sentry GUIs.
  * 
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
-public abstract class GuiPlatformBase extends GuiBase
+public abstract class GuiPlatformBase extends GuiContainer
 {
 	protected static final int MAX_BUTTON_ID = 3;
 	protected TileEntityTurretPlatform tileEntity;
 	protected EntityPlayer entityPlayer;
 
+	ResourceLocation base_gui = new ResourceLocation(GSMCore.DOMAIN, GSMCore.GUI_DIRECTORY + "gui_base.png");
+	ResourceLocation platform_gui = new ResourceLocation(GSMCore.DOMAIN, GSMCore.GUI_DIRECTORY + "gui_platform_terminal.png");
+
 	public GuiPlatformBase(EntityPlayer player, TileEntityTurretPlatform tileEntity)
 	{
+		super(new ContainerFake(tileEntity));
 		this.tileEntity = tileEntity;
 		this.entityPlayer = player;
 		this.ySize = 380 / 2;
@@ -103,7 +110,7 @@ public abstract class GuiPlatformBase extends GuiBase
 
 	/** Draw the foreground layer for the GuiContainer (everything in front of the items) */
 	@Override
-	protected void drawForegroundLayer(int x, int y, float var1)
+	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 
 		/** Render Tool Tips */
@@ -126,9 +133,9 @@ public abstract class GuiPlatformBase extends GuiBase
 
 	/** Draw the background layer for the GuiContainer (everything behind the items) */
 	@Override
-	protected void drawBackgroundLayer(int x, int y, float var1)
+	protected void drawGuiContainerBackgroundLayer(float var1, int x, int y)
 	{
-		this.mc.renderEngine.bindTexture(GSMCore.GUI_PATH + "gui_base.png");
+		this.mc.func_110434_K().func_110577_a(base_gui);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int containerWidth = (this.width - this.xSize) / 2;
@@ -136,7 +143,6 @@ public abstract class GuiPlatformBase extends GuiBase
 		this.drawTexturedModalRect(containerWidth, containerHeight, 0, 0, this.xSize, this.ySize);
 	}
 
-	@Override
 	public void drawTooltip(int x, int y, String... toolTips)
 	{
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);

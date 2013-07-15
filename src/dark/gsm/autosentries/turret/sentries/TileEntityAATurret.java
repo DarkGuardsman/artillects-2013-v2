@@ -32,7 +32,7 @@ public class TileEntityAATurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getFiringRequest()
+	public float getFiringRequest()
 	{
 		return 2;
 	}
@@ -63,7 +63,7 @@ public class TileEntityAATurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getRunningRequest()
+	public float getRunningRequest()
 	{
 		return 25;
 	}

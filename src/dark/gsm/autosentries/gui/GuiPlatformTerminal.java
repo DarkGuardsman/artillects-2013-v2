@@ -3,6 +3,7 @@ package dark.gsm.autosentries.gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringTranslate;
 
 import org.lwjgl.input.Keyboard;
@@ -24,6 +25,8 @@ public class GuiPlatformTerminal extends GuiPlatformBase
 	private TileEntityTerminal tileEntity;
 	private GuiTextField commandLine;
 
+	ResourceLocation gui_pic = new ResourceLocation(GSMCore.DOMAIN, GSMCore.GUI_DIRECTORY + "gui_platform_terminal.png");
+	
 	public GuiPlatformTerminal(EntityPlayer entityPlayer, TileEntityTurretPlatform tileEntity)
 	{
 		super(entityPlayer, tileEntity);
@@ -34,7 +37,7 @@ public class GuiPlatformTerminal extends GuiPlatformBase
 	public void initGui()
 	{
 		super.initGui();
-		StringTranslate var1 = StringTranslate.getInstance();
+		//StringTranslate var1 = StringTranslate.getInstance();
 		int width = (this.width - this.xSize) / 2;
 		int height = (this.height - this.ySize) / 2;
 
@@ -131,12 +134,12 @@ public class GuiPlatformTerminal extends GuiPlatformBase
 	}
 
 	@Override
-	protected void drawForegroundLayer(int x, int y, float var1)
+	protected void drawGuiContainerForegroundLayer(int x, int y)
 	{
 		String title = "Terminal";
 		this.fontRenderer.drawString("\u00a77" + title, (int) (this.xSize / 2 - title.length() * 2.5), 4, 4210752);
 		this.drawConsole(25, 16, TileEntityTerminal.SCROLL_SIZE);
-		super.drawForegroundLayer(x, y, var1);
+		super.drawGuiContainerForegroundLayer(x, y);
 	}
 
 	public void drawConsole(int x, int y, int lines)
@@ -168,10 +171,10 @@ public class GuiPlatformTerminal extends GuiPlatformBase
 	}
 
 	@Override
-	protected void drawBackgroundLayer(int x, int y, float var1)
+	protected void drawGuiContainerBackgroundLayer(float var1, int x, int y)
 	{
-		super.drawBackgroundLayer(x, y, var1);
-		this.mc.renderEngine.bindTexture(GSMCore.GUI_PATH + "gui_platform_terminal.png");
+		super.drawGuiContainerBackgroundLayer(var1, x, y);
+		this.mc.func_110434_K().func_110577_a(gui_pic);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int var5 = (this.width - this.xSize) / 2;

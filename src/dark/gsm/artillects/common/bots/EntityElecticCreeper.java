@@ -141,7 +141,7 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 			if (this.timeSinceIgnited >= this.fuseTime)
 			{
 				this.timeSinceIgnited = this.fuseTime;
-				this.boom();
+				this.boom(); 
 
 			}
 		}
@@ -156,7 +156,7 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 			boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 			if (!this.explosiveName.equalsIgnoreCase("tnt") && this.getExplosiveType() != null)
 			{
-				//ICBM.createExplosion(this.worldObj, this.posX, this.posY, this.posZ, this, this.getExplosiveType().getID());
+				this.getExplosiveType().createExplosion(this.worldObj, this.posX, this.posY, this.posZ, this);
 			}
 			else
 			{
@@ -246,7 +246,6 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
 	@Override
 	public NBTTagCompound getTagCompound()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.getEntityData();
 	}
 }

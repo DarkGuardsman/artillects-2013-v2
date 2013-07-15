@@ -26,13 +26,13 @@ public class TileEntityGunTurret extends TileEntityAutoTurret
 	}
 
 	@Override
-	public double getFiringRequest()
+	public float getFiringRequest()
 	{
 		return 1;
 	}
 
 	@Override
-	public double getRunningRequest()
+	public float getRunningRequest()
 	{
 		return 5;
 	}

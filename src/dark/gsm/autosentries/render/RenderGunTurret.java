@@ -2,6 +2,7 @@ package dark.gsm.autosentries.render;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -61,17 +62,23 @@ public class RenderGunTurret extends RenderTaggedTile
 
 			if (level == AccessLevel.ADMIN)
 			{
-				this.bindTextureByName(GSMCore.MODEL_PATH + TEXTURE_FILE);
+				this.bindTextureByName(GSMCore.DOMAIN, GSMCore.MODEL_DIRECTORY + TEXTURE_FILE);
 				return;
 			}
 			else if (level.ordinal() >= AccessLevel.USER.ordinal())
 			{
-				this.bindTextureByName(GSMCore.MODEL_PATH + TEXTURE_FILE_FRIENDLY);
+				this.bindTextureByName(GSMCore.DOMAIN, GSMCore.MODEL_DIRECTORY + TEXTURE_FILE_FRIENDLY);
 				return;
 			}
 		}
 
-		this.bindTextureByName(GSMCore.MODEL_PATH + TEXTURE_FILE_HOSTILE);
+		this.bindTextureByName(GSMCore.DOMAIN, GSMCore.MODEL_DIRECTORY + TEXTURE_FILE_HOSTILE);
 
+	}
+
+	@Override
+	public ResourceLocation getTexture(int block, int meta)
+	{
+		return null;
 	}
 }

@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import universalelectricity.core.UniversalElectricity;
+import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
 import dark.gsm.autosentries.Sentries;
@@ -27,6 +28,7 @@ import dark.library.machine.terminal.TileEntityTerminal;
 
 public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmmunition, IInventory
 {
+
 	/** The turret linked to this platform. */
 	private TileEntityTurretBase turret = null;
 	/** Deploy direction of the sentry */
@@ -39,6 +41,12 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 	/** The first 12 slots are for ammunition. The last 4 slots are for upgrades. */
 	public ItemStack[] containingItems = new ItemStack[UPGRADE_START_INDEX + 4];
 
+	public TileEntityTurretPlatform()
+	{
+		super(1);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void updateEntity()
 	{
@@ -50,41 +58,33 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 
 			if (this.isRunning() && turret != null)
 			{
-				this.wattsReceived -= turret.getRunningRequest();
+				this.setEnergyStored(this.getEnergyStored() - turret.getRunningRequest());
 			}
 		}
 
 	}
 
 	@Override
-	public void onReceive(ForgeDirection side, double v, double a)
+	public float receiveElectricity(ForgeDirection from, ElectricityPack receive, boolean doReceive)
 	{
-		double w = v * a;
 		/** Creates an explosion if the voltage is too high. */
-		if (UniversalElectricity.isVoltageSensitive)
+		if (UniversalElectricity.isVoltageSensitive && receive != null)
 		{
-			if (v > this.getVoltage())
+			if (receive.voltage > this.getVoltage())
 			{
 				TileEntityTurretBase turret = this.getTurret(false);
 				if (turret != null && turret instanceof IHpTile)
 				{
 					((IHpTile) this.turret).onDamageTaken(CustomDamageSource.electrocution, Integer.MAX_VALUE);
 				}
-				return;
+				return 0;
 			}
 		}
-
-		this.prevWatts = this.wattsReceived;
-		this.wattsReceived = Math.min(this.wattsReceived + w, this.getBattery(ForgeDirection.UNKNOWN));
-
-		if ((this.prevWatts <= this.getRequest(ForgeDirection.UNKNOWN) && this.wattsReceived >= this.getRequest(ForgeDirection.UNKNOWN)) && !(this.prevWatts == this.wattsReceived))
-		{
-			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-		}
+		return super.receiveElectricity(from, receive, doReceive);
 	}
 
 	@Override
-	public double getRequest(ForgeDirection side)
+	public float getRequest(ForgeDirection side)
 	{
 		if (this.getTurret(false) != null)
 		{
@@ -92,16 +92,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 		}
 
 		return 0;
-	}
-
-	@Override
-	public double getBattery(ForgeDirection side)
-	{
-		if (this.getTurret(false) != null)
-		{
-			return (this.getTurret(false).getFiringRequest() * 4) + (this.getTurret(false).getRunningRequest() * 2);
-		}
-		return 10;
 	}
 
 	/** Gets the turret instance linked to this platform */
@@ -162,7 +152,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 
 	public boolean isRunning()
 	{
-		return !this.isDisabled() && (this.getTurret(false) != null && this.getTurret(false).getRunningRequest() <= this.wattsReceived || this.runPowerless);
+		return !this.isDisabled() && (this.getTurret(false) != null && this.getTurret(false).getRunningRequest() <= this.getEnergyStored() || this.runWithOutPower);
 	}
 
 	@Override
@@ -412,7 +402,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 	}
 
 	@Override
-	public boolean isStackValidForSlot(int slotID, ItemStack itemStack)
+	public boolean isItemValidForSlot(int slotID, ItemStack itemStack)
 	{
 		if (slotID < UPGRADE_START_INDEX && itemStack.getItem() instanceof IAmmunition)
 		{
