@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
-import dark.core.IDisableable;
+import dark.core.api.IDisableable;
 import dark.core.hydraulic.helpers.FluidHelper;
 import dark.gsm.artillects.common.blocks.IBotController;
 

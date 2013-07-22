@@ -41,12 +41,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 	/** The first 12 slots are for ammunition. The last 4 slots are for upgrades. */
 	public ItemStack[] containingItems = new ItemStack[UPGRADE_START_INDEX + 4];
 
-	public TileEntityTurretPlatform()
-	{
-		super(1);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	public void updateEntity()
 	{
@@ -114,7 +108,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
 	}
 
 	/** if a sentry is spawned above the stand it is removed
-	 * 
+	 *
 	 * @return */
 	public boolean destroyTurret()
 	{
