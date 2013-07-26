@@ -7,12 +7,12 @@ import dark.gsm.core.common.GSMCore;
 
 public class ItemBasic extends Item
 {
-	public static final Icon[] ICONS = new Icon[256];
+    public static final Icon[] ICONS = new Icon[256];
 
-	public ItemBasic(int itemID, String name, Configuration config)
-	{
-		super(config.getItem(name, itemID).getInt());
-		this.setUnlocalizedName(GSMCore.PREFIX + name);
-	}
+    public ItemBasic(int itemID, String name, Configuration config)
+    {
+        super(config.getItem(name, itemID).getInt());
+        this.setUnlocalizedName(GSMCore.PREFIX + name);
+    }
 
 }

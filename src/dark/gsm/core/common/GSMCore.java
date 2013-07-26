@@ -14,140 +14,140 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.library.machine.BlockMulti;
-import dark.library.machine.TileEntityMulti;
+import dark.core.blocks.BlockMulti;
+import dark.core.blocks.TileEntityMulti;
 
 public class GSMCore
 {
-	public static boolean loaded = false;
+    public static boolean loaded = false;
 
-	public static final String MAJOR_VERSION = "@MAJOR@";
-	public static final String MINOR_VERSION = "@MINOR@";
-	public static final String REVISION_VERSION = "@REVIS@";
-	public static final String BUILD_VERSION = "@BUILD@";
-	
-	public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION_VERSION;
-	public static final String DOMAIN = "dark";
-	public static final String PREFIX = DOMAIN + ":";
-	
-	/* RESOURCE FILE PATHS */
-	public static final String DIRECTORY_NO_SLASH = "assets/" + DOMAIN + "/";
-	public static final String DIRECTORY = "/" + DIRECTORY_NO_SLASH;
-	public static final String LANGUAGE_PATH = DIRECTORY + "languages/";
-	public static final String SOUND_PATH = DIRECTORY + "audio/";
+    public static final String MAJOR_VERSION = "@MAJOR@";
+    public static final String MINOR_VERSION = "@MINOR@";
+    public static final String REVISION_VERSION = "@REVIS@";
+    public static final String BUILD_VERSION = "@BUILD@";
 
-	public static final String TEXTURE_DIRECTORY = "textures/";
-	public static final String BLOCK_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
-	public static final String ITEM_DIRECTORY = TEXTURE_DIRECTORY + "items/";
-	public static final String MODEL_DIRECTORY = TEXTURE_DIRECTORY + "models/";
-	public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
+    public static final String VERSION = MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION_VERSION;
+    public static final String DOMAIN = "dark";
+    public static final String PREFIX = DOMAIN + ":";
 
-	public static final Configuration gsmCoreConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/DarkMain.cfg"));
+    /* RESOURCE FILE PATHS */
+    public static final String DIRECTORY_NO_SLASH = "assets/" + DOMAIN + "/";
+    public static final String DIRECTORY = "/" + DIRECTORY_NO_SLASH;
+    public static final String LANGUAGE_PATH = DIRECTORY + "languages/";
+    public static final String SOUND_PATH = DIRECTORY + "audio/";
 
-	public static final String NAME = "GSM";
+    public static final String TEXTURE_DIRECTORY = "textures/";
+    public static final String BLOCK_DIRECTORY = TEXTURE_DIRECTORY + "blocks/";
+    public static final String ITEM_DIRECTORY = TEXTURE_DIRECTORY + "items/";
+    public static final String MODEL_DIRECTORY = TEXTURE_DIRECTORY + "models/";
+    public static final String GUI_DIRECTORY = TEXTURE_DIRECTORY + "gui/";
 
-	public static boolean preInit = false;
-	public static boolean init = false;
-	public static boolean postInit = false;
+    public static final Configuration gsmCoreConfig = new Configuration(new File(Loader.instance().getConfigDir(), "dark/DarkMain.cfg"));
 
-	/* START IDS */
-	public static int BLOCK_ID_PREFIX = 3323;
-	public static int ITEM_ID_PREFIX = 15673;
-	public static int ENTITY_ID_PREFIX = 56;
+    public static final String NAME = "GSM";
 
-	public static Block multiBlock;
+    public static boolean preInit = false;
+    public static boolean init = false;
+    public static boolean postInit = false;
 
-	/** Creative tab for generic items and block that don't belong in any other tab */
-	public static CreativeTabs tabGSMGeneral = new CreativeTabs("GSM General")
-	{
+    /* START IDS */
+    public static int BLOCK_ID_PREFIX = 3323;
+    public static int ITEM_ID_PREFIX = 15673;
+    public static int ENTITY_ID_PREFIX = 56;
 
-		public ItemStack getIconItemStack()
-		{
-			return new ItemStack(Item.ingotIron, 1, 0);
-		}
-	};
-	/** Creative tab for High tech and industrial based items and blocks that don't belong in any
-	 * other tab */
-	public static CreativeTabs tabGSMIndustrial = new CreativeTabs("GSM Machines")
-	{
+    public static Block multiBlock;
 
-		public ItemStack getIconItemStack()
-		{
-			return new ItemStack(Item.ingotIron, 1, 0);
-		}
-	};
-	/** Creative tab for general castle and fortress related items and blocks that don't belong in
-	 * any other tab */
-	public static CreativeTabs tabGSMCastle = new CreativeTabs("GSM Fortress")
-	{
+    /** Creative tab for generic items and block that don't belong in any other tab */
+    public static CreativeTabs tabGSMGeneral = new CreativeTabs("GSM General")
+    {
 
-		public ItemStack getIconItemStack()
-		{
-			return new ItemStack(Item.ingotIron, 1, 0);
-		}
-	};
+        public ItemStack getIconItemStack()
+        {
+            return new ItemStack(Item.ingotIron, 1, 0);
+        }
+    };
+    /** Creative tab for High tech and industrial based items and blocks that don't belong in any
+     * other tab */
+    public static CreativeTabs tabGSMIndustrial = new CreativeTabs("GSM Machines")
+    {
 
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		if (!preInit)
-		{
-			gsmCoreConfig.load();
-			/*Multi Block fake block */
-			multiBlock = new BlockMulti(gsmCoreConfig.getBlock("Multiblock", ++BLOCK_ID_PREFIX).getInt()).setTextureName(PREFIX + "machine").setChannel(this.getChannel());
-			GameRegistry.registerBlock(multiBlock, "multiBlock");
-			GameRegistry.registerTileEntity(TileEntityMulti.class, "GSMMulti");
+        public ItemStack getIconItemStack()
+        {
+            return new ItemStack(Item.ingotIron, 1, 0);
+        }
+    };
+    /** Creative tab for general castle and fortress related items and blocks that don't belong in
+     * any other tab */
+    public static CreativeTabs tabGSMCastle = new CreativeTabs("GSM Fortress")
+    {
 
-			if (gsmCoreConfig.hasChanged())
-			{
-				gsmCoreConfig.save();
-			}
-			preInit = true;
-		}
+        public ItemStack getIconItemStack()
+        {
+            return new ItemStack(Item.ingotIron, 1, 0);
+        }
+    };
 
-	}
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        if (!preInit)
+        {
+            gsmCoreConfig.load();
+            /*Multi Block fake block */
+            multiBlock = new BlockMulti(gsmCoreConfig.getBlock("Multiblock", ++BLOCK_ID_PREFIX).getInt()).setTextureName(PREFIX + "machine").setChannel(this.getChannel());
+            GameRegistry.registerBlock(multiBlock, "multiBlock");
+            GameRegistry.registerTileEntity(TileEntityMulti.class, "GSMMulti");
 
-	public void init(FMLInitializationEvent event)
-	{
-		if (!init)
-		{
-			init = true;
-		}
+            if (gsmCoreConfig.hasChanged())
+            {
+                gsmCoreConfig.save();
+            }
+            preInit = true;
+        }
 
-	}
+    }
 
-	public void postInit(FMLPostInitializationEvent event)
-	{
-		if (!postInit)
-		{
-			postInit = true;
-		}
+    public void init(FMLInitializationEvent event)
+    {
+        if (!init)
+        {
+            init = true;
+        }
 
-	}
+    }
 
-	public String getVersion()
-	{
-		return this.VERSION;
-	}
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        if (!postInit)
+        {
+            postInit = true;
+        }
 
-	public String getChannel()
-	{
-		return "GSMMain";
-	}
+    }
 
-	public String getName()
-	{
-		return NAME;
-	}
+    public String getVersion()
+    {
+        return this.VERSION;
+    }
 
-	public void worldSave(Save evt)
-	{
-		// TODO Auto-generated method stub
+    public String getChannel()
+    {
+        return "GSMMain";
+    }
 
-	}
+    public String getName()
+    {
+        return NAME;
+    }
 
-	public void serverStarting(FMLServerStartingEvent event)
-	{
-		// TODO Auto-generated method stub
+    public void worldSave(Save evt)
+    {
+        // TODO Auto-generated method stub
 
-	}
+    }
+
+    public void serverStarting(FMLServerStartingEvent event)
+    {
+        // TODO Auto-generated method stub
+
+    }
 }

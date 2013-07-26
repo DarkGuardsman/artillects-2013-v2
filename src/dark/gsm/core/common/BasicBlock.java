@@ -10,33 +10,33 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BasicBlock extends BlockTile
 {
-	protected Icon iconTop, iconSide, iconBottom;
-	protected boolean requireSidedTextures = false;
+    protected Icon iconTop, iconSide, iconBottom;
+    protected boolean requireSidedTextures = false;
 
-	public BasicBlock(int id, String name, Material material, Configuration config)
-	{
-		super(config.getBlock(name, id).getInt(id), material);
-		this.setUnlocalizedName(GSMCore.PREFIX + name);
-		this.setCreativeTab(GSMCore.tabGSMGeneral);
-	}
+    public BasicBlock(int id, String name, Material material, Configuration config)
+    {
+        super(config.getBlock(name, id).getInt(id), material);
+        this.setUnlocalizedName(GSMCore.PREFIX + name);
+        this.setCreativeTab(GSMCore.tabGSMGeneral);
+    }
 
-	@Override
-	public int damageDropped(int metadata)
-	{
-		return metadata;
-	}
+    @Override
+    public int damageDropped(int metadata)
+    {
+        return metadata;
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IconRegister iconRegister)
-	{
-		super.registerIcons(iconRegister);
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IconRegister iconRegister)
+    {
+        super.registerIcons(iconRegister);
 
-		if (this.requireSidedTextures)
-		{
-			this.iconTop = iconRegister.registerIcon(this.getUnlocalizedName() + "_top");
-			this.iconSide = iconRegister.registerIcon(this.getUnlocalizedName() + "_side");
-			this.iconBottom = iconRegister.registerIcon(this.getUnlocalizedName() + "_bottom");
-		}
-	}
+        if (this.requireSidedTextures)
+        {
+            this.iconTop = iconRegister.registerIcon(this.getUnlocalizedName() + "_top");
+            this.iconSide = iconRegister.registerIcon(this.getUnlocalizedName() + "_side");
+            this.iconBottom = iconRegister.registerIcon(this.getUnlocalizedName() + "_bottom");
+        }
+    }
 }

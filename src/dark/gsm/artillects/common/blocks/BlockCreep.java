@@ -24,114 +24,114 @@ import dark.gsm.core.common.GSMCore;
 public class BlockCreep extends Block
 {
 
-	public BlockCreep(int par1)
-	{
-		super(par1, Material.iron);
-		this.setTickRandomly(true);
-		this.setCreativeTab(CreativeTabs.tabBlock);
-		this.setBlockBounds(0, 0, 0, 1f, .2f, 1f);
-	}
+    public BlockCreep(int par1)
+    {
+        super(par1, Material.iron);
+        this.setTickRandomly(true);
+        this.setCreativeTab(CreativeTabs.tabBlock);
+        this.setBlockBounds(0, 0, 0, 1f, .2f, 1f);
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Icon getIcon(int side, int meta)
-	{
-		return side == 1 ? this.blockIcon : (side == 0 ? Block.dirt.getBlockTextureFromSide(side) : this.blockIcon);
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Icon getIcon(int side, int meta)
+    {
+        return side == 1 ? this.blockIcon : (side == 0 ? Block.dirt.getBlockTextureFromSide(side) : this.blockIcon);
+    }
 
-	@Override
-	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
-	{
-		AxisAlignedBB newBounds = AxisAlignedBB.getAABBPool().getAABB(x, y, z, x + 1, y + 0.2, z + 1);
+    @Override
+    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+    {
+        AxisAlignedBB newBounds = AxisAlignedBB.getAABBPool().getAABB(x, y, z, x + 1, y + 0.2, z + 1);
 
-		if (newBounds != null && par5AxisAlignedBB.intersectsWith(newBounds))
-		{
-			par6List.add(newBounds);
-		}
-	}
+        if (newBounds != null && par5AxisAlignedBB.intersectsWith(newBounds))
+        {
+            par6List.add(newBounds);
+        }
+    }
 
-	@Override
-	public void updateTick(World world, int x, int y, int z, Random random)
-	{
-		if (!world.isRemote)
-		{
-			int meta = world.getBlockMetadata(x, y, z);
-			for (int l = 0; l < 4; ++l)
-			{
-				int i1 = x + random.nextInt(3) - 1;
-				int j1 = y + random.nextInt(5) - 3;
-				int k1 = z + random.nextInt(3) - 1;
-				int blockID = world.getBlockId(i1, j1, k1);
-				int blockIDB = world.getBlockId(i1, j1 - 1, k1);
-				if (blockID == 0 && blockIDB != 0 && blockIDB != this.blockID)
-				{
-					world.setBlock(i1, j1, k1, this.blockID, meta, 3);
-				}
-			}
-		}
-	}
+    @Override
+    public void updateTick(World world, int x, int y, int z, Random random)
+    {
+        if (!world.isRemote)
+        {
+            int meta = world.getBlockMetadata(x, y, z);
+            for (int l = 0; l < 4; ++l)
+            {
+                int i1 = x + random.nextInt(3) - 1;
+                int j1 = y + random.nextInt(5) - 3;
+                int k1 = z + random.nextInt(3) - 1;
+                int blockID = world.getBlockId(i1, j1, k1);
+                int blockIDB = world.getBlockId(i1, j1 - 1, k1);
+                if (blockID == 0 && blockIDB != 0 && blockIDB != this.blockID)
+                {
+                    world.setBlock(i1, j1, k1, this.blockID, meta, 3);
+                }
+            }
+        }
+    }
 
-	@Override
-	public boolean renderAsNormalBlock()
-	{
-		return false;
-	}
+    @Override
+    public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube()
+    {
+        return false;
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-	{
-		return true;
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        return true;
+    }
 
-	@Override
-	public int idDropped(int par1, Random random, int par3)
-	{
-		if (random.nextInt(10) == 1)
-		{
-			if (OreDictionary.getOres("copperWire").size() > 0)
-			{
-				ItemStack stack = OreDictionary.getOres("copperWire").get(0);
-				return stack != null ? stack.itemID : 0;
-			}
-			else
-			{
-				return Item.ingotIron.itemID;
-			}
-		}
-		return 0;
-	}
+    @Override
+    public int idDropped(int par1, Random random, int par3)
+    {
+        if (random.nextInt(10) == 1)
+        {
+            if (OreDictionary.getOres("copperWire").size() > 0)
+            {
+                ItemStack stack = OreDictionary.getOres("copperWire").get(0);
+                return stack != null ? stack.itemID : 0;
+            }
+            else
+            {
+                return Item.ingotIron.itemID;
+            }
+        }
+        return 0;
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
-	{
-		if (side == 1)
-		{
-			return this.blockIcon;
-		}
-		else
-		{
-			return Block.blockIron.getIcon(side, 0);
-		}
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side)
+    {
+        if (side == 1)
+        {
+            return this.blockIcon;
+        }
+        else
+        {
+            return Block.blockIron.getIcon(side, 0);
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IconRegister par1IconRegister)
-	{
-		this.blockIcon = par1IconRegister.registerIcon(GSMCore.PREFIX + "wireCreep");
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IconRegister par1IconRegister)
+    {
+        this.blockIcon = par1IconRegister.registerIcon(GSMCore.PREFIX + "wireCreep");
+    }
 
-	@Override
-	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
-	{
-		MinecraftForge.EVENT_BUS.post(new CreepBreakEvent(world, new Vector3(x, y, z)));
-	}
+    @Override
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
+    {
+        MinecraftForge.EVENT_BUS.post(new CreepBreakEvent(world, new Vector3(x, y, z)));
+    }
 }

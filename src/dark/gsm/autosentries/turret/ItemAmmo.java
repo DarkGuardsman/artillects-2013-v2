@@ -13,157 +13,157 @@ import net.minecraftforge.common.Configuration;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.core.damage.TileDamageSource;
+import dark.core.helpers.AutoCraftingManager;
+import dark.core.helpers.Pair;
 import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.core.common.item.ItemBasic;
-import dark.helpers.Pair;
-import dark.library.damage.TileDamageSource;
-import dark.library.machine.AutoCraftingManager;
 
 public class ItemAmmo extends ItemBasic implements IAmmo
 {
-	enum types
-	{
-		SHELL("bulletShell", ProjectileTypes.NEUTRIAL, true),
-		BULLET("bullet", ProjectileTypes.CONVENTIONAL, true),
-		BULLETRAIL("bulletRailgun", ProjectileTypes.RAILGUN, true),
-		BULLETANTI("bulletAntimatter", ProjectileTypes.RAILGUN, true),
-		BULLETINF("bulletInfinite", ProjectileTypes.CONVENTIONAL, false);
+    enum types
+    {
+        SHELL("bulletShell", ProjectileTypes.NEUTRIAL, true),
+        BULLET("bullet", ProjectileTypes.CONVENTIONAL, true),
+        BULLETRAIL("bulletRailgun", ProjectileTypes.RAILGUN, true),
+        BULLETANTI("bulletAntimatter", ProjectileTypes.RAILGUN, true),
+        BULLETINF("bulletInfinite", ProjectileTypes.CONVENTIONAL, false);
 
-		public String iconName;
-		public ProjectileTypes type;
-		public boolean consume;
+        public String iconName;
+        public ProjectileTypes type;
+        public boolean consume;
 
-		private types(String iconName, ProjectileTypes type, boolean consume)
-		{
-			this.iconName = iconName;
-			this.type = type;
-			this.consume = consume;
-		}
-	}
+        private types(String iconName, ProjectileTypes type, boolean consume)
+        {
+            this.iconName = iconName;
+            this.type = type;
+            this.consume = consume;
+        }
+    }
 
-	public static final Icon[] ICONS = new Icon[types.values().length];
+    public static final Icon[] ICONS = new Icon[types.values().length];
 
-	public ItemAmmo(int id, Configuration config)
-	{
-		super(id, "ammunition", config);
-		this.setMaxDamage(0);
-		this.setHasSubtypes(true);
-	}
+    public ItemAmmo(int id, Configuration config)
+    {
+        super(id, "ammunition", config);
+        this.setMaxDamage(0);
+        this.setHasSubtypes(true);
+    }
 
-	@Override
-	public int getMetadata(int damage)
-	{
-		return damage;
-	}
+    @Override
+    public int getMetadata(int damage)
+    {
+        return damage;
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack itemStack)
-	{
-		return "item." + GSMCore.PREFIX + types.values()[itemStack.getItemDamage()].iconName;
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack)
+    {
+        return "item." + GSMCore.PREFIX + types.values()[itemStack.getItemDamage()].iconName;
+    }
 
-	@Override
-	public Icon getIconFromDamage(int i)
-	{
-		return ICONS[i];
-	}
+    @Override
+    public Icon getIconFromDamage(int i)
+    {
+        return ICONS[i];
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IconRegister iconRegister)
-	{
-		for (int i = 0; i < types.values().length; i++)
-		{
-			ICONS[i] = iconRegister.registerIcon(GSMCore.PREFIX + types.values()[i].iconName);
-		}
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IconRegister iconRegister)
+    {
+        for (int i = 0; i < types.values().length; i++)
+        {
+            ICONS[i] = iconRegister.registerIcon(GSMCore.PREFIX + types.values()[i].iconName);
+        }
+    }
 
-	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
-	{
-		for (int i = 0; i < types.values().length; i++)
-		{
-			par3List.add(new ItemStack(this, 1, i));
-		}
-	}
+    @Override
+    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+        for (int i = 0; i < types.values().length; i++)
+        {
+            par3List.add(new ItemStack(this, 1, i));
+        }
+    }
 
-	@Override
-	public ProjectileTypes getType(int meta)
-	{
-		if (meta < types.values().length)
-		{
-			return types.values()[meta].type;
-		}
-		return null;
-	}
+    @Override
+    public ProjectileTypes getType(int meta)
+    {
+        if (meta < types.values().length)
+        {
+            return types.values()[meta].type;
+        }
+        return null;
+    }
 
-	@Override
-	public Pair<DamageSource, Integer> getDamage(Entity entity, Object shooter, int meta)
-	{
-		if (meta == types.BULLET.ordinal() || meta == types.BULLETINF.ordinal())
-		{
-			return new Pair<DamageSource, Integer>(TileDamageSource.doBulletDamage(shooter), 8);
-		}
-		return null;
-	}
+    @Override
+    public Pair<DamageSource, Integer> getDamage(Entity entity, Object shooter, int meta)
+    {
+        if (meta == types.BULLET.ordinal() || meta == types.BULLETINF.ordinal())
+        {
+            return new Pair<DamageSource, Integer>(TileDamageSource.doBulletDamage(shooter), 8);
+        }
+        return null;
+    }
 
-	@Override
-	public boolean applyDirectDamage(int meta)
-	{
-		if (meta == types.BULLET.ordinal() || meta == types.BULLETINF.ordinal())
-		{
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean applyDirectDamage(int meta)
+    {
+        if (meta == types.BULLET.ordinal() || meta == types.BULLETINF.ordinal())
+        {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean fireAmmoLiving(Entity target, int meta)
-	{
-		return false;
-	}
+    @Override
+    public boolean fireAmmoLiving(Entity target, int meta)
+    {
+        return false;
+    }
 
-	@Override
-	public boolean fireAmmoLoc(World world, Vector3 target, int meta)
-	{
-		return false;
-	}
+    @Override
+    public boolean fireAmmoLoc(World world, Vector3 target, int meta)
+    {
+        return false;
+    }
 
-	@Override
-	public ItemStack consumeItem(ItemStack itemStack)
-	{
-		if (itemStack != null && itemStack.getItemDamage() != types.BULLETINF.ordinal())
-		{
-			return AutoCraftingManager.decrStackSize(itemStack, 1);
-		}
-		return itemStack;
-	}
+    @Override
+    public ItemStack consumeItem(ItemStack itemStack)
+    {
+        if (itemStack != null && itemStack.getItemDamage() != types.BULLETINF.ordinal())
+        {
+            return AutoCraftingManager.decrStackSize(itemStack, 1);
+        }
+        return itemStack;
+    }
 
-	@Override
-	public boolean canDrop(int meta)
-	{
-		if (meta == types.BULLETINF.ordinal())
-		{
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean canDrop(int meta)
+    {
+        if (meta == types.BULLETINF.ordinal())
+        {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public ItemStack onDroppedIntoWorld(ItemStack stack)
-	{
-		return stack;
-	}
+    @Override
+    public ItemStack onDroppedIntoWorld(ItemStack stack)
+    {
+        return stack;
+    }
 
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world)
-	{
-		if (itemStack != null && itemStack.getItemDamage() == types.BULLETINF.ordinal())
-		{
-			return 40;
-		}
-		return super.getEntityLifespan(itemStack, world);
-	}
+    @Override
+    public int getEntityLifespan(ItemStack itemStack, World world)
+    {
+        if (itemStack != null && itemStack.getItemDamage() == types.BULLETINF.ordinal())
+        {
+            return 40;
+        }
+        return super.getEntityLifespan(itemStack, world);
+    }
 }
