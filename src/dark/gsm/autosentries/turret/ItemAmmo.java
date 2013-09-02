@@ -13,13 +13,13 @@ import net.minecraftforge.common.Configuration;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.damage.TileDamageSource;
-import dark.core.helpers.AutoCraftingManager;
-import dark.core.helpers.Pair;
 import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.core.common.item.ItemBasic;
+import dark.prefab.damage.TileDamageSource;
+import dark.prefab.helpers.AutoCraftingManager;
+import dark.prefab.helpers.Pair;
 
 public class ItemAmmo extends ItemBasic implements IAmmo
 {

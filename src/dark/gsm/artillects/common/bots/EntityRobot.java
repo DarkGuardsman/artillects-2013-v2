@@ -10,9 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
-import dark.api.IDisableable;
-import dark.core.helpers.FluidHelper;
 import dark.gsm.artillects.common.blocks.IBotController;
+import dark.interfaces.IDisableable;
+import dark.prefab.helpers.FluidHelper;
 
 public abstract class EntityRobot extends EntityCreature implements IDisableable
 {

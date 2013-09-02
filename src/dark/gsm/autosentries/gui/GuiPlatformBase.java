@@ -13,12 +13,12 @@ import universalelectricity.prefab.network.PacketManager;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.gui.ContainerFake;
-import dark.core.terminal.TileEntityTerminal.PacketType;
 import dark.gsm.autosentries.CommonProxy;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
+import dark.prefab.invgui.ContainerFake;
+import dark.prefab.terminal.TileEntityTerminal.PacketType;
 
 /** A base class for all ICBM Sentry GUIs.
  * 

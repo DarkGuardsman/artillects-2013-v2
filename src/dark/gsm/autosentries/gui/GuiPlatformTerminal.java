@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.terminal.TileEntityTerminal;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
+import dark.prefab.terminal.TileEntityTerminal;
 
 /** The console GUI used by turrets.
  * 

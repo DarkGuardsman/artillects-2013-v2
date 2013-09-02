@@ -24,15 +24,15 @@ import universalelectricity.prefab.tile.TileEntityAdvanced;
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.FMLLog;
-import dark.api.IHeatObject;
-import dark.core.damage.EntityTileDamage;
-import dark.core.damage.IHpTile;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.ActionManager;
 import dark.gsm.autosentries.actions.LookHelper;
 import dark.gsm.autosentries.api.ISentry;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.client.renders.ITagRender;
+import dark.interfaces.IHeatObject;
+import dark.prefab.damage.EntityTileDamage;
+import dark.prefab.damage.IHpTile;
 
 /** Class that handles all the basic movement, and block based updates of a turret.
  * 

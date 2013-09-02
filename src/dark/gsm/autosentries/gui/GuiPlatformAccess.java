@@ -16,11 +16,11 @@ import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.vector.Region2;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.api.IScroll;
-import dark.core.access.AccessLevel;
-import dark.core.access.UserAccess;
-import dark.core.terminal.TileEntityTerminal;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
+import dark.interfaces.IScroll;
+import dark.prefab.access.AccessLevel;
+import dark.prefab.access.UserAccess;
+import dark.prefab.terminal.TileEntityTerminal;
 
 /** The GUI for user permissions and access.
  * 

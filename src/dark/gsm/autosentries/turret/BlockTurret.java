@@ -23,9 +23,6 @@ import universalelectricity.prefab.block.BlockAdvanced;
 import universalelectricity.prefab.tile.IRotatable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.api.IBlockActivate;
-import dark.core.blocks.IMultiBlock;
-import dark.core.damage.EntityTileDamage;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.render.BlockRenderingHandler;
 import dark.gsm.autosentries.turret.mount.TileEntityRailTurret;
@@ -33,6 +30,9 @@ import dark.gsm.autosentries.turret.sentries.TileEntityAATurret;
 import dark.gsm.autosentries.turret.sentries.TileEntityGunTurret;
 import dark.gsm.core.common.BasicBlock;
 import dark.gsm.core.common.GSMCore;
+import dark.interfaces.IBlockActivate;
+import dark.prefab.IMultiBlock;
+import dark.prefab.damage.EntityTileDamage;
 
 /** Block turret is a class used by all turrets. Each type of turret will have a different tile
  * entity.

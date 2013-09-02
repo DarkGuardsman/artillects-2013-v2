@@ -13,8 +13,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
-import dark.core.DarkMain;
-import dark.core.client.FXBeam;
+import dark.client.FXBeam;
+import dark.common.DarkMain;
 import dark.gsm.artillects.common.GSMMachines;
 import dark.gsm.artillects.common.PacketHandler;
 

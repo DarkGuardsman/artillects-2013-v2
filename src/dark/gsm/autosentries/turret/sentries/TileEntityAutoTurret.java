@@ -16,7 +16,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import universalelectricity.core.vector.Vector3;
-import dark.core.helpers.Pair;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.ActionIdle;
 import dark.gsm.autosentries.actions.ActionKillTarget;
@@ -30,6 +29,7 @@ import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.autosentries.api.IAutoSentry;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
+import dark.prefab.helpers.Pair;
 
 /** Extend this class for all turrets that are automatic.
  * 

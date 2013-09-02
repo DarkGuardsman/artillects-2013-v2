@@ -8,11 +8,11 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.access.AccessLevel;
 import dark.gsm.autosentries.model.ModelAATurret;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
 import dark.gsm.client.renders.RenderTaggedTile;
 import dark.gsm.core.common.GSMCore;
+import dark.prefab.access.AccessLevel;
 
 @SideOnly(Side.CLIENT)
 public class RenderAATurret extends RenderTaggedTile

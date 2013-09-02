@@ -24,10 +24,6 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.damage.EntityTileDamage;
-import dark.core.terminal.CommandHelp;
-import dark.core.terminal.CommandRegistry;
-import dark.core.terminal.CommandUser;
 import dark.gsm.autosentries.platform.BlockTurretPlatform;
 import dark.gsm.autosentries.terminal.command.CommandAccess;
 import dark.gsm.autosentries.terminal.command.CommandDestroy;
@@ -39,6 +35,10 @@ import dark.gsm.autosentries.turret.ItemBlockTurret;
 import dark.gsm.autosentries.turret.mount.EntityFakeMountable;
 import dark.gsm.autosentries.turret.upgrades.ItemTurretUpgrades;
 import dark.gsm.core.common.GSMCore;
+import dark.prefab.damage.EntityTileDamage;
+import dark.prefab.terminal.CommandHelp;
+import dark.prefab.terminal.CommandRegistry;
+import dark.prefab.terminal.CommandUser;
 
 @Mod(modid = Sentries.NAME, name = Sentries.NAME, version = GSMCore.VERSION, useMetadata = true)
 @NetworkMod(channels = { Sentries.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketManager.class)

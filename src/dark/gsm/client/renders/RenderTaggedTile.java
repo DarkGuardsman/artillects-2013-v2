@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.client.RenderMachine;
+import dark.client.renders.RenderMachine;
 
 /** @author Rseifert & Calclavia */
 @SideOnly(Side.CLIENT)

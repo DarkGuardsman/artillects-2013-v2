@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import dark.api.ISpecialAccess;
-import dark.api.ITerminal;
-import dark.core.access.AccessLevel;
-import dark.core.terminal.TerminalCommand;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
+import dark.interfaces.ISpecialAccess;
+import dark.interfaces.ITerminal;
+import dark.prefab.access.AccessLevel;
+import dark.prefab.terminal.TerminalCommand;
 
 /** Manipulates the access level of the turret platform.
  * 

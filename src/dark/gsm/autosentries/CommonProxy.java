@@ -6,12 +6,12 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.blocks.TileEntityMulti;
 import dark.gsm.autosentries.container.ContainerTurretPlatform;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.autosentries.turret.mount.TileEntityRailTurret;
 import dark.gsm.autosentries.turret.sentries.TileEntityAATurret;
 import dark.gsm.autosentries.turret.sentries.TileEntityGunTurret;
+import dark.prefab.TileEntityMulti;
 
 public class CommonProxy implements IGuiHandler
 {

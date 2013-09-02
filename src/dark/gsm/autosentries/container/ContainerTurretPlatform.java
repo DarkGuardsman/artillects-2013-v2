@@ -4,12 +4,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import dark.core.access.AccessLevel;
-import dark.core.terminal.ContainerTerminal;
 import dark.gsm.autosentries.SlotAmmunition;
 import dark.gsm.autosentries.api.ISentryUpgrade;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.autosentries.turret.ItemAmmo;
+import dark.prefab.access.AccessLevel;
+import dark.prefab.terminal.ContainerTerminal;
 
 public class ContainerTurretPlatform extends ContainerTerminal
 {
