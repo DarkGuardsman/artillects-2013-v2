@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import dark.core.interfaces.ISpecialAccess;
+import dark.core.interfaces.ITerminal;
+import dark.core.prefab.access.AccessLevel;
+import dark.core.prefab.terminal.TerminalCommand;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
-import dark.interfaces.ISpecialAccess;
-import dark.interfaces.ITerminal;
-import dark.prefab.access.AccessLevel;
-import dark.prefab.terminal.TerminalCommand;
 
 public class CommandDestroy extends TerminalCommand
 {

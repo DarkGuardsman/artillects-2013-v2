@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.PacketManager;
+import dark.core.prefab.IMultiBlock;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
-import dark.prefab.IMultiBlock;
 
 public abstract class TileEntityMountableTurret extends TileEntityTurretBase implements IMultiBlock
 {

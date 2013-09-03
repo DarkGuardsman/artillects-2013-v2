@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
-import dark.prefab.helpers.Pair;
+import dark.core.prefab.helpers.Pair;
 
 public interface IAmmo
 {

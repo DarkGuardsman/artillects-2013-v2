@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import dark.prefab.helpers.Quaternion;
+import dark.core.prefab.helpers.Quaternion;
 
 import net.minecraft.entity.Entity;
 import universalelectricity.core.vector.Vector3;

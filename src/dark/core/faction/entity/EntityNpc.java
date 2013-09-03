@@ -7,8 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import dark.core.faction.FactionInstance;
 import dark.core.faction.FactionManager;
+import dark.core.prefab.helpers.MathHelper;
 import dark.gsm.common.IFactionObject;
-import dark.prefab.helpers.MathHelper;
 
 /** NPC that simulate being players in an empire controlled environment
  *

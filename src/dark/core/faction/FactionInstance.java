@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import net.minecraft.nbt.NBTTagCompound;
-import dark.prefab.access.AccessLevel;
-import dark.prefab.access.GlobalAccessManager;
-import dark.prefab.access.UserAccess;
-import dark.prefab.helpers.Pair;
-import dark.prefab.helpers.Time;
+import dark.core.prefab.access.AccessLevel;
+import dark.core.prefab.access.GlobalAccessManager;
+import dark.core.prefab.access.UserAccess;
+import dark.core.prefab.helpers.Pair;
+import dark.core.prefab.helpers.Time;
 
 /** Class used to track and manage a player/NPC faction
  * 

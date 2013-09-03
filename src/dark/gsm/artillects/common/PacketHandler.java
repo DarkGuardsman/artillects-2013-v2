@@ -11,8 +11,8 @@ import universalelectricity.prefab.network.PacketManager;
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import dark.client.FXBeam;
-import dark.common.DarkMain;
+import dark.core.client.FXBeam;
+import dark.core.common.DarkMain;
 
 public class PacketHandler extends PacketManager
 {

@@ -15,14 +15,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.IPacketReceiver;
+import dark.core.prefab.IMultiBlock;
+import dark.core.prefab.TileEntityMulti;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.LookHelper;
 import dark.gsm.autosentries.api.AmmoPair;
 import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.core.common.GSMCore;
-import dark.prefab.IMultiBlock;
-import dark.prefab.TileEntityMulti;
 
 /** Railgun
  * 

@@ -14,13 +14,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
+import dark.core.interfaces.ISpecialAccess;
+import dark.core.prefab.access.AccessLevel;
 import dark.gsm.autosentries.CommonProxy;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.core.common.BasicBlock;
 import dark.gsm.core.common.GSMCore;
-import dark.interfaces.ISpecialAccess;
-import dark.prefab.access.AccessLevel;
 
 public class BlockTurretPlatform extends BasicBlock
 {

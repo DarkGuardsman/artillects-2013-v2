@@ -14,8 +14,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.prefab.BlockMulti;
-import dark.prefab.TileEntityMulti;
+import dark.core.prefab.BlockMulti;
+import dark.core.prefab.TileEntityMulti;
 
 public class GSMCore
 {

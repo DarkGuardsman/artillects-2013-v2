@@ -16,6 +16,8 @@ import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
+import dark.core.prefab.damage.IHpTile;
+import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.api.AmmoPair;
 import dark.gsm.autosentries.api.IAmmo;
@@ -23,8 +25,6 @@ import dark.gsm.autosentries.api.IAmmunition;
 import dark.gsm.autosentries.api.ISentryUpgrade;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
-import dark.prefab.damage.IHpTile;
-import dark.prefab.terminal.TileEntityTerminal;
 
 public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmmunition, IInventory
 {
