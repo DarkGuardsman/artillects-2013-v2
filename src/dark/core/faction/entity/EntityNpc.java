@@ -11,7 +11,7 @@ import dark.core.prefab.helpers.MathHelper;
 import dark.gsm.common.IFactionObject;
 
 /** NPC that simulate being players in an empire controlled environment
- *
+ * 
  * @author Darkguardsman */
 public class EntityNpc extends EntityCreature implements IFactionObject
 {

@@ -11,7 +11,7 @@ public class ItemMain extends Item
         super(DarkBotMain.config.getItem(name, par).getInt());
         this.setUnlocalizedName(name);
         this.setCreativeTab(tab);
-        this.func_111206_d(DarkBotMain.PREFIX+name);
+        this.func_111206_d(DarkBotMain.PREFIX + name);
     }
 
 }

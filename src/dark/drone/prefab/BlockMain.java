@@ -30,7 +30,7 @@ public class BlockMain extends BlockContainer
     public void registerIcons(IconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
-        machineSide = par1IconRegister.registerIcon(DarkBotMain.PREFIX+"machineSide");
+        machineSide = par1IconRegister.registerIcon(DarkBotMain.PREFIX + "machineSide");
     }
 
     @Override

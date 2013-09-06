@@ -53,7 +53,7 @@ public class HiveManager
     }
 
     /** Used to change a hiveminds tag id and update the hiveset list at the same time
-     *
+     * 
      * @param mind - hivemind
      * @param tag - null will remove it from tag list */
     public static void changeHiveTag(Hivemind mind, String tag)

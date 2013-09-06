@@ -20,7 +20,7 @@ import dark.drone.prefab.PosWorld;
 import dark.drone.prefab.Trap;
 
 /** Schematic system that is only used for creating world gen structures for this mod
- *
+ * 
  * @author DarkGuardsman */
 public class DarkSchematic
 {
@@ -136,7 +136,7 @@ public class DarkSchematic
     }
 
     /** Moves the player to the saved respawn location if it was saved
-     *
+     * 
      * @param corner - needs to be the corner of the schematic
      * @param player */
     public void movePlayerToSpawn(HiveSpire spire, EntityPlayer player)
@@ -287,7 +287,7 @@ public class DarkSchematic
     }
 
     /** Builds a normal schematic setup
-     *
+     * 
      * @param posWorld - world location to build the center of the schematic at
      * @param ignoreAir - should we replace blocks with air if the schematic calls for it
      * @param ignore - location to ignore */
@@ -297,7 +297,7 @@ public class DarkSchematic
     }
 
     /** Builds a spire schematic to a set of rules
-     *
+     * 
      * @param posWorld - world location
      * @param ignoreAir - should ignore air blocks in schematic
      * @param center - center the schematic to the core

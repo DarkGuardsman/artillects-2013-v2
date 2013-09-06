@@ -98,7 +98,7 @@ public class HiveSpire implements IHiveSpire
 
     /** Gets a spire close to the location. Use mainly if a spire core unloaded from the map and
      * needs to get its spire instance back to save from creating a new one
-     *
+     * 
      * @param location - world location
      * @param i - max distance to search for the spire
      * @return */

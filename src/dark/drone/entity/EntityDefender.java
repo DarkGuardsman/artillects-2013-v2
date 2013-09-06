@@ -28,8 +28,6 @@ public class EntityDefender extends EntityWeaponDrone
         this.dataWatcher.addObject(16, new Byte((byte) 0));
     }
 
-
-
     @Override
     public boolean attackEntityAsMob(Entity entity)
     {

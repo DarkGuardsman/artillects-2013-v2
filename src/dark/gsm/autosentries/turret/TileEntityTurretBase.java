@@ -24,7 +24,7 @@ import universalelectricity.prefab.tile.TileEntityAdvanced;
 import com.google.common.io.ByteArrayDataInput;
 
 import cpw.mods.fml.common.FMLLog;
-import dark.core.interfaces.IHeatObject;
+import dark.api.energy.IHeatObject;
 import dark.core.prefab.damage.EntityTileDamage;
 import dark.core.prefab.damage.IHpTile;
 import dark.gsm.autosentries.Sentries;

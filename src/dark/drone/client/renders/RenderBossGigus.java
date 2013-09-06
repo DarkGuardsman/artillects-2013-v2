@@ -21,6 +21,7 @@ public class RenderBossGigus extends Render
     private ResourceLocation body = new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/body.png");
     private ResourceLocation shoulders = new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/shoulders.png");
     private ResourceLocation pack = new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/missilePack.png");
+
     //private ResourceLocation leg = new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/BossLeg.png");
 
     public RenderBossGigus()

@@ -8,7 +8,8 @@ import dark.drone.prefab.Trap;
 
 public class TrapFall extends Trap
 {
-    Pair<Integer,Integer> resetBlock = null;
+    Pair<Integer, Integer> resetBlock = null;
+
     public TrapFall(Pos pos)
     {
         super(pos, "fall", 10);
@@ -36,9 +37,9 @@ public class TrapFall extends Trap
 
     public void reset(World world)
     {
-        if(this.resetBlock != null)
+        if (this.resetBlock != null)
         {
-            this.pos.setBlock(world, resetBlock.getOne(),resetBlock.getTwo());
+            this.pos.setBlock(world, resetBlock.getOne(), resetBlock.getTwo());
         }
     }
 }

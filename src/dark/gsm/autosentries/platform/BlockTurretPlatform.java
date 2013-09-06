@@ -14,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
-import dark.core.interfaces.ISpecialAccess;
+import dark.api.ISpecialAccess;
 import dark.core.prefab.access.AccessLevel;
 import dark.gsm.autosentries.CommonProxy;
 import dark.gsm.autosentries.Sentries;

@@ -10,7 +10,7 @@ import net.minecraft.entity.Entity;
 import universalelectricity.core.vector.Vector3;
 
 /** Designed to be used by flying Entities to create an orbit pattern around a central point
- *
+ * 
  * @author DarkGuardsman */
 public class NetworkOrbit
 {
@@ -58,7 +58,7 @@ public class NetworkOrbit
     }
 
     /** Increase/changes the rotation angles of the orbit
-     *
+     * 
      * @param vec - rotation change stored as a vector3
      * @param increase - add the vec rotation to current rotation */
     public void changeRotation(Vector3 vec, boolean increase)
@@ -105,11 +105,11 @@ public class NetworkOrbit
 
     /** @param pos - position in the orbit
      * @return offset distance from orbit center
-     *
+     * 
      * Note this only gives the offset from the orbit point. This needs to be used to in combo with
      * something else to get the orbit point. Then add the result of this to get the pos of the
      * object
-     *
+     * 
      * http://en.wikipedia.org/wiki/Spherical_coordinates */
     public Vector3 getOrbitOffset(Entity entity, int pos)
     {
