@@ -1,11 +1,12 @@
 package dark.gsm.autosentries.turret.sentries;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import universalelectricity.core.vector.Vector3;
 import dark.gsm.autosentries.actions.LookHelper;
 
 /** AA Turret, shoots down missiles and planes.
- * 
+ *
  * @author DarkGaurdsman */
 public class TileEntityAATurret extends TileEntityAutoTurret
 {

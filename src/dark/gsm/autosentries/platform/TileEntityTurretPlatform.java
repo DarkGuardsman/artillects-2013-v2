@@ -16,7 +16,7 @@ import universalelectricity.core.UniversalElectricity;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.CustomDamageSource;
-import dark.core.prefab.damage.IHpTile;
+import dark.core.prefab.damage.IDamageableTile;
 import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.api.AmmoPair;
@@ -67,9 +67,9 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
             if (receive.voltage > this.getVoltage())
             {
                 TileEntityTurretBase turret = this.getTurret(false);
-                if (turret != null && turret instanceof IHpTile)
+                if (turret != null && turret instanceof IDamageableTile)
                 {
-                    ((IHpTile) this.turret).onDamageTaken(CustomDamageSource.electrocution, Integer.MAX_VALUE);
+                    ((IDamageableTile) this.turret).onDamageTaken(CustomDamageSource.electrocution, Integer.MAX_VALUE);
                 }
                 return 0;
             }

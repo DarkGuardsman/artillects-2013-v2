@@ -26,7 +26,7 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.FMLLog;
 import dark.api.energy.IHeatObject;
 import dark.core.prefab.damage.EntityTileDamage;
-import dark.core.prefab.damage.IHpTile;
+import dark.core.prefab.damage.IDamageableTile;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.ActionManager;
 import dark.gsm.autosentries.actions.LookHelper;
@@ -35,9 +35,9 @@ import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.client.renders.ITagRender;
 
 /** Class that handles all the basic movement, and block based updates of a turret.
- * 
+ *
  * @author Rseifert */
-public abstract class TileEntityTurretBase extends TileEntityAdvanced implements IPacketReceiver, ITagRender, ISentry, IHpTile, IHeatObject
+public abstract class TileEntityTurretBase extends TileEntityAdvanced implements IPacketReceiver, ITagRender, ISentry, IDamageableTile, IHeatObject
 {
     /** OFFSET OF BARREL ROTATION */
     public final float rotationTranslation = 0.0175f;
@@ -54,7 +54,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     /** SHOULD SPEED UP ROATION */
     protected boolean speedUpRotation = false;
     /** CURRENT HP OF THE SENTRY */
-    public int health = -1;
+    public float health = -1;
     /** CURRENT STORED HEAT LEVEL OF SENTRY */
     public double heat = 0;
     /** BASE MAX LIMIT OF HEAT THIS SENTRY CAN HANDLE */
@@ -105,7 +105,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
 
         if (!this.worldObj.isRemote)
         {
-            int preHp = this.hp();
+            float preHp = this.health();
             double preHeat = this.heat;
 
             /* CREATE HEAT DAMAGE IF HEAT LEVEL IS TOO HIGH */
@@ -115,7 +115,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             }
 
             /* SPAWN DAMAGE ENTITY IF ALIVE AND ABLE */
-            if (!this.isInvul() && this.getDamageEntity() == null && this.hp() > 0)
+            if (!this.isInvul() && this.getDamageEntity() == null && this.health() > 0)
             {
                 this.setDamageEntity(new EntityTileDamage(this));
                 this.worldObj.spawnEntityInWorld(this.getDamageEntity());
@@ -128,9 +128,9 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             }
 
             /* STATS PACKET */
-            if (this.getHeat(ForgeDirection.UNKNOWN) != preHeat || this.hp() != preHp)
+            if (this.getHeat(ForgeDirection.UNKNOWN) != preHeat || this.health() != preHp)
             {
-                PacketManager.sendPacketToClients(PacketManager.getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.hp()), this.worldObj, new Vector3(this), 50);
+                PacketManager.sendPacketToClients(PacketManager.getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
             }
         }
 
@@ -232,7 +232,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
         nbt.setFloat("cYaw", this.currentRotationYaw);
         nbt.setFloat("cPitch", this.currentRotationPitch);
         nbt.setInteger("dir", this.platformDirection.ordinal());
-        nbt.setInteger("health", this.hp());
+        nbt.setFloat("health", this.health());
     }
 
     @Override
@@ -285,7 +285,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
      */
 
     /** Removes the sentry when called and optional creates a small local explosion
-     * 
+     *
      * @param doExplosion - True too create a small local explosion */
     public boolean destroy(boolean doExplosion)
     {
@@ -324,7 +324,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     @Override
     public String getName()
     {
-        return new ItemStack(this.getBlockType(), 1, this.getBlockMetadata()).getDisplayName() + " " + this.hp() + "/" + this.getMaxHealth();
+        return new ItemStack(this.getBlockType(), 1, this.getBlockMetadata()).getDisplayName() + " " + this.health() + "/" + this.getMaxHealth();
     }
 
     /** Performs a ray trace for the distance specified and using the partial tick time. Args:
@@ -370,7 +370,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     }
 
     @Override
-    public int hp()
+    public float health()
     {
         if (this.health == -1)
         {
@@ -380,19 +380,15 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     }
 
     @Override
-    public void setHp(int i, boolean increase)
+    public void setHealth(float f)
     {
-        if (increase)
-        {
-            i += this.health;
-        }
-        this.health = Math.min(Math.max(i, 0), this.getMaxHealth());
+        this.health = Math.min(Math.max(f, 0), this.getMaxHealth());
     }
 
     @Override
     public boolean isAlive()
     {
-        return this.hp() > 0 || this.isInvul();
+        return this.health() > 0 || this.isInvul();
     }
 
     @Override
@@ -412,10 +408,17 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             this.health -= amount;
             if (!this.worldObj.isRemote)
             {
-                PacketManager.sendPacketToClients(PacketManager.getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.hp()), this.worldObj, new Vector3(this), 50);
+                PacketManager.sendPacketToClients(PacketManager.getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
             }
             return true;
         }
+    }
+
+    @Override
+    public boolean onActivated(EntityPlayer entityPlayer)
+    {
+        // TODO Auto-generated method stub
+        return false;
     }
 
     /** Entity that takes damage for the sentry */

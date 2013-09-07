@@ -23,7 +23,7 @@ import universalelectricity.prefab.block.BlockAdvanced;
 import universalelectricity.prefab.tile.IRotatable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.interfaces.IBlockActivate;
+import dark.core.interfaces.IBlockActivated;
 import dark.core.prefab.IMultiBlock;
 import dark.core.prefab.damage.EntityTileDamage;
 import dark.gsm.autosentries.Sentries;
@@ -36,7 +36,7 @@ import dark.gsm.core.common.GSMCore;
 
 /** Block turret is a class used by all turrets. Each type of turret will have a different tile
  * entity.
- * 
+ *
  * @author Calclavia */
 public class BlockTurret extends BasicBlock
 {
@@ -140,7 +140,7 @@ public class BlockTurret extends BasicBlock
         if (ent instanceof TileEntityTurretBase)
         {
             Random random = new Random();
-            ((TileEntityTurretBase) ent).setHp(5 + random.nextInt(7), true);
+            ((TileEntityTurretBase) ent).setHealth(5 + random.nextInt(7)+((TileEntityTurretBase) ent).health());
             return true;
         }
         return false;
@@ -153,9 +153,9 @@ public class BlockTurret extends BasicBlock
          * platform below it. */
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 
-        if (tileEntity instanceof IBlockActivate)
+        if (tileEntity instanceof IBlockActivated)
         {
-            return ((IBlockActivate) tileEntity).onActivated(entityPlayer);
+            return ((IBlockActivated) tileEntity).onActivated(entityPlayer);
         }
 
         int id = world.getBlockId(x, y - 1, z);
