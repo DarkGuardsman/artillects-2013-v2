@@ -37,7 +37,7 @@ import dark.gsm.core.common.GSMCore;
 /** Block turret is a class used by all turrets. Each type of turret will have a different tile
  * entity.
  *
- * @author Calclavia */
+ * @author DarkGuardsman */
 public class BlockTurret extends BasicBlock
 {
     public enum TurretType
@@ -57,7 +57,7 @@ public class BlockTurret extends BasicBlock
 
     public BlockTurret(int par1, Configuration config)
     {
-        super(par1, "turret", UniversalElectricity.machine, config);
+        super(par1, "sentry", UniversalElectricity.machine, config);
         this.setCreativeTab(GSMCore.tabGSMIndustrial);
         this.setHardness(100f);
         this.setResistance(50f);

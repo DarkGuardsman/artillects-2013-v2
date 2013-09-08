@@ -293,8 +293,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
         {
             this.worldObj.createExplosion(null, this.xCoord, this.yCoord, this.zCoord, 2f, true);
         }
-
-        if (!this.worldObj.isRemote)
+        else if (!this.worldObj.isRemote)
         {
             this.getBlockType().dropBlockAsItem(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.getBlockMetadata(), 0);
         }
