@@ -3,7 +3,7 @@ package dark.gsm.autosentries.turret.mount;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import universalelectricity.core.vector.Vector3;
-import universalelectricity.prefab.network.PacketManager;
+import dark.core.network.PacketHandler;
 import dark.core.prefab.IMultiBlock;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
@@ -40,7 +40,7 @@ public abstract class TileEntityMountableTurret extends TileEntityTurretBase imp
             this.currentRotationYaw = this.wantedRotationYaw = this.mountedPlayer.rotationYaw * rotationTranslation;
             if (this.worldObj.isRemote)
             {
-                PacketManager.sendPacketToClients(PacketManager.getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
+                PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
             }
         }
         else if (this.entityFake != null)

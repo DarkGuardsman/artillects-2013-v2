@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import dark.core.prefab.helpers.Quaternion;
-
 import net.minecraft.entity.Entity;
 import universalelectricity.core.vector.Vector3;
+import dark.core.prefab.helpers.Quaternion;
 
 /** Designed to be used by flying Entities to create an orbit pattern around a central point
  * 

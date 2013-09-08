@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -15,8 +14,7 @@ import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import dark.core.client.FXBeam;
 import dark.core.common.DarkMain;
-import dark.gsm.artillects.common.GSMMachines;
-import dark.gsm.artillects.common.PacketHandler;
+import dark.core.network.PacketManagerEffects;
 
 public class LaserHelper
 {
@@ -41,7 +39,7 @@ public class LaserHelper
     }
 
     /** Creates a laser that generates client side and damages server side
-     * 
+     *
      * @param world - world
      * @param start - starting point of the laser
      * @param end - ending point of the laser
@@ -52,8 +50,7 @@ public class LaserHelper
     {
         if (!world.isRemote)
         {
-            Packet packet = PacketHandler.getPacketWithID(GSMMachines.CHANNEL, PacketHandler.PacketType.EFFECTS.ordinal(), 0, start.x, start.y, start.z, end.x, end.y, end.z, color.getRed(), color.getBlue(), color.getGreen(), time);
-            PacketHandler.sendPacketToClients(packet, world, start, 64);
+            PacketManagerEffects.sendClientLaserEffect(world, start, end, color, time);
             if (damage > 0)
             {
                 this.generateDamageField(world, start, end, damage);
@@ -116,7 +113,7 @@ public class LaserHelper
     }
 
     /** Check to make sure that the entity is valid for being damaged by the laser
-     * 
+     *
      * @param entity - any entity that extends the Entity.class
      * @return true if it can apply damage */
     private boolean isValidTarget(Entity entity)

@@ -33,15 +33,13 @@ import dark.gsm.core.common.GSMCore;
 
 @ModstatInfo(prefix = GSMMachines.NAME)
 @Mod(modid = GSMMachines.NAME, name = GSMMachines.NAME, version = GSMMachines.VERSION, useMetadata = true)
-@NetworkMod(channels = { GSMMachines.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class GSMMachines extends GSMCore
 {
 
     // @Mod
     public static final String NAME = GSMCore.NAME + "|Artillects";
 
-    // @NetworkMod
-    public static final String CHANNEL = GSMMachines.NAME;
 
     @Metadata(GSMMachines.NAME)
     public static ModMetadata meta;
@@ -136,11 +134,5 @@ public class GSMMachines extends GSMCore
         proxy.postInit();
 
         FMLog.info("Done Loading");
-    }
-
-    @Override
-    public String getChannel()
-    {
-        return GSMMachines.CHANNEL;
     }
 }
