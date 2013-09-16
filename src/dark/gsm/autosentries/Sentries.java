@@ -23,7 +23,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.prefab.damage.EntityTileDamage;
+import dark.core.prefab.entity.EntityTileDamage;
 import dark.core.prefab.terminal.CommandHelp;
 import dark.core.prefab.terminal.CommandRegistry;
 import dark.core.prefab.terminal.CommandUser;

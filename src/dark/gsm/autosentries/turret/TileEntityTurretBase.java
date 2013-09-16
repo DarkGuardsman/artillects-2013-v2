@@ -25,8 +25,8 @@ import com.google.common.io.ByteArrayDataInput;
 import cpw.mods.fml.common.FMLLog;
 import dark.api.energy.IHeatObject;
 import dark.core.network.PacketHandler;
-import dark.core.prefab.damage.EntityTileDamage;
 import dark.core.prefab.damage.IDamageableTile;
+import dark.core.prefab.entity.EntityTileDamage;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.ActionManager;
 import dark.gsm.autosentries.actions.LookHelper;
@@ -35,7 +35,7 @@ import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.client.renders.ITagRender;
 
 /** Class that handles all the basic movement, and block based updates of a turret.
- *
+ * 
  * @author Rseifert */
 public abstract class TileEntityTurretBase extends TileEntityAdvanced implements IPacketReceiver, ITagRender, ISentry, IDamageableTile, IHeatObject
 {
@@ -124,13 +124,13 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             /* ROTATION PACKET */
             if (this.wantedRotationPitch != prePitch || this.wantedRotationYaw != preYaw)
             {
-                PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
+                PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
             }
 
             /* STATS PACKET */
             if (this.getHeat(ForgeDirection.UNKNOWN) != preHeat || this.health() != preHp)
             {
-                PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
+                PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
             }
         }
 
@@ -255,7 +255,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
-        return  PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.NBT.ordinal(), nbt);
+        return PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.NBT.ordinal(), nbt);
     }
 
     /** Sends the firing info to the client to render tracer effects */
@@ -266,7 +266,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             target = this.getMuzzle();
         }
         this.gunBarrel++;
-        PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.SHOT.ordinal(), target.x, target.y, target.z, this.gunBarrel), this.worldObj, new Vector3(this), 50);
+        PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.SHOT.ordinal(), target.x, target.y, target.z, this.gunBarrel), this.worldObj, new Vector3(this), 50);
 
         if (this.gunBarrel >= (this.getBarrels() - 1))
         {
@@ -285,7 +285,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
      */
 
     /** Removes the sentry when called and optional creates a small local explosion
-     *
+     * 
      * @param doExplosion - True too create a small local explosion */
     public boolean destroy(boolean doExplosion)
     {
@@ -407,7 +407,7 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
             this.health -= amount;
             if (!this.worldObj.isRemote)
             {
-                PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
+                PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.STATS.ordinal(), this.heat, this.health()), this.worldObj, new Vector3(this), 50);
             }
             return true;
         }

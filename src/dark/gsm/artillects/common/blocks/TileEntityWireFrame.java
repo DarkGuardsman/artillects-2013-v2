@@ -94,7 +94,7 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
                 this.rotation.y = 0;
             }
 
-            AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1);
+            AxisAlignedBB bound = AxisAlignedBB.getBoundingBox(this.xCoord - 3, this.yCoord - 3, this.zCoord - 3, this.xCoord + 3, this.yCoord + 3, this.zCoord + 3);
             bound = bound.copy().expand(100, 100, 100);
             List<EntityEyeBot> botListNew = this.worldObj.getEntitiesWithinAABB(EntityEyeBot.class, bound);
             for (EntityEyeBot bot : botListNew)

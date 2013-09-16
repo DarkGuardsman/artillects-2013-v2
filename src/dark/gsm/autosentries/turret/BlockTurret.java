@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.interfaces.IBlockActivated;
 import dark.core.prefab.IMultiBlock;
-import dark.core.prefab.damage.EntityTileDamage;
+import dark.core.prefab.entity.EntityTileDamage;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.render.BlockRenderingHandler;
 import dark.gsm.autosentries.turret.mount.TileEntityRailTurret;
@@ -36,7 +36,7 @@ import dark.gsm.core.common.GSMCore;
 
 /** Block turret is a class used by all turrets. Each type of turret will have a different tile
  * entity.
- *
+ * 
  * @author DarkGuardsman */
 public class BlockTurret extends BasicBlock
 {
@@ -140,7 +140,7 @@ public class BlockTurret extends BasicBlock
         if (ent instanceof TileEntityTurretBase)
         {
             Random random = new Random();
-            ((TileEntityTurretBase) ent).setHealth(5 + random.nextInt(7)+((TileEntityTurretBase) ent).health());
+            ((TileEntityTurretBase) ent).setHealth(5 + random.nextInt(7) + ((TileEntityTurretBase) ent).health());
             return true;
         }
         return false;

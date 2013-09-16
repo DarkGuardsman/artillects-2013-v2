@@ -53,7 +53,7 @@ public class DarkBotMain
     public static final String MAIN_CHANNEL = "DARKBOTMAIN";
     public static final String AI_CHANNEL = "DARKAIMAIN";
 
-    public static final String DOMAIN = "dark";
+    public static final String DOMAIN = "drones";
     public static final String PREFIX = DOMAIN + ":";
 
     @Instance(DarkBotMain.MOD_ID)

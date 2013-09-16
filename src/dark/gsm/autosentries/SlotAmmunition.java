@@ -3,8 +3,8 @@ package dark.gsm.autosentries;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import universalelectricity.prefab.SlotSpecific;
-import dark.api.ITerminal;
 import dark.core.prefab.access.AccessLevel;
+import dark.core.prefab.terminal.ITerminal;
 
 public class SlotAmmunition extends SlotSpecific
 {

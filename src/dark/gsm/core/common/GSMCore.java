@@ -13,9 +13,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import dark.core.prefab.BlockMulti;
-import dark.core.prefab.TileEntityMulti;
 
 public class GSMCore
 {
@@ -92,10 +89,6 @@ public class GSMCore
         if (!preInit)
         {
             gsmCoreConfig.load();
-            /*Multi Block fake block */
-            multiBlock = new BlockMulti(gsmCoreConfig.getBlock("Multiblock", ++BLOCK_ID_PREFIX).getInt()).setTextureName(PREFIX + "machine").setChannel(this.getChannel());
-            GameRegistry.registerBlock(multiBlock, "multiBlock");
-            GameRegistry.registerTileEntity(TileEntityMulti.class, "GSMMulti");
 
             if (gsmCoreConfig.hasChanged())
             {

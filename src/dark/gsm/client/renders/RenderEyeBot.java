@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dark.gsm.artillects.common.GSMMachines;
 import dark.gsm.artillects.common.bots.EntityEyeBot;
 
 @SideOnly(Side.CLIENT)
@@ -36,7 +37,7 @@ public class RenderEyeBot extends RenderLiving
     @Override
     protected ResourceLocation func_110775_a(Entity entity)
     {
-        // TODO Auto-generated method stub
-        return null;
+
+        return new ResourceLocation(GSMMachines.PREFIX, "textures/entity/bots/CubeEyeBot");
     }
 }

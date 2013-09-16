@@ -23,9 +23,9 @@ public class RenderDefenderTwo extends Render
 
     public RenderDefenderTwo()
     {
-        modelBody = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.Wheel/Drone.Wheel.Body.obj");
-        modelTrack = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.Wheel/Drone.Wheel.Track.obj");
-        modelWheel = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.Wheel/Drone.Wheel.Wheel.obj");
+        modelBody = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.Wheel/Drone.Wheel.Body.obj");
+        modelTrack = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.Wheel/Drone.Wheel.Track.obj");
+        modelWheel = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.Wheel/Drone.Wheel.Wheel.obj");
     }
 
     @Override

@@ -39,7 +39,7 @@ public class LaserHelper
     }
 
     /** Creates a laser that generates client side and damages server side
-     *
+     * 
      * @param world - world
      * @param start - starting point of the laser
      * @param end - ending point of the laser
@@ -113,7 +113,7 @@ public class LaserHelper
     }
 
     /** Check to make sure that the entity is valid for being damaged by the laser
-     *
+     * 
      * @param entity - any entity that extends the Entity.class
      * @return true if it can apply damage */
     private boolean isValidTarget(Entity entity)

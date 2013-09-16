@@ -26,10 +26,10 @@ public class RenderBossGigus extends Render
 
     public RenderBossGigus()
     {
-        modelBody = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.gigus/body.obj");
-        modelShoulders = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.gigus/shoulders.obj");
+        modelBody = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.gigus/body.obj");
+        modelShoulders = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.gigus/shoulders.obj");
         //modelLeg = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.gigus/leg.obj");
-        modelPack = AdvancedModelLoader.loadModel("/assets/dark/models/Drone.gigus/missilePack.obj");
+        modelPack = AdvancedModelLoader.loadModel("/assets/drones/models/Drone.gigus/missilePack.obj");
     }
 
     @Override

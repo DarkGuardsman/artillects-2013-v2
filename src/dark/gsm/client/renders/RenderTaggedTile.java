@@ -12,11 +12,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.client.renders.RenderMachine;
+import dark.core.client.renders.RenderTileMachine;
 
 /** @author Rseifert & Calclavia */
 @SideOnly(Side.CLIENT)
-public abstract class RenderTaggedTile extends RenderMachine
+public abstract class RenderTaggedTile extends RenderTileMachine
 {
     @Override
     public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)

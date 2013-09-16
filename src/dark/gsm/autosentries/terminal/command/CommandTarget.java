@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import dark.api.ISpecialAccess;
-import dark.api.ITerminal;
 import dark.core.prefab.access.AccessLevel;
+import dark.core.prefab.access.ISpecialAccess;
+import dark.core.prefab.terminal.ITerminal;
 import dark.core.prefab.terminal.TerminalCommand;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.autosentries.turret.sentries.TileEntityAutoTurret;

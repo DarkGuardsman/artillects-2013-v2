@@ -5,7 +5,7 @@ import universalelectricity.core.vector.Vector3;
 import dark.gsm.autosentries.actions.LookHelper;
 
 /** AA Turret, shoots down missiles and planes.
- *
+ * 
  * @author DarkGaurdsman */
 public class TileEntityAATurret extends TileEntityAutoTurret
 {

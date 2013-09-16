@@ -40,7 +40,6 @@ public class GSMMachines extends GSMCore
     // @Mod
     public static final String NAME = GSMCore.NAME + "|Artillects";
 
-
     @Metadata(GSMMachines.NAME)
     public static ModMetadata meta;
 

@@ -2,7 +2,7 @@ package dark.core.faction.entity;
 
 /** Some generic body & mind information used by NPC to influence how they act, what they can do, and
  * how well they do things.
- *
+ * 
  * @author Darkguardsman */
 public enum CharStats
 {

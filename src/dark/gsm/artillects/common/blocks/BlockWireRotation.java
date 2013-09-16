@@ -13,7 +13,8 @@ public class BlockWireRotation extends BlockAdvanced
     {
         super(id, Material.iron);
         this.setCreativeTab(CreativeTabs.tabRedstone);
-        this.setBlockBounds(0.4f, 0, 0.6f, 0, .1f, 0);
+        this.setUnlocalizedName("DroneController");
+        this.setBlockBounds(0, 0, 0, 1, 1, 1);
     }
 
     public TileEntity createNewTileEntity(World var1)

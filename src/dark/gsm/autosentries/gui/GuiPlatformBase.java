@@ -21,7 +21,7 @@ import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
 
 /** A base class for all ICBM Sentry GUIs.
- *
+ * 
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public abstract class GuiPlatformBase extends GuiContainer
@@ -55,7 +55,7 @@ public abstract class GuiPlatformBase extends GuiContainer
         // Protection
         // this.buttonList.add(new GuiButtonImage(3, (this.width - this.xSize) / 2 - 22,
         // (this.height - this.ySize) / 2 + 66, 1));
-        PacketDispatcher.sendPacketToServer( PacketHandler.instance().getPacket(Sentries.CHANNEL, this.tileEntity, PacketType.GUI_EVENT.ordinal(), true));
+        PacketDispatcher.sendPacketToServer(PacketHandler.instance().getPacket(Sentries.CHANNEL, this.tileEntity, PacketType.GUI_EVENT.ordinal(), true));
     }
 
     @Override
@@ -105,7 +105,7 @@ public abstract class GuiPlatformBase extends GuiContainer
     public void onGuiClosed()
     {
         super.onGuiClosed();
-        PacketDispatcher.sendPacketToServer( PacketHandler.instance().getPacket(Sentries.CHANNEL, this.tileEntity, PacketType.GUI_EVENT.ordinal(), false));
+        PacketDispatcher.sendPacketToServer(PacketHandler.instance().getPacket(Sentries.CHANNEL, this.tileEntity, PacketType.GUI_EVENT.ordinal(), false));
     }
 
     /** Draw the foreground layer for the GuiContainer (everything in front of the items) */

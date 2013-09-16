@@ -40,7 +40,7 @@ public abstract class TileEntityMountableTurret extends TileEntityTurretBase imp
             this.currentRotationYaw = this.wantedRotationYaw = this.mountedPlayer.rotationYaw * rotationTranslation;
             if (this.worldObj.isRemote)
             {
-                PacketHandler.instance().sendPacketToClients( PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
+                PacketHandler.instance().sendPacketToClients(PacketHandler.instance().getPacket(Sentries.CHANNEL, this, turretPacket.ROTATION.ordinal(), this.wantedRotationPitch, this.wantedRotationYaw, this.speedUpRotation), this.worldObj, new Vector3(this), 50);
             }
         }
         else if (this.entityFake != null)

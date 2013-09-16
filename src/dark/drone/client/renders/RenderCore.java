@@ -25,7 +25,7 @@ public class RenderCore extends TileEntitySpecialRenderer
 
     public RenderCore()
     {
-        modelCore = AdvancedModelLoader.loadModel("/assets/dark/models/Core.Render.obj");
+        modelCore = AdvancedModelLoader.loadModel("/assets/drones/models/Core.Render.obj");
         // modelClaw = AdvancedModelLoader.loadModel("/assets/dark/models/Core.Holder.obj");
     }
 
