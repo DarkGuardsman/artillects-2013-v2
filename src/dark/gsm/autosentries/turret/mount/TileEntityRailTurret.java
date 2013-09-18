@@ -16,7 +16,7 @@ import net.minecraft.util.MovingObjectPosition;
 import universalelectricity.core.vector.Vector3;
 import universalelectricity.prefab.network.IPacketReceiver;
 import dark.core.prefab.IMultiBlock;
-import dark.core.prefab.TileEntityMulti;
+import dark.core.prefab.machine.TileEntityMulti;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.LookHelper;
 import dark.gsm.autosentries.api.AmmoPair;

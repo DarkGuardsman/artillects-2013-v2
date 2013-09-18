@@ -10,7 +10,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import dark.core.client.FXBeam;
-import dark.core.common.DarkMain;
 import dark.core.prefab.ModPrefab;
 import dark.gsm.autosentries.gui.GuiPlatformAccess;
 import dark.gsm.autosentries.gui.GuiPlatformSlots;

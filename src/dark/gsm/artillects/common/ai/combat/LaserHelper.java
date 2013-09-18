@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import cpw.mods.fml.client.FMLClientHandler;
 import dark.core.client.FXBeam;
-import dark.core.common.DarkMain;
 import dark.core.network.PacketManagerEffects;
 import dark.core.prefab.ModPrefab;
 

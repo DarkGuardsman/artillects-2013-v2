@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.gsm.artillects.common.GSMMachines;
 import dark.gsm.artillects.common.bots.EntityEyeBot;
 import dark.gsm.core.common.GSMCore;
 
