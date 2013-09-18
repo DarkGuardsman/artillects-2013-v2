@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.gsm.artillects.common.GSMMachines;
 import dark.gsm.artillects.common.bots.EntityEyeBot;
+import dark.gsm.core.common.GSMCore;
 
 @SideOnly(Side.CLIENT)
 public class RenderEyeBot extends RenderLiving
@@ -23,6 +24,7 @@ public class RenderEyeBot extends RenderLiving
         super.doRenderLiving(eyeBot, par2, par4, par6, par8, par9);
     }
 
+    @Override
     public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
         this.renderEyeBot((EntityEyeBot) par1EntityLiving, par2, par4, par6, par8, par9);
@@ -38,6 +40,6 @@ public class RenderEyeBot extends RenderLiving
     protected ResourceLocation func_110775_a(Entity entity)
     {
 
-        return new ResourceLocation(GSMMachines.PREFIX, "textures/entity/bots/CubeEyeBot");
+        return new ResourceLocation(GSMCore.PREFIX, "textures/entity/bots/CubeEyeBot");
     }
 }

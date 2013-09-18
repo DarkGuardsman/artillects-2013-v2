@@ -71,9 +71,9 @@ public abstract class EntityFlyingBot extends EntityRobot
             }
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double) f2;
-            this.motionY *= (double) f2;
-            this.motionZ *= (double) f2;
+            this.motionX *= f2;
+            this.motionY *= f2;
+            this.motionZ *= f2;
         }
 
         this.prevLimbYaw = this.limbYaw;

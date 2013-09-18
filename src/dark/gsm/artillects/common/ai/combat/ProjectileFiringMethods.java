@@ -22,7 +22,7 @@ public class ProjectileFiringMethods
             return;
         }
         double x = targetedEntity.posX - entity.posX;
-        double y = targetedEntity.boundingBox.minY + (double) (targetedEntity.height / 2.0F) - (entity.posY + (double) (entity.height / 2.0F));
+        double y = targetedEntity.boundingBox.minY + (targetedEntity.height / 2.0F) - (entity.posY + (entity.height / 2.0F));
         double z = targetedEntity.posZ - entity.posZ;
 
         if (entity.worldObj.isRemote && audio)
@@ -34,9 +34,9 @@ public class ProjectileFiringMethods
         EntityLargeFireball entitylargefireball = new EntityLargeFireball(entity.worldObj, entity, x, y, z);
         entitylargefireball.field_92057_e = strength;
 
-        Vec3 ballSpawnLocation = ((EntityLiving) entity).getLook(1.0F);
+        Vec3 ballSpawnLocation = entity.getLook(1.0F);
         entitylargefireball.posX = entity.posX + ballSpawnLocation.xCoord * spawnOffSet;
-        entitylargefireball.posY = entity.posY + (double) (entity.height / 2.0F) + 0.5D;
+        entitylargefireball.posY = entity.posY + (entity.height / 2.0F) + 0.5D;
         entitylargefireball.posZ = entity.posZ + ballSpawnLocation.zCoord * spawnOffSet;
 
         entity.worldObj.spawnEntityInWorld(entitylargefireball);

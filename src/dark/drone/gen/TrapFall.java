@@ -35,6 +35,7 @@ public class TrapFall extends Trap
         return true;
     }
 
+    @Override
     public void reset(World world)
     {
         if (this.resetBlock != null)

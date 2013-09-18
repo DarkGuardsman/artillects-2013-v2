@@ -49,7 +49,7 @@ public class ItemSpawn extends Item
             k += Facing.offsetsZForSide[l];
 
             EntityShoeBot Guard = new EntityShoeBot(world);
-            Guard.setLocationAndAngles((double) i + 0.5D, (double) j + 1.0D, (double) k + 0.5D, 0.0F, 0.0F);
+            Guard.setLocationAndAngles(i + 0.5D, j + 1.0D, k + 0.5D, 0.0F, 0.0F);
             world.spawnEntityInWorld(Guard);
 
             entityplayer.swingItem();

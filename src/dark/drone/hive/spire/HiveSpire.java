@@ -371,7 +371,7 @@ public class HiveSpire implements IHiveSpire
         {
             if (!this.getHive().hiveBots.contains(obj))
             {
-                this.getHive().hiveBots.remove((Entity) obj);
+                this.getHive().hiveBots.remove(obj);
             }
             this.deaths++;
         }

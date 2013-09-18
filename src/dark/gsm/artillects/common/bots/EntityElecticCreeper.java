@@ -71,7 +71,7 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
     protected void fall(float par1)
     {
         super.fall(par1);
-        this.timeSinceIgnited = (int) ((float) this.timeSinceIgnited + par1 * 1.5F);
+        this.timeSinceIgnited = (int) (this.timeSinceIgnited + par1 * 1.5F);
 
         if (this.timeSinceIgnited > this.fuseTime - 5)
         {
@@ -203,7 +203,7 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
     @SideOnly(Side.CLIENT)
     public float getCreeperFlashIntensity(float par1)
     {
-        return ((float) this.lastActiveTime + (float) (this.timeSinceIgnited - this.lastActiveTime) * par1) / (float) (this.fuseTime - 2);
+        return (this.lastActiveTime + (this.timeSinceIgnited - this.lastActiveTime) * par1) / (this.fuseTime - 2);
     }
 
     @Override

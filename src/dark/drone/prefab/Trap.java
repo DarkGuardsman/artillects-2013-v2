@@ -51,7 +51,7 @@ public class Trap
 
     public void save(NBTTagCompound nbt)
     {
-        String s = (String) classMap.get(this.getClass());
+        String s = classMap.get(this.getClass());
 
         if (s == null)
         {
@@ -78,7 +78,7 @@ public class Trap
 
         try
         {
-            oclass = (Class) trapMap.get(par0NBTTagCompound.getString("id"));
+            oclass = trapMap.get(par0NBTTagCompound.getString("id"));
 
             if (oclass != null)
             {
@@ -94,7 +94,7 @@ public class Trap
         {
             try
             {
-                trap.load(par0NBTTagCompound);
+                Trap.load(par0NBTTagCompound);
             }
             catch (Exception e)
             {

@@ -58,6 +58,7 @@ public class GSMCore
     public static CreativeTabs tabGSMGeneral = new CreativeTabs("GSM General")
     {
 
+        @Override
         public ItemStack getIconItemStack()
         {
             return new ItemStack(Item.ingotIron, 1, 0);
@@ -68,6 +69,7 @@ public class GSMCore
     public static CreativeTabs tabGSMIndustrial = new CreativeTabs("GSM Machines")
     {
 
+        @Override
         public ItemStack getIconItemStack()
         {
             return new ItemStack(Item.ingotIron, 1, 0);
@@ -78,6 +80,7 @@ public class GSMCore
     public static CreativeTabs tabGSMCastle = new CreativeTabs("GSM Fortress")
     {
 
+        @Override
         public ItemStack getIconItemStack()
         {
             return new ItemStack(Item.ingotIron, 1, 0);
@@ -119,7 +122,7 @@ public class GSMCore
 
     public String getVersion()
     {
-        return this.VERSION;
+        return GSMCore.VERSION;
     }
 
     public String getChannel()

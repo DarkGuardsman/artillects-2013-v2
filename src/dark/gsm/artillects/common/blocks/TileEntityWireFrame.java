@@ -75,10 +75,10 @@ public class TileEntityWireFrame extends TileEntityAdvanced implements IAttacker
             if (this.isValidTarget(this.targetedEntity))
             {
                 double x = this.targetedEntity.posX - this.xCoord;
-                double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.yCoord + 0.5);
+                double y = this.targetedEntity.boundingBox.minY + (this.targetedEntity.height / 2.0F) - (this.yCoord + 0.5);
                 double z = this.targetedEntity.posZ - this.zCoord;
-                this.rotation.y = this.getYaw(new Vector3(this), new Vector3(this.targetedEntity));
-                this.rotation.z = -this.getPitch(new Vector3(this), new Vector3(this.targetedEntity));
+                this.rotation.y = TileEntityWireFrame.getYaw(new Vector3(this), new Vector3(this.targetedEntity));
+                this.rotation.z = -TileEntityWireFrame.getPitch(new Vector3(this), new Vector3(this.targetedEntity));
                 if (++this.attackCounter == 20)
                 {
                     if (this.targetedEntity != null)

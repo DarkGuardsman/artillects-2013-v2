@@ -239,6 +239,7 @@ public class ModelCubeEyeBot extends ModelBase
         model.rotateAngleZ = z;
     }
 
+    @Override
     public void setRotationAngles(float swingTime, float swingDistance, float par3, float headY, float headX, float par6, Entity par7Entity)
     {
         this.core.rotateAngleX = headX / (180F / (float) Math.PI);

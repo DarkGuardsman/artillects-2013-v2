@@ -54,10 +54,10 @@ public class RenderShoeBot extends Render
                 var14.startDrawingQuads();
                 int var15 = var13.getStringWidth(var12) / 2;
                 var14.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
-                var14.addVertex((double) (-var15 - 1), -1.0D, 0.0D);
-                var14.addVertex((double) (-var15 - 1), 8.0D, 0.0D);
-                var14.addVertex((double) (var15 + 1), 8.0D, 0.0D);
-                var14.addVertex((double) (var15 + 1), -1.0D, 0.0D);
+                var14.addVertex((-var15 - 1), -1.0D, 0.0D);
+                var14.addVertex((-var15 - 1), 8.0D, 0.0D);
+                var14.addVertex((var15 + 1), 8.0D, 0.0D);
+                var14.addVertex((var15 + 1), -1.0D, 0.0D);
                 var14.draw();
                 GL11.glEnable(GL11.GL_TEXTURE_2D);
                 GL11.glDepthMask(true);

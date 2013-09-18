@@ -78,7 +78,7 @@ public class ItemBotSpawner extends Item
                 d0 = 0.5D;
             }
 
-            this.spawnCreature(world, (double) x + 0.5D, (double) y + d0, (double) z + 0.5D, itemstack.getItemDamage());
+            this.spawnCreature(world, x + 0.5D, y + d0, z + 0.5D, itemstack.getItemDamage());
 
             return true;
         }
@@ -116,6 +116,7 @@ public class ItemBotSpawner extends Item
         par3List.add(new ItemStack(par1, 1, 1));
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {

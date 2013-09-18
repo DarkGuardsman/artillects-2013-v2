@@ -15,6 +15,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import dark.core.client.FXBeam;
 import dark.core.common.DarkMain;
 import dark.core.network.PacketManagerEffects;
+import dark.core.prefab.ModPrefab;
 
 public class LaserHelper
 {
@@ -58,7 +59,7 @@ public class LaserHelper
         }
         else
         {
-            FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(FMLClientHandler.instance().getClient().thePlayer.worldObj, start, end, color, DarkMain.TEXTURE_DIRECTORY + "", time));
+            FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(FMLClientHandler.instance().getClient().thePlayer.worldObj, start, end, color, ModPrefab.TEXTURE_DIRECTORY + "", time));
 
         }
     }
@@ -100,7 +101,7 @@ public class LaserHelper
             Iterator<Entity> it = list.iterator();
             if (it.hasNext())
             {
-                Entity entity = (Entity) it.next();
+                Entity entity = it.next();
                 if ((this.attacker instanceof Entity && entity == this.attacker) || (this.isPointOnLine(start, end, new Vector3(entity)) > (entity.width > 0.2 ? entity.width : 0.2)) || !this.isValidTarget(entity))
                 {
                     it.remove();

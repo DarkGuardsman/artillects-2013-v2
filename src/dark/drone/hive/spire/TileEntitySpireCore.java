@@ -74,6 +74,7 @@ public class TileEntitySpireCore extends TileHive
         return spire;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox()
     {

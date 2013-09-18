@@ -102,11 +102,11 @@ public class Hivemind implements IHiveObject
     {
         if (obj instanceof Entity)
         {
-            hiveBots.remove((Entity) obj);
+            hiveBots.remove(obj);
         }
         if (obj instanceof TileEntity)
         {
-            hiveTiles.remove((TileEntity) obj);
+            hiveTiles.remove(obj);
 
         }
     }

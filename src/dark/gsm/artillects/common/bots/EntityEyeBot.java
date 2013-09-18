@@ -140,15 +140,15 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
             {
                 if ((d3 < 1.0D || d3 > 3600.0D))
                 {
-                    this.waypointX = this.posX + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-                    this.waypointY = this.posY + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
-                    this.waypointZ = this.posZ + (double) ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+                    this.waypointX = this.posX + ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+                    this.waypointY = this.posY + ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
+                    this.waypointZ = this.posZ + ((this.rand.nextFloat() * 2.0F - 1.0F) * 16.0F);
                 }
 
                 if (this.courseChangeCooldown-- <= 0 || this.moveNow)
                 {
                     this.courseChangeCooldown += this.rand.nextInt(5) + 2;
-                    d3 = (double) MathHelper.sqrt_double(d3);
+                    d3 = MathHelper.sqrt_double(d3);
 
                     if (this.isCourseTraversable(this.waypointX, this.waypointY, this.waypointZ, d3))
                     {
@@ -189,7 +189,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
             if (this.isValidTarget(this.targetedEntity))
             {
                 double x = this.targetedEntity.posX - this.posX;
-                double y = this.targetedEntity.boundingBox.minY + (double) (this.targetedEntity.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
+                double y = this.targetedEntity.boundingBox.minY + (this.targetedEntity.height / 2.0F) - (this.posY + (this.height / 2.0F));
                 double z = this.targetedEntity.posZ - this.posZ;
                 this.renderYawOffset = this.rotationYaw = -((float) Math.atan2(x, z)) * 180.0F / (float) Math.PI;
 
@@ -250,7 +250,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
         double d6 = (this.waypointZ - this.posZ) / par7;
         AxisAlignedBB axisalignedbb = this.boundingBox.copy();
 
-        for (int i = 1; (double) i < par7; ++i)
+        for (int i = 1; i < par7; ++i)
         {
             axisalignedbb.offset(d4, d5, d6);
 

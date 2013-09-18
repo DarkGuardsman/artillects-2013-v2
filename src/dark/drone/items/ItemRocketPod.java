@@ -32,6 +32,7 @@ public class ItemRocketPod extends ItemMain
 
     /** called when the player releases the use item button. Args: itemstack, world, entityplayer,
      * itemInUseCount */
+    @Override
     public void onPlayerStoppedUsing(ItemStack itemStack, World world, EntityPlayer player, int tickHeld)
     {
         int j = this.getMaxItemUseDuration(itemStack) - tickHeld;
@@ -48,10 +49,10 @@ public class ItemRocketPod extends ItemMain
 
         if (flag || player.inventory.hasItem(DarkBotMain.itemMissile.itemID))
         {
-            float f = (float) j / 20.0F;
+            float f = j / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
 
-            if ((double) f < 0.1D)
+            if (f < 0.1D)
             {
                 return;
             }
@@ -78,18 +79,21 @@ public class ItemRocketPod extends ItemMain
         }
     }
 
+    @Override
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         return par1ItemStack;
     }
 
     /** How long it takes to use or consume an item */
+    @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack)
     {
         return 72000;
     }
 
     /** returns the action that specifies what animation to play when the items is being used */
+    @Override
     public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.bow;
@@ -97,6 +101,7 @@ public class ItemRocketPod extends ItemMain
 
     /** Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack,
      * world, entityPlayer */
+    @Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         ArrowNockEvent event = new ArrowNockEvent(par3EntityPlayer, par1ItemStack);
@@ -115,11 +120,13 @@ public class ItemRocketPod extends ItemMain
     }
 
     /** Return the enchantability factor of the item, most of the time is based on material. */
+    @Override
     public int getItemEnchantability()
     {
         return 0;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {

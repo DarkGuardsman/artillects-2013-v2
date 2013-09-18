@@ -75,11 +75,11 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
             }
         }
         /* Generates smoke particles if the bot is bellow 10% health */
-        if (this.func_110143_aJ() < ((int) this.getMaxHealth() / 10))
+        if (this.func_110143_aJ() < (this.getMaxHealth() / 10))
         {
             for (int i = 0; i < 2; ++i)
             {
-                this.worldObj.spawnParticle("largesmoke", this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width, this.posY + this.rand.nextDouble() * (double) this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, 0.0D, 0.0D, 0.0D);
+                this.worldObj.spawnParticle("largesmoke", this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, 0.0D, 0.0D, 0.0D);
             }
         }
 
@@ -162,7 +162,7 @@ public abstract class EntityRobot extends EntityCreature implements IDisableable
     /** Current power level of the bot */
     public double getPower()
     {
-        return (double) this.dataWatcher.getWatchableObjectByte(powerWatcher);
+        return this.dataWatcher.getWatchableObjectByte(powerWatcher);
     }
 
     /** updates the dataWatcher's power level of the bot */

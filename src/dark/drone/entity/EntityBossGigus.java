@@ -36,6 +36,7 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
         this.dataWatcher.addObject(20, new Integer(0));
     }
 
+    @Override
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
@@ -56,7 +57,7 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
     public void rangedAttack(Entity attackTarget, float range)
     {
         double deltaX = attackTarget.posX - this.posX;
-        double deltaY = attackTarget.boundingBox.minY + (double) (attackTarget.height / 2.0F) - (this.posY + (double) (this.height / 2.0F));
+        double deltaY = attackTarget.boundingBox.minY + (attackTarget.height / 2.0F) - (this.posY + (this.height / 2.0F));
         double deltaZ = attackTarget.posZ - this.posZ;
 
         if (this.attackTime == 0)
@@ -67,8 +68,8 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
             for (int i = 0; i < 12; ++i)
             {
                 EntityBombMissile entitysmallfireball = new EntityBombMissile(this.worldObj, this, (EntityLivingBase) attackTarget, 1.6F, (float) (14 - this.worldObj.difficultySetting * 4));
-                entitysmallfireball.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
-                entitysmallfireball.setDamage((double) (range * 2.0F) + this.rand.nextGaussian() * 0.25D + (double) ((float) this.worldObj.difficultySetting * 0.11F));
+                entitysmallfireball.posY = this.posY + (this.height / 2.0F) + 0.5D;
+                entitysmallfireball.setDamage((range * 2.0F) + this.rand.nextGaussian() * 0.25D + (this.worldObj.difficultySetting * 0.11F));
                 this.worldObj.spawnEntityInWorld(entitysmallfireball);
             }
         }
@@ -77,8 +78,8 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
             for (int i = 0; i < 3; ++i)
             {
                 EntityArrow entitysmallfireball = new EntityArrow(this.worldObj, this, (EntityLivingBase) attackTarget, 1.6F, (float) (14 - this.worldObj.difficultySetting * 4));
-                entitysmallfireball.posY = this.posY + (double) (this.height / 2.0F) + 0.5D;
-                entitysmallfireball.setDamage((double) (range * 2.0F) + this.rand.nextGaussian() * 0.25D + (double) ((float) this.worldObj.difficultySetting * 0.11F));
+                entitysmallfireball.posY = this.posY + (this.height / 2.0F) + 0.5D;
+                entitysmallfireball.setDamage((range * 2.0F) + this.rand.nextGaussian() * 0.25D + (this.worldObj.difficultySetting * 0.11F));
                 this.worldObj.spawnEntityInWorld(entitysmallfireball);
             }
 
@@ -103,6 +104,7 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
         this.setInvulCounter(nbt.getInteger("Invul"));
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float getShadowSize()
     {
@@ -110,24 +112,28 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
     }
 
     /** Returns the sound this mob makes while it's alive. */
+    @Override
     protected String getLivingSound()
     {
         return "mob.wither.idle";
     }
 
     /** Returns the sound this mob makes when it is hurt. */
+    @Override
     protected String getHurtSound()
     {
         return "mob.wither.hurt";
     }
 
     /** Returns the sound this mob makes on death. */
+    @Override
     protected String getDeathSound()
     {
         return "mods.DarkBots.Fire";
     }
 
     /** Sets the Entity inside a web block. */
+    @Override
     public void setInWeb()
     {
     }

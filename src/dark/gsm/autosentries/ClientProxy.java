@@ -11,6 +11,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import dark.core.client.FXBeam;
 import dark.core.common.DarkMain;
+import dark.core.prefab.ModPrefab;
 import dark.gsm.autosentries.gui.GuiPlatformAccess;
 import dark.gsm.autosentries.gui.GuiPlatformSlots;
 import dark.gsm.autosentries.gui.GuiPlatformTerminal;
@@ -69,6 +70,6 @@ public class ClientProxy extends CommonProxy
     public void renderTracer(World world, Vector3 position, Vector3 target)
     {
         if (target != null && position != null)
-            FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(world, position, target, Color.DARK_GRAY, DarkMain.TEXTURE_DIRECTORY + "traceStream.png", 5, true));
+            FMLClientHandler.instance().getClient().effectRenderer.addEffect(new FXBeam(world, position, target, Color.DARK_GRAY, ModPrefab.TEXTURE_DIRECTORY + "traceStream.png", 5, true));
     }
 }

@@ -241,7 +241,7 @@ public class DarkSchematic
             {
                 String output = "";
                 String block = "" + entry.getValue().getOne();
-                if (this.blockChangeIDReverse.containsKey(entry.getValue().getOne()))
+                if (DarkSchematic.blockChangeIDReverse.containsKey(entry.getValue().getOne()))
                 {
                     block = blockChangeIDReverse.get(entry.getValue().getOne());
                 }

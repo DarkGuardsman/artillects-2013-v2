@@ -16,6 +16,7 @@ import dark.drone.hive.spire.TileEntitySpireCore;
 public class ClientProxy extends CommonProxy
 {
 
+    @Override
     public void init()
     {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpireCore.class, new RenderCore());
