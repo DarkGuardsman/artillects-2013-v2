@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import dark.core.prefab.access.AccessLevel;
+import dark.api.AccessLevel;
 import dark.core.prefab.terminal.ContainerTerminal;
 import dark.gsm.autosentries.SlotAmmunition;
 import dark.gsm.autosentries.api.ISentryUpgrade;

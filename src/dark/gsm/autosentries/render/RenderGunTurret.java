@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.core.prefab.access.AccessLevel;
+import dark.api.AccessLevel;
 import dark.gsm.autosentries.model.ModelSentryCannon;
 import dark.gsm.autosentries.turret.TileEntityTurretBase;
 import dark.gsm.client.renders.RenderTaggedTile;

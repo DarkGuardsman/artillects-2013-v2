@@ -1,15 +1,15 @@
 package dark.core.faction;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import net.minecraft.nbt.NBTTagCompound;
-import dark.core.prefab.access.AccessLevel;
+import dark.api.AccessLevel;
 import dark.core.prefab.access.GlobalAccessManager;
 import dark.core.prefab.access.UserAccess;
 import dark.core.prefab.helpers.Pair;
-import dark.core.prefab.helpers.Time;
 
 /** Class used to track and manage a player/NPC faction
  * 
@@ -57,7 +57,7 @@ public class FactionInstance
 
         if (date == null)
         {
-            date = Time.getCurrentTimeStamp();
+            date = getCurrentTimeStamp();
         }
         this.date = date.getKey();
 
@@ -67,6 +67,14 @@ public class FactionInstance
             userList = new ArrayList<UserAccess>();
             userList.add(new UserAccess(this.creator, AccessLevel.OWNER, true));
         }
+    }
+
+    public static Pair<String, Date> getCurrentTimeStamp()
+    {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+        return new Pair<String, Date>(strDate, now);
     }
 
     public String getCreationDate()
