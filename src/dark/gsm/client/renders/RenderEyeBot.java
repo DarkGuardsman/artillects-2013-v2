@@ -36,9 +36,8 @@ public class RenderEyeBot extends RenderLiving
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
-
         return new ResourceLocation(GSMCore.PREFIX, "textures/entity/bots/CubeEyeBot");
     }
 }

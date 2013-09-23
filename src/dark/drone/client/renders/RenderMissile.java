@@ -25,7 +25,7 @@ public class RenderMissile extends Render
 
     public void renderMissile(EntityBombMissile entity, double xx, double yy, double zz, float f, float f1)
     {
-        this.func_110777_b(entity);
+        bindTexture(this.getEntityTexture(entity));
         GL11.glPushMatrix();
         GL11.glTranslated(xx, yy, zz);
         GL11.glDisable(GL11.GL_CULL_FACE);
@@ -41,7 +41,7 @@ public class RenderMissile extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         return new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/Missile.png");
     }

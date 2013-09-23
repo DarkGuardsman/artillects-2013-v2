@@ -1,5 +1,7 @@
 package dark.gsm.autosentries.turret.sentries;
 
+import com.builtbroken.common.Pair;
+
 import icbm.api.IMissile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
@@ -16,7 +18,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import universalelectricity.core.vector.Vector3;
-import dark.core.prefab.helpers.Pair;
 import dark.gsm.autosentries.Sentries;
 import dark.gsm.autosentries.actions.ActionIdle;
 import dark.gsm.autosentries.actions.ActionKillTarget;

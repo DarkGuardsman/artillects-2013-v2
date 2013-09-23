@@ -52,7 +52,7 @@ public class EntityBombMissile extends Entity implements IProjectile
     }
 
     /** Used the difference in location of the shooter and target to position the missile
-     * 
+     *
      * @param world - world both the shooter and target are in
      * @param shooter - entity that is firing this missile
      * @param target - were the missile is destine for
@@ -267,7 +267,7 @@ public class EntityBombMissile extends Entity implements IProjectile
             {
                 EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
 
-                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer) this.shootingEntity).func_96122_a(entityplayer))
+                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))
                 {
                     movingobjectposition = null;
                 }

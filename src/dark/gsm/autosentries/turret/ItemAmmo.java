@@ -2,6 +2,8 @@ package dark.gsm.autosentries.turret;
 
 import java.util.List;
 
+import com.builtbroken.common.Pair;
+
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -15,7 +17,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.prefab.damage.TileDamageSource;
 import dark.core.prefab.helpers.AutoCraftingManager;
-import dark.core.prefab.helpers.Pair;
 import dark.gsm.autosentries.api.IAmmo;
 import dark.gsm.autosentries.api.ProjectileTypes;
 import dark.gsm.core.common.GSMCore;

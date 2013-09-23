@@ -23,7 +23,7 @@ import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 
 /** The GUI for user permissions and access.
- * 
+ *
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
@@ -227,7 +227,7 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
     protected void drawGuiContainerBackgroundLayer(float var1, int x, int y)
     {
         super.drawGuiContainerBackgroundLayer(var1, x, y);
-        this.mc.func_110434_K().func_110577_a(platform_gui);
+        this.mc.renderEngine.bindTexture(platform_gui);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int var5 = (this.width - this.xSize) / 2;

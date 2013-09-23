@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.builtbroken.common.Pair;
+
 import net.minecraft.nbt.NBTTagCompound;
 import dark.api.AccessLevel;
 import dark.core.prefab.access.GlobalAccessManager;
 import dark.core.prefab.access.UserAccess;
-import dark.core.prefab.helpers.Pair;
 
 /** Class used to track and manage a player/NPC faction
  * 

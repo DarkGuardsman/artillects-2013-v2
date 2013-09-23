@@ -130,12 +130,12 @@ public class ItemRocketPod extends ItemMain
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon(this.func_111208_A() + "_standby");
+        this.itemIcon = par1IconRegister.registerIcon(this.getIconString() + "_standby");
         this.iconArray = new Icon[bowPullIconNameArray.length];
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
-            this.iconArray[i] = par1IconRegister.registerIcon(this.func_111208_A() + "_" + bowPullIconNameArray[i]);
+            this.iconArray[i] = par1IconRegister.registerIcon(this.getIconString() + "_" + bowPullIconNameArray[i]);
         }
     }
 

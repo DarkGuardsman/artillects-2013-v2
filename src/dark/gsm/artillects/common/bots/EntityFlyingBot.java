@@ -76,7 +76,7 @@ public abstract class EntityFlyingBot extends EntityRobot
             this.motionZ *= f2;
         }
 
-        this.prevLimbYaw = this.limbYaw;
+        this.prevLimbSwingAmount = this.limbSwingAmount;
         double d0 = this.posX - this.prevPosX;
         double d1 = this.posZ - this.prevPosZ;
         float f4 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4.0F;
@@ -86,8 +86,8 @@ public abstract class EntityFlyingBot extends EntityRobot
             f4 = 1.0F;
         }
 
-        this.limbYaw += (f4 - this.limbYaw) * 0.4F;
-        this.limbSwing += this.limbYaw;
+        this.limbSwingAmount += (f4 - this.limbSwingAmount) * 0.4F;
+        this.limbSwing += this.limbSwingAmount;
     }
 
     @Override

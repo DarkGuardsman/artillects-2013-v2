@@ -37,10 +37,10 @@ public class RenderDefenderTwo extends Render
         GL11.glScalef(1.5f, 1.5f, 1.5f);
         //GL11.glRotatef(-90, 0F, 1F, 0F);
         GL11.glRotatef(-entity.rotationYaw, 0F, 1F, 0F);
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(wheel);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(wheel);
         modelWheel.renderAll();
 
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(body);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(body);
         modelBody.renderAll();
 
         if (entity instanceof EntityLiving)
@@ -48,7 +48,7 @@ public class RenderDefenderTwo extends Render
             GL11.glRotatef(entity.rotationYaw - ((EntityLiving) entity).rotationYawHead, 0F, 1F, 0F);
         }
 
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(track);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(track);
         modelTrack.renderAll();
 
         GL11.glEnable(GL11.GL_CULL_FACE);
@@ -57,7 +57,7 @@ public class RenderDefenderTwo extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         return new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/Drone.Wheel.png");
     }

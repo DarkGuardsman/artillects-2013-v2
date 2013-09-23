@@ -31,7 +31,7 @@ public class EntityDefender extends EntityWeaponDrone
     @Override
     public boolean attackEntityAsMob(Entity entity)
     {
-        float damage = (float) this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111126_e();
+        float damage = (float) this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
         int knockBack = 0;
 
         if (entity instanceof EntityLivingBase)
@@ -111,10 +111,10 @@ public class EntityDefender extends EntityWeaponDrone
     }
 
     @Override
-    protected void func_110147_ax()
+    protected void applyEntityAttributes()
     {
-        super.func_110147_ax();
-        this.func_110140_aT().func_111150_b(SharedMonsterAttributes.field_111264_e);
+        super.applyEntityAttributes();
+        this.getAttributeMap().func_111150_b(SharedMonsterAttributes.attackDamage);
     }
 
     public boolean func_70845_n()

@@ -51,6 +51,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
         this.experienceValue = 15;
     }
 
+
     public String getNameTag()
     {
         return "EyeBot" + Integer.valueOf(this.entityId);
@@ -100,12 +101,6 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
     {
         super.entityInit();
         this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
-    }
-
-    @Override
-    public int getMaxHealth()
-    {
-        return 30;
     }
 
     @Override
@@ -228,7 +223,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
     }
 
     /** Fire the built in weapon at the target
-     * 
+     *
      * @param x y z - taget location for arrows, fireballs, or dummy fire weapons */
     public void fireAtTarget(double x, double y, double z)
     {
@@ -239,7 +234,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
     }
 
     /** Used to check if a point can be moved too
-     * 
+     *
      * @param point - point traveling too
      * @param par7 - unkown??
      * @return true if this point can be moved too */

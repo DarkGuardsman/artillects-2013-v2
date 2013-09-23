@@ -4,6 +4,7 @@ import icbm.api.ICBM;
 import icbm.api.explosion.IExplosive;
 import icbm.api.explosion.IExplosiveContainer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -62,6 +63,17 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
     }
 
     @Override
+    protected void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.6000000238418582D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(100.0D);
+    }
+
+    @Override
     public boolean isAIEnabled()
     {
         return true;
@@ -77,12 +89,6 @@ public class EntityElecticCreeper extends EntityRobot implements IExplosiveConta
         {
             this.timeSinceIgnited = this.fuseTime - 5;
         }
-    }
-
-    @Override
-    public int getMaxHealth()
-    {
-        return 20;
     }
 
     @Override

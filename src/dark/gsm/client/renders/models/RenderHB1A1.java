@@ -88,7 +88,7 @@ public class RenderHB1A1 extends RenderLiving
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         // TODO Auto-generated method stub
         return null;

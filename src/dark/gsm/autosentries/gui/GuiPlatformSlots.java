@@ -52,7 +52,7 @@ public class GuiPlatformSlots extends GuiPlatformContainer
     protected void drawGuiContainerBackgroundLayer(float par1, int x, int y)
     {
         super.drawGuiContainerBackgroundLayer(par1, x, y);
-        this.mc.func_110434_K().func_110577_a(gui_pic);
+        this.mc.renderEngine.bindTexture(gui_pic);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int containerWidth = (this.width - this.xSize) / 2;

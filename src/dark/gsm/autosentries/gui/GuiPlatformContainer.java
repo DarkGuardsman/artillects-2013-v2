@@ -19,7 +19,7 @@ import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
 
 /** A base class for all ICBM Sentry GUIs with containers.
- * 
+ *
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public abstract class GuiPlatformContainer extends GuiContainer
@@ -129,7 +129,7 @@ public abstract class GuiPlatformContainer extends GuiContainer
     @Override
     protected void drawGuiContainerBackgroundLayer(float par1, int x, int y)
     {
-        this.mc.func_110434_K().func_110577_a(base_gui);
+        this.mc.renderEngine.bindTexture(base_gui);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int containerWidth = (this.width - this.xSize) / 2;

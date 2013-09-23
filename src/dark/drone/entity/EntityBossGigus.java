@@ -18,7 +18,7 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
     public EntityBossGigus(World par1World)
     {
         super(par1World);
-        this.setEntityHealth(100 + 100 * this.worldObj.difficultySetting);
+        this.setHealth(100 + 100 * this.worldObj.difficultySetting);
         this.isImmuneToFire = true;
         this.getNavigator().setCanSwim(true);
         this.experienceValue = 200;
@@ -166,14 +166,14 @@ public class EntityBossGigus extends EntityDefender implements IBossDisplayData
     }
 
     @Override
-    protected void func_110147_ax()
+    protected void applyEntityAttributes()
     {
-        super.func_110147_ax();
+        super.applyEntityAttributes();
 
-        this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(12.0D);
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(300.0D);
-        this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.6000000238418582D);
-        this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(12.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(300.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.6000000238418582D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(50.0D);
     }
 
     public int getInvulCounter()

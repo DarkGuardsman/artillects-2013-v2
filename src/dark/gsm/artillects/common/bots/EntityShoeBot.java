@@ -1,5 +1,6 @@
 package dark.gsm.artillects.common.bots;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.World;
 
@@ -13,12 +14,14 @@ public class EntityShoeBot extends EntityRobot
         super(par1World);
         this.setSize(0.6F, 0.2F);
     }
-
     @Override
-    public int getMaxHealth()
+    protected void applyEntityAttributes()
     {
-        // TODO Auto-generated method stub
-        return 5;
+        super.applyEntityAttributes();
+
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.8000000238418582D);
     }
 
     public String getRenderedName()

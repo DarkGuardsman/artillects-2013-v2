@@ -16,7 +16,7 @@ import dark.gsm.autosentries.platform.TileEntityTurretPlatform;
 import dark.gsm.core.common.GSMCore;
 
 /** The console GUI used by turrets.
- * 
+ *
  * @author Darkguardsman, Edited by Calclavia */
 @SideOnly(Side.CLIENT)
 public class GuiPlatformTerminal extends GuiPlatformBase
@@ -173,7 +173,7 @@ public class GuiPlatformTerminal extends GuiPlatformBase
     protected void drawGuiContainerBackgroundLayer(float var1, int x, int y)
     {
         super.drawGuiContainerBackgroundLayer(var1, x, y);
-        this.mc.func_110434_K().func_110577_a(gui_pic);
+        this.mc.renderEngine.bindTexture(gui_pic);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         int var5 = (this.width - this.xSize) / 2;

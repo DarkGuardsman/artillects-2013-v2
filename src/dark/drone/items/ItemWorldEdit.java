@@ -135,12 +135,12 @@ public class ItemWorldEdit extends Item
                 if (pos == null)
                 {
                     pos = new Pos(x, y, z);
-                    player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Pos one set to " + pos.toString()));
+                    player.sendChatToPlayer(ChatMessageComponent.createFromText("Pos one set to " + pos.toString()));
                 }
                 else if (pos2 == null)
                 {
                     pos2 = new Pos(x, y, z);
-                    player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Pos2 one set to " + pos2.toString()));
+                    player.sendChatToPlayer(ChatMessageComponent.createFromText("Pos2 one set to " + pos2.toString()));
                 }
                 if (pos != null && pos2 != null)
                 {
@@ -148,7 +148,7 @@ public class ItemWorldEdit extends Item
                     String name = user + "_Schematic_" + dateFormat.format(new Date());
                     schematic = new DarkSchematic(name).loadWorldSelection(world, pos, pos2).save();
 
-                    player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Saved Schematic  " + name));
+                    player.sendChatToPlayer(ChatMessageComponent.createFromText("Saved Schematic  " + name));
 
                     //player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Copied region  "));
                     pos = null;
@@ -169,7 +169,7 @@ public class ItemWorldEdit extends Item
                     spire.zCoord = z;
                     hiveSpire = new HiveSpire(spire);
                 }
-                player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Building Max Size Spire at " + new Pos(x, y, z).toString()));
+                player.sendChatToPlayer(ChatMessageComponent.createFromText("Building Max Size Spire at " + new Pos(x, y, z).toString()));
                 HiveSpire.buildSpire(hiveSpire, HiveSpire.MAX_SIZE);
                 if (hiveSpire.getSchematic() != null)
                 {
@@ -180,12 +180,12 @@ public class ItemWorldEdit extends Item
             {
                 if (schematic != null)
                 {
-                    player.sendChatToPlayer(ChatMessageComponent.func_111066_d("Pasting schematic"));
+                    player.sendChatToPlayer(ChatMessageComponent.createFromText("Pasting schematic"));
                     schematic.build(new PosWorld(world, x, y, z), true);
                 }
                 else
                 {
-                    player.sendChatToPlayer(ChatMessageComponent.func_111066_d("No schematic loaded"));
+                    player.sendChatToPlayer(ChatMessageComponent.createFromText("No schematic loaded"));
                 }
             }
 

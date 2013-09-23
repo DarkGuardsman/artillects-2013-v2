@@ -42,11 +42,11 @@ public class RenderBossGigus extends Render
         //GL11.glRotatef(-90, 0F, 1F, 0F);
         GL11.glRotatef(-entity.rotationYaw, 0F, 1F, 0F);
         /*Render Body */
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(pack);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(pack);
         modelPack.renderAll();
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(body);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(body);
         modelBody.renderAll();
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(shoulders);
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(shoulders);
         modelShoulders.renderAll();
         /*Render Legs */
 
@@ -56,9 +56,8 @@ public class RenderBossGigus extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         return new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/Drone.Wheel.png");
     }
-
 }

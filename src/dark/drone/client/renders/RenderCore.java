@@ -12,7 +12,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import dark.drone.DarkBotMain;
 
 /** Basic Advanced Obj modeler render for quick test runs and scaling
- * 
+ *
  * @author DarkGuardsman */
 public class RenderCore extends TileEntitySpecialRenderer
 {
@@ -46,7 +46,7 @@ public class RenderCore extends TileEntitySpecialRenderer
 
         r = ((r + 2) % 360) - 180;
 
-        FMLClientHandler.instance().getClient().renderEngine.func_110577_a(new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/Core.Render.png"));
+        FMLClientHandler.instance().getClient().renderEngine.bindTexture(new ResourceLocation(DarkBotMain.DOMAIN, "textures/uv/Core.Render.png"));
         modelCore.renderAll();
 
         GL11.glTranslated(0 + xChange, -.5 + yChange, 0 + zChange);
