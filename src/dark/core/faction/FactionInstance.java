@@ -27,7 +27,7 @@ public class FactionInstance
     {
         if (this.name == null || this.name.isEmpty())
         {
-            this.name = "Faction" + date.getValue().getMonth() + date.getValue().getDay();
+            this.name = "Faction" + date.right().getMonth() + date.right().getDay();
         }
         else
         {
@@ -60,7 +60,7 @@ public class FactionInstance
         {
             date = getCurrentTimeStamp();
         }
-        this.date = date.getKey();
+        this.date = date.left();
 
         userList = GlobalAccessManager.getOrCreateList(name, maker);
         if (userList == null)

@@ -264,9 +264,9 @@ public abstract class TileEntityAutoTurret extends TileEntityTurretBase implemen
                 if (bullet.applyDirectDamage(meta))
                 {
                     Pair<DamageSource, Integer> damage = bullet.getDamage(this.target, this.getDamageEntity(), meta);
-                    if (damage != null && damage.getKey() != null && damage.getValue() > 0)
+                    if (damage != null && damage.left() != null && damage.right() > 0)
                     {
-                        this.target.attackEntityFrom(damage.getKey(), damage.getValue());
+                        this.target.attackEntityFrom(damage.left(), damage.right());
                         fired = true;
                     }
 
