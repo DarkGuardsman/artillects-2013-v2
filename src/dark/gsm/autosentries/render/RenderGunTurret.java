@@ -81,4 +81,11 @@ public class RenderGunTurret extends RenderTaggedTile
     {
         return null;
     }
+
+    @Override
+    public void renderModel(TileEntity tileEntity, double x, double y, double z, float size)
+    {
+        // TODO Auto-generated method stub
+
+    }
 }

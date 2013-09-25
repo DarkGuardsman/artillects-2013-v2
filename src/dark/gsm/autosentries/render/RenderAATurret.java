@@ -23,7 +23,7 @@ public class RenderAATurret extends RenderTaggedTile
     public static final ModelAATurret MODEL = new ModelAATurret();
 
     @Override
-    public void renderTileEntityAt(TileEntity t, double x, double y, double z, float f)
+    public void renderModel(TileEntity t, double x, double y, double z, float f)
     {
         super.renderTileEntityAt(t, x, y, z, f);
 

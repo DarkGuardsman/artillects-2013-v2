@@ -2,8 +2,6 @@ package dark.gsm.autosentries.turret;
 
 import java.util.List;
 
-import com.builtbroken.common.Pair;
-
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,6 +11,9 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
 import universalelectricity.core.vector.Vector3;
+
+import com.builtbroken.common.Pair;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.core.prefab.damage.TileDamageSource;

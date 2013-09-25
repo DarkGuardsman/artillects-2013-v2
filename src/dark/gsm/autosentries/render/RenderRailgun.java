@@ -44,4 +44,11 @@ public class RenderRailgun extends RenderTaggedTile
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public void renderModel(TileEntity tileEntity, double x, double y, double z, float size)
+    {
+        // TODO Auto-generated method stub
+
+    }
 }
