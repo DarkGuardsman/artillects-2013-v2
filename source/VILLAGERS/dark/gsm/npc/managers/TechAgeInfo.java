@@ -1,6 +1,6 @@
-package dark.gsm.npc.village;
+package dark.gsm.npc.managers;
 
-import dark.gsm.npc.village.TechAgeManager.TechAge;
+import dark.gsm.npc.managers.TechAgeManager.TechAge;
 import net.minecraft.nbt.NBTTagCompound;
 
 /** Used to track info about the progression of an empires technology

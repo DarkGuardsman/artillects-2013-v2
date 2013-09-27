@@ -1,8 +1,13 @@
-package dark.gsm.npc.village;
+package dark.gsm.npc.managers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import com.builtbroken.common.Pair;
 
 public class TechAgeManager
 {
@@ -14,18 +19,50 @@ public class TechAgeManager
     public static boolean ignoreCraftingRestrictions = false;
     /** Forces the player to the same tech restriction as NPCs */
     public static boolean forcePlayerCrafting = false;
+
+    public static boolean init = false, postInit = false;
     /** Data base location inside the config folder */
     public static final String configDir = "/dark/GSM/ModManager";
 
-    public void init()
+    public static List<Pair<Integer, Integer>> unlockedCrafting = new ArrayList();
+
+    static
     {
-        this.updateConfigDatabase();
-        this.parseConfigForBuildOptions();
-        this.parseModsForBuildOptions();
+        //unlock all wood items
+        unlockCrafting(Block.planks);
+        unlockCrafting(Item.axeWood);
+        unlockCrafting(Item.pickaxeWood);
+        unlockCrafting(Item.swordWood);
+        unlockCrafting(Block.workbench);
+        unlockCrafting(Block.woodSingleSlab);
+        unlockCrafting(Item.doorWood);
+        unlockCrafting(Block.woodenButton);
+        unlockCrafting(Item.stick);
+        unlockCrafting(Block.torchWood);
+    }
+
+    public static void init()
+    {
+        if (!init)
+        {
+            updateConfigDatabase();
+            parseConfigForBuildOptions();
+            parseModsForBuildOptions();
+            init = true;
+        }
+    }
+
+    public static void postInit()
+    {
+        if (!postInit)
+        {
+            //TODO parse all mods for content, and attempt to auto category based on ore names, and reverse crafting
+            postInit = true;
+        }
     }
 
     /** Used later to download a master list from a server of how to interact with all mods */
-    public void updateConfigDatabase()
+    public static void updateConfigDatabase()
     {
 
         //TODO get version of mods
@@ -35,24 +72,52 @@ public class TechAgeManager
         //Report any unknown mods to server
         //Add option to let smp server override master server database
 
+        //TODO copy files stored in the mod into the config folder if they don't download or don't already exist
+
     }
 
     /** Reads a config root file for how to handle content from other mods */
-    public void parseConfigForBuildOptions()
+    public static void parseConfigForBuildOptions()
     {
         //TODO only load configs for versions of mods running
         //This means the config xml will need to contain the modID, and version
 
     }
 
-    public void parseModsForBuildOptions()
+    public static void parseModsForBuildOptions()
     {
-        //TODO this will be more conplex than the config file
+        //TODO this will be more complex than the config file
         // since mods will contain version-less xmls
     }
 
+    /** unlocks an item, block, or itemstack for crafting */
+    public static void unlockCrafting(Object object)
+    {
+        ItemStack stack = null;
+        if (object instanceof ItemStack)
+        {
+            stack = (ItemStack) object;
+        }
+        else if (object instanceof Item)
+        {
+            stack = new ItemStack((Item) object, 1, -1);
+        }
+        else if (object instanceof Block)
+        {
+            stack = new ItemStack((Block) object, 1, -1);
+        }
+        if (stack != null)
+        {
+            synchronized (unlockedCrafting)
+            {
+                TechAgeManager.unlockedCrafting.add(new Pair<Integer, Integer>(stack.itemID, stack.getItemDamage()));
+            }
+        }
+    }
+
     /** Enum used to track the tech progress of an NPC empire. Normal npcs start at stone or nomatic.
-     * Drones start at industrial automatically. */
+     * Drones start at industrial automatically. Ages don't include any cultural periods as this is
+     * technology only based */
     public static enum TechAge
     {
         /** Empire starting age. Before village creation */
@@ -75,6 +140,8 @@ public class TechAgeManager
         SPACE("Space", "Space, the final frontier, or a war zone were no one can hear you scream.");
 
         public String ageName, ageDesc;
+        /** Crafting that by default is unlocked with the age progression */
+        public List<Pair<Integer, Integer>> techCrafting = new ArrayList();
 
         private TechAge(String name, String description)
         {
