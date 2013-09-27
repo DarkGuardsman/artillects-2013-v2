@@ -2,8 +2,8 @@ package dark.gsm.artillects.common;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import dark.gsm.artillects.common.bots.EntityEyeBot;
-import dark.gsm.client.renders.RenderEyeBot;
-import dark.gsm.client.renders.models.ModelCubeEyeBot;
+import dark.gsm.artillects.renders.RenderEyeBot;
+import dark.gsm.artillects.renders.models.ModelCubeEyeBot;
 
 public class ClientProxy extends dark.gsm.artillects.common.CommonProxy
 {
