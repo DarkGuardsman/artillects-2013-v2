@@ -23,7 +23,7 @@ import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** The GUI for user permissions and access.
- *
+ * 
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public class GuiPlatformAccess extends GuiPlatformBase implements IScroll

@@ -4,6 +4,11 @@ public class ProfessionManager
 {
     public static enum professions
     {
-        METALWORKER, FARMER, BAKER, COOK, BUILDER, WORKER;
+        METALWORKER,
+        FARMER,
+        BAKER,
+        COOK,
+        BUILDER,
+        WORKER;
     }
 }

@@ -16,7 +16,7 @@ import dark.gsm.core.common.GSMCore;
 import dark.gsm.fortress.turret.BlockTurret.TurretType;
 
 /** Renders a block as an item.
- *
+ * 
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public class BlockRenderingHandler implements ISimpleBlockRenderingHandler

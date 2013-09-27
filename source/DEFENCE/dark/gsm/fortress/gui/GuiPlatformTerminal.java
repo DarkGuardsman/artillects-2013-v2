@@ -16,7 +16,7 @@ import dark.gsm.core.common.GSMCore;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** The console GUI used by turrets.
- *
+ * 
  * @author Darkguardsman, Edited by Calclavia */
 @SideOnly(Side.CLIENT)
 public class GuiPlatformTerminal extends GuiPlatformBase

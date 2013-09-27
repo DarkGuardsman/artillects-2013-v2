@@ -26,7 +26,7 @@ public abstract class Research
     /** Have all events, and reqs been meet to complete the research. @Note: this doesn't have to be
      * research itself but can be a farmer finding a new plant, or a metal work creating a new
      * Technique
-     *
+     * 
      * @return true for yes */
     public abstract boolean canComplete();
 

@@ -20,7 +20,7 @@ import dark.gsm.fortress.Sentries;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** A base class for all ICBM Sentry GUIs.
- *
+ * 
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public abstract class GuiPlatformBase extends GuiContainer

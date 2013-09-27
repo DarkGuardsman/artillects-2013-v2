@@ -14,6 +14,7 @@ public class EntityShoeBot extends EntityRobot
         super(par1World);
         this.setSize(0.6F, 0.2F);
     }
+
     @Override
     protected void applyEntityAttributes()
     {

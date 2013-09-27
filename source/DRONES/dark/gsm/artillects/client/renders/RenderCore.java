@@ -12,7 +12,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 import dark.gsm.artillects.DarkBotMain;
 
 /** Basic Advanced Obj modeler render for quick test runs and scaling
- *
+ * 
  * @author DarkGuardsman */
 public class RenderCore extends TileEntitySpecialRenderer
 {

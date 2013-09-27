@@ -1,10 +1,10 @@
 package dark.gsm.npc.managers;
 
-import dark.gsm.npc.managers.TechAgeManager.TechAge;
 import net.minecraft.nbt.NBTTagCompound;
+import dark.gsm.npc.managers.TechAgeManager.TechAge;
 
 /** Used to track info about the progression of an empires technology
- *
+ * 
  * @author DarkGuardsman */
 public class TechAgeInfo
 {

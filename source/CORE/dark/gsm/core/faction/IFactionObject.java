@@ -1,6 +1,5 @@
 package dark.gsm.core.faction;
 
-
 public interface IFactionObject
 {
     /** Gets the faction this is linked too. Will return Neutral rather than null */
