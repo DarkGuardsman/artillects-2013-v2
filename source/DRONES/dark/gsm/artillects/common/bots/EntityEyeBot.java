@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
 import dark.api.AccessLevel;
 import dark.api.ISpecialAccess;
-import dark.core.prefab.access.UserAccess;
+import dark.api.UserAccess;
 import dark.gsm.artillects.common.ai.combat.EnumRange;
 import dark.gsm.artillects.common.ai.combat.IAttacker;
 import dark.gsm.artillects.common.ai.combat.LaserHelper;

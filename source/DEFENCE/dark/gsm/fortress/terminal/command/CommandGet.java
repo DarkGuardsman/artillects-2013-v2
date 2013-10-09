@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import dark.api.AccessLevel;
 import dark.api.ISpecialAccess;
 import dark.api.ITerminal;
-import dark.core.prefab.access.UserAccess;
+import dark.api.UserAccess;
 import dark.core.prefab.terminal.TerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 

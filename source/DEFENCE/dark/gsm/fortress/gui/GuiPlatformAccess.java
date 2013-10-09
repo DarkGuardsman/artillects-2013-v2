@@ -17,8 +17,8 @@ import universalelectricity.prefab.vector.Region2;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dark.api.AccessLevel;
+import dark.api.UserAccess;
 import dark.core.interfaces.IScroll;
-import dark.core.prefab.access.UserAccess;
 import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
