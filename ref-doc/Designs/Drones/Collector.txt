@@ -1,0 +1,9 @@
+Searches for and picks up items in mass amounts. Is a flying drone the size of a small bus. Will suck items out of players storage if it finds it. Though it mainly collects ore from drone mining sites. It will show up in attacks against player bases to collect downed drones, and spools of war.
+
+Support unit
+230 HP
+2 DP laser attack
+5 DP claw attack
+Support gravity beam
+
+Role: Logistics. Will be seen flying around collecting and sorting items for drone hives. Is a supportive unit so will not been seen on the edge of drone controlled space. 

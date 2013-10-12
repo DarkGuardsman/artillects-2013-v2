@@ -1,0 +1,12 @@
+Starts as a simi-hostile faction against the player. Will not activily attack the player unless the player becomes an issue. 
+
+
+People
+    Is made up of AI programs that controls machines known as drones. These drones do everything for these AIs
+    
+Leaders
+    Master hive AI. It runs the big picture and overrides the lower AI machines. In game its represented by a large computer that will speak to players. Its goal it to replicated and expand across the world. There are sub goals under this depending on the sub faction of Drones. Some faction goals are to only build and mine. Others are to consume the planet. 
+    
+Building style
+    Machinery, black metal spires, no plants. Its a waste land of metal, and technology. 
+    

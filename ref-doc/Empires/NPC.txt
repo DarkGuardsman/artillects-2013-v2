@@ -1,0 +1,10 @@
+These are all characters that act like the player in the world. They are not just human but the main one will be. Several other sub factions will be orcs, dwarfs, goblins, and nethans. 
+
+People
+    Basic humanoid like being that have varies stats but are generally in one area. They act like the player and have wide range of skills. They will craft, eat, build, work, etc etc
+    
+Leaders
+    Player is the main lead of a faction, but random factions ca be generated. In the case of an NPC faction it can be a wide range of leadership. The main one will most like attack the player, but some will work with the player. That is Neutral NPC village faction will alway work with the player unless the player does something stupid. 
+    
+Build Style
+    Wide range including mimicing the player. The plan is to give the NPC advanced knowlage of how to use blocks and mods. This way they can do a wide range of things. Including build complex buildings using schematic and procedural coding. 

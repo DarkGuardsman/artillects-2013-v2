@@ -1,0 +1,10 @@
+Builds all parts of the drone hive. Including support drones from its mobile factory bay. Will never be seen around the hive unless one is found. They are dormant golems with only one task to create new hives. They look like a cross between the borderland 2 constructor, and a squid. They have a large bay at the bottom to build new object. During attack they will first ignore the player and move away. Then when the player lands a hard hit they will attack the player to remove him. If they player moves away so do they. They general don't get agressive unless trapped. Due to there high HP this mean they can actually walk away and regen. To kill it the player needs a log of support, and a trap. When trapped the constructor will call for help and start to fight back. During which it will deploy drones, build turrets, and fire its cannons. Cannons can be destoryed, and so can its factory. Destroy all parts then removing the power souce allows it to be captured. In which you can turn it into a very unwilling drone research factory. In which it becomes a simi mobile multi block structure. The player will use it to reverse engineer drones. The contructor will look at the player with its large eye. It will make comments and strugle each time the player uses it. 
+
+Boss
+800Hp + regen
+
+10 DP cannon attack (1)
+5 DP laser attack (4)
+
+
+Role: As a player you do not attack one of these without a tank, and support. These are mini-bosses of hives though they generally will not attack unless they can't get away. There role in the hive is to build the first parts of the hive. They will actually shutdown after building the first done factory. They generally will lay dorminate for a long time offer a player a change to steal one. Though this is not actually an easy task. 

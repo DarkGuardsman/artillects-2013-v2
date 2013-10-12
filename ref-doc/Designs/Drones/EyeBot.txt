@@ -1,0 +1,6 @@
+Flying attack drone. Shaped like a cube, and fires a laser. Will be seen a lot flying around drone controled areas. Will not attack on sight but will follow the player. When attacked it will work with other cubes to fight the thread. When hit it will try to close up to protect it self. The outer casing will actual shut around its core. As well when killed this casing will break apart and fly away in fragements. Does damge things around it when it dies.
+
+Drone
+50 health
+5 DP laser attack
+light armor

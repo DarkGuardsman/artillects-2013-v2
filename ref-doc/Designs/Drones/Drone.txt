@@ -1,0 +1,62 @@
+Strait out spider-ant like worker of the hive. Does anything and everything for the hive. Can be changed to do several tasks including mining, building, and attacking. Is a platform for modification. Can easily be seen inside and outside the drone control land. Will be common in mines, and around key points. Will poke at the player when found and is not a weak drone to fight. 
+
+Looks like bugs from space troopers made of black metal. Very fast and can climb. Has a single red eye. Though it can be in several places. Some have several eyes.
+
+
+20 HP Default
+Can ram the player for 1 hp. 
+Light armor
+
+Mining drone   
+    Has minor item storage, and uses claw jaws to mine.
+Lava Mining Drone
+    55 HP
+    Mines with drill claw mouth. Has minor item storage and very hard skin
+    Will block arrows
+    Found deep in the earth and in the nether
+    Player should avoid as this drone can grapel wall to get out of lava or the player into lava.
+Drill Drone
+    Can drill holes and mine a bit faster than the mining drone. Though the mining drone move around more.
+    15 HP, with no armor
+    3 HP drill attack
+Laser Mining Drone
+    10HP
+    Mines ores rather fast but melts them into clumbs that have to processed. Its effect can be see with molten rock piles
+    10HP laser attack but easy to kill
+Cargo drone
+    30 HP
+    Moves cargo around. Has a single chest worth or room. As well can pick up machine in place of the chest storage. Is very wide range use drone as it can build as well by picking up single blocks on its back.
+
+Weapon Drone
+     50 HP
+     Missile Drone
+        40 HP
+        4 Pack missile launcher
+        Fires mirco missile ammo of varies types
+        Has built in long range radar that works with ICBM
+     Cannon Drone
+        Long range heavy hitter cannon
+        10 HP direct hit plus tnt blast radius
+        long reload time
+        can't see very well and needs other drones to see
+     Mortar Drone
+        Long range mobile arillery support
+        tnt type blast though it contains other mortar shell types
+        medium reload time
+        can't see the target and needs drones to see
+     Laser Drone
+        Standard damage sentry. Can bunker down for more armor but can't move when it does
+        7 Hp damage hit
+        Has a small sheild to reflect arrorws, and small bullets
+     MM Gun drone
+        Same as above but with out the shield
+        Has more armor than its brother drone
+        2 hp damage shell but fires fast
+        low accurcy and range
+     Mine Drone
+        Places mines, and traps around the map.
+        Will attack the player like a creeper if trapped
+     Bomb Drone
+        Caries a bomb into the fight. Will try to place it and set if off.
+        However will do the same as a mine drone when corned. Only diff is the outcome can be a very large boom
+

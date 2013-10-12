@@ -1,0 +1,8 @@
+Flying drone that moves and picks up cargo. Mainly use to do logistics but is well armored against attack. Looks like a slime back wallet shapped box. Has a large eye up front, and doesn't look much like a plane. Uses an anti grav system to move. Is not very fast but is faster than a player. Is supported by grav rails to move faster when found in drone controled areas. 
+
+Drone
+140 HP
+No weapons
+Can ram the player
+
+Role: Move cargo around the map. Good target for players who want to steal items from the drones. Does weaken the drones but also pisses them off. That is if they notice what is going on. Suggest to trap and jam the drone to steal its loot. 
