@@ -9,8 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.builtbroken.common.Pair;
 
-import dark.api.AccessLevel;
-import dark.api.UserAccess;
+import dark.api.access.AccessLevel;
+import dark.api.access.UserAccess;
 import dark.core.prefab.access.GlobalAccessManager;
 
 /** Class used to track and manage a player/NPC faction

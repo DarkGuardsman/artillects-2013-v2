@@ -1,26 +1,23 @@
 package dark.gsm.fortress.terminal.command;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
-import dark.api.AccessLevel;
-import dark.api.ISpecialAccess;
 import dark.api.ITerminal;
-import dark.core.prefab.terminal.TerminalCommand;
+import dark.api.access.ITerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 import dark.gsm.fortress.turret.sentries.TileEntityAutoTurret;
 
-public class CommandTarget extends TerminalCommand
+public class CommandTarget implements ITerminalCommand
 {
     @Override
-    public String getCommandPrefix()
+    public String getCommandName()
     {
         return "target";
     }
 
     @Override
-    public boolean processCommand(EntityPlayer player, ITerminal terminal, String[] args)
+    public boolean called(EntityPlayer player, ITerminal terminal, String[] args)
     {
         if (terminal instanceof TileEntityTurretPlatform)
         {
@@ -105,33 +102,27 @@ public class CommandTarget extends TerminalCommand
     }
 
     @Override
-    public boolean canPlayerUse(EntityPlayer var1, ISpecialAccess mm)
-    {
-        return mm.getUserAccess(var1.username).ordinal() >= AccessLevel.ADMIN.ordinal() || var1.capabilities.isCreativeMode;
-    }
-
-    @Override
-    public boolean showOnHelp(EntityPlayer player, ISpecialAccess mm)
-    {
-        return this.canPlayerUse(player, mm);
-    }
-
-    @Override
-    public List<String> getCmdUses(EntityPlayer player, ISpecialAccess mm)
-    {
-        List<String> cmds = new ArrayList<String>();
-        cmds.add("target <obj> [bool]");
-        return cmds;
-    }
-
-    @Override
-    public boolean canMachineUse(ISpecialAccess mm)
+    public boolean canSupport(ITerminal mm)
     {
         if (mm instanceof TileEntityTurretPlatform)
         {
             return ((TileEntityTurretPlatform) mm).getTurret(false) instanceof TileEntityAutoTurret;
         }
         return false;
+    }
+
+    @Override
+    public Set<String> getPermissionNodes()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getNode(String[] args)
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

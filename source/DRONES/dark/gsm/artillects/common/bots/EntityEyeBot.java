@@ -3,7 +3,6 @@ package dark.gsm.artillects.common.bots;
 import icbm.api.IMissile;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -16,15 +15,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import universalelectricity.core.vector.Vector3;
-import dark.api.AccessLevel;
-import dark.api.ISpecialAccess;
-import dark.api.UserAccess;
 import dark.gsm.artillects.common.ai.combat.EnumRange;
 import dark.gsm.artillects.common.ai.combat.IAttacker;
 import dark.gsm.artillects.common.ai.combat.LaserHelper;
 import dark.gsm.artillects.common.ai.combat.SearchHelper;
 
-public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecialAccess
+public class EntityEyeBot extends EntityFlyingBot implements IAttacker
 {
     SearchHelper targetFinder;
     LaserHelper laserHelp;
@@ -222,7 +218,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
     }
 
     /** Fire the built in weapon at the target
-     * 
+     *
      * @param x y z - taget location for arrows, fireballs, or dummy fire weapons */
     public void fireAtTarget(double x, double y, double z)
     {
@@ -233,7 +229,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
     }
 
     /** Used to check if a point can be moved too
-     * 
+     *
      * @param point - point traveling too
      * @param par7 - unkown??
      * @return true if this point can be moved too */
@@ -332,13 +328,10 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
 
                         if (!player.capabilities.isCreativeMode)
                         {
-                            if (this.getUserAccess(player.username).ordinal() >= AccessLevel.BASIC.ordinal())
-                            {
                                 return true;
-                            }
                         }
                     }
-                    else if (this.getUsers().size() <= 0 && !(entity instanceof EntityEyeBot))
+                    else if (!(entity instanceof EntityEyeBot))
                     {
                         return true;
                     }
@@ -357,39 +350,6 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker, ISpecial
             return 10D;
         }
         return 100D;
-    }
-
-    @Override
-    public AccessLevel getUserAccess(String username)
-    {
-        return AccessLevel.NONE;
-    }
-
-    @Override
-    public List<UserAccess> getUsers()
-    {
-        return new ArrayList<UserAccess>();
-    }
-
-    @Override
-    public boolean addUserAccess(String username, AccessLevel level, boolean save)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean removeUserAccess(String username)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<UserAccess> getUsersWithAcess(AccessLevel level)
-    {
-        // TODO Auto-generated method stub
-        return new ArrayList<UserAccess>();
     }
 
     @Override

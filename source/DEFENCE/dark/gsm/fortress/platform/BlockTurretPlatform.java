@@ -14,8 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Configuration;
-import dark.api.AccessLevel;
-import dark.api.ISpecialAccess;
+import dark.api.access.ISpecialAccess;
 import dark.gsm.core.common.BasicBlock;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.fortress.CommonProxy;
@@ -48,7 +47,7 @@ public class BlockTurretPlatform extends BasicBlock
 
             if (ent instanceof ISpecialAccess)
             {
-                ((ISpecialAccess) ent).addUserAccess(((EntityPlayer) entity).username, AccessLevel.OWNER, true);
+                ((ISpecialAccess) ent).setUserAccess(((EntityPlayer) entity).username, ((ISpecialAccess) ent).getGroup("owner"), true);
             }
         }
     }

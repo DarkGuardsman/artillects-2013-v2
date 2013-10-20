@@ -3,7 +3,6 @@ package dark.gsm.fortress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import universalelectricity.prefab.SlotSpecific;
-import dark.api.AccessLevel;
 import dark.api.ITerminal;
 
 public class SlotAmmunition extends SlotSpecific
@@ -18,9 +17,8 @@ public class SlotAmmunition extends SlotSpecific
     {
         if (this.inventory instanceof ITerminal)
         {
-            return ((ITerminal) this.inventory).getUserAccess(entityPlayer.username).ordinal() > AccessLevel.NONE.ordinal();
+            return ((ITerminal) this.inventory).getUserAccess(entityPlayer.username).hasNode("sentry.inv.ammo");
         }
-
         return false;
     }
 }

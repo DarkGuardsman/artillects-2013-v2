@@ -16,14 +16,13 @@ import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.vector.Region2;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.api.AccessLevel;
-import dark.api.UserAccess;
+import dark.api.access.AccessUser;
 import dark.core.interfaces.IScroll;
 import dark.core.prefab.terminal.TileEntityTerminal;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** The GUI for user permissions and access.
- * 
+ *
  * @author Calclavia */
 @SideOnly(Side.CLIENT)
 public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
@@ -31,7 +30,7 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
     private GuiTextField commandLine;
     private int scroll = 0;
     private static final int SPACING = 10;
-    private final HashMap<UserAccess, Vector2> outputMap = new HashMap<UserAccess, Vector2>();
+    private final HashMap<AccessUser, Vector2> outputMap = new HashMap<AccessUser, Vector2>();
 
     public GuiPlatformAccess(EntityPlayer entityPlayer, TileEntityTurretPlatform tileEntity)
     {
@@ -127,9 +126,9 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
             String command = "users add";
             String username = this.commandLine.getText();
 
-            for (UserAccess access : this.tileEntity.getUsers())
+            for (AccessUser access : this.tileEntity.getUsers())
             {
-                if (access.username.equalsIgnoreCase(username))
+                if (access.getName().equalsIgnoreCase(username))
                 {
                     command = "users remove";
                     break;
@@ -152,11 +151,11 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
 
         if (type == 0)
         {
-            Iterator<Entry<UserAccess, Vector2>> it = this.outputMap.entrySet().iterator();
+            Iterator<Entry<AccessUser, Vector2>> it = this.outputMap.entrySet().iterator();
 
             while (it.hasNext())
             {
-                Entry<UserAccess, Vector2> entry = it.next();
+                Entry<AccessUser, Vector2> entry = it.next();
                 Vector2 minPos = entry.getValue();
                 minPos.x -= 2;
                 minPos.y -= 2;
@@ -166,21 +165,8 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
 
                 if (new Region2(minPos, maxPos).isIn(new Vector2(x - this.guiLeft, y - this.guiTop)))
                 {
-                    UserAccess access = entry.getKey();
-                    int newLevelOrdinal = access.level.ordinal() + 1;
-
-                    if (newLevelOrdinal >= AccessLevel.values().length)
-                    {
-                        newLevelOrdinal -= AccessLevel.values().length;
-                    }
-
-                    if (newLevelOrdinal <= 0)
-                    {
-                        newLevelOrdinal = 1;
-                    }
-
-                    AccessLevel newLevel = AccessLevel.get(newLevelOrdinal);
-                    this.tileEntity.sendCommandToServer(this.entityPlayer, "access set " + access.username + " " + newLevel.displayName);
+                    AccessUser access = entry.getKey();
+                    //this.tileEntity.sendCommandToServer(this.entityPlayer, "access set " + access.getName() + " " + newLevel.displayName);
                     break;
                 }
             }
@@ -210,8 +196,8 @@ public class GuiPlatformAccess extends GuiPlatformBase implements IScroll
 
             if (currentLine < this.tileEntity.getUsers().size() && currentLine >= 0)
             {
-                UserAccess accesInfo = this.tileEntity.getUsers().get(currentLine);
-                String line = accesInfo.username + " (" + accesInfo.level.displayName + ")";
+                AccessUser accesInfo = this.tileEntity.getUsers().get(currentLine);
+                String line = accesInfo.getName() + " (" + accesInfo.getGroup().name() + ")";
 
                 if (line != null && line != "")
                 {

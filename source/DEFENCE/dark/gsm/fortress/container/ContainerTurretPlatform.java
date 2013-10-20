@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import dark.api.AccessLevel;
 import dark.core.prefab.terminal.ContainerTerminal;
 import dark.gsm.fortress.SlotAmmunition;
 import dark.gsm.fortress.api.ISentryUpgrade;
@@ -64,7 +63,7 @@ public class ContainerTurretPlatform extends ContainerTerminal
 
             if (slotID > this.tileEntity.containingItems.length - 1)
             {
-                if (this.tileEntity.getUserAccess(entityPlayer.username).ordinal() > AccessLevel.NONE.ordinal())
+                if (this.tileEntity.getUserAccess(entityPlayer.username).hasNode("sentry.inv.ammo"))
                 {
                     if (itemStack.getItem() instanceof ItemAmmo)
                     {

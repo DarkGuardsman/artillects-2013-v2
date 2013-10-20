@@ -108,7 +108,7 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
     }
 
     /** if a sentry is spawned above the stand it is removed
-     * 
+     *
      * @return */
     public boolean destroyTurret()
     {
@@ -418,4 +418,6 @@ public class TileEntityTurretPlatform extends TileEntityTerminal implements IAmm
     {
         return Sentries.CHANNEL;
     }
+
+
 }

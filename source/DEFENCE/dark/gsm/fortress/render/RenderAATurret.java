@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.api.AccessLevel;
+import dark.api.access.AccessLevel;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.core.renders.RenderTaggedTile;
 import dark.gsm.fortress.model.ModelAATurret;

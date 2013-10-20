@@ -1,38 +1,41 @@
 package dark.gsm.fortress.terminal.command;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
-import dark.api.AccessLevel;
-import dark.api.ISpecialAccess;
 import dark.api.ITerminal;
-import dark.core.prefab.terminal.TerminalCommand;
+import dark.api.access.AccessLevel;
+import dark.api.access.AccessUser;
+import dark.api.access.ISpecialAccess;
+import dark.api.access.ITerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** Manipulates the access level of the turret platform.
- * 
+ *
  * @author Darkguardsman, Calclavia */
-public class CommandAccess extends TerminalCommand
+public class CommandAccess implements ITerminalCommand
 {
 
     @Override
-    public String getCommandPrefix()
+    public String getCommandName()
     {
         return "access";
     }
 
     @Override
-    public boolean processCommand(EntityPlayer player, ITerminal terminal, String[] args)
+    public boolean called(EntityPlayer player, ITerminal terminal, String[] args)
     {
         if (args[0].equalsIgnoreCase("access") && args.length > 1 && args[1] != null && terminal instanceof TileEntityTurretPlatform)
         {
             TileEntityTurretPlatform turret = (TileEntityTurretPlatform) terminal;
-            AccessLevel userAccess = terminal.getUserAccess(player.username);
+            AccessUser userAccess = terminal.getUserAccess(player.username);
 
             if (args[1].equalsIgnoreCase("?"))
             {
-                terminal.addToConsole("Access Level: " + turret.getUserAccess(player.username).displayName);
+                terminal.addToConsole("Group: " + userAccess.getGroup().name());
                 return true;
             }
             else if (args[1].equalsIgnoreCase("set") && args.length > 3 && userAccess.ordinal() >= AccessLevel.ADMIN.ordinal())
@@ -63,31 +66,25 @@ public class CommandAccess extends TerminalCommand
     }
 
     @Override
-    public boolean canPlayerUse(EntityPlayer var1, ISpecialAccess mm)
-    {
-        return mm.getUserAccess(var1.username).ordinal() >= AccessLevel.BASIC.ordinal() || var1.capabilities.isCreativeMode;
-    }
-
-    @Override
-    public boolean showOnHelp(EntityPlayer player, ISpecialAccess mm)
-    {
-        return this.canPlayerUse(player, mm);
-    }
-
-    @Override
-    public List<String> getCmdUses(EntityPlayer player, ISpecialAccess mm)
-    {
-        List<String> cmds = new ArrayList<String>();
-        cmds.add("access set ~root [pass]");
-        cmds.add("access set username level");
-        cmds.add("access ?");
-        return cmds;
-    }
-
-    @Override
-    public boolean canMachineUse(ISpecialAccess mm)
+    public boolean canSupport(ITerminal mm)
     {
         return mm instanceof TileEntityTurretPlatform;
+    }
+
+    @Override
+    public Set<String> getPermissionNodes()
+    {
+        Set<String> nodes = new HashSet();
+        nodes.add("?");
+        nodes.add("set");
+        return nodes;
+    }
+
+    @Override
+    public String getNode(String[] args)
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

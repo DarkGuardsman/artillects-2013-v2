@@ -24,9 +24,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dark.core.prefab.entity.EntityTileDamage;
-import dark.core.prefab.terminal.CommandHelp;
-import dark.core.prefab.terminal.CommandRegistry;
-import dark.core.prefab.terminal.CommandUser;
+import dark.core.prefab.terminal.TerminalCommandRegistry;
 import dark.gsm.artillects.PacketManager;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.fortress.platform.BlockTurretPlatform;
@@ -137,12 +135,10 @@ public class Sentries extends GSMCore
         // AA Turret
         //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockTurret, 1, 2), new Object[] { "DDD", "CS ", "GS ", 'D', UniversalRecipes.SECONDARY_PLATE, 'S', UniversalRecipes.PRIMARY_PLATE, 'C', UniversalRecipes.CIRCUIT_T2, 'G', new ItemStack(blockTurret, 1, 0) }));
 
-        CommandRegistry.register(new CommandAccess());
-        CommandRegistry.register(new CommandDestroy());
-        CommandRegistry.register(new CommandUser());
-        CommandRegistry.register(new CommandHelp());
-        CommandRegistry.register(new CommandGet());
-        CommandRegistry.register(new CommandTarget());
+        TerminalCommandRegistry.register(new CommandAccess());
+        TerminalCommandRegistry.register(new CommandDestroy());
+        TerminalCommandRegistry.register(new CommandGet());
+        TerminalCommandRegistry.register(new CommandTarget());
         proxy.init();
     }
 
