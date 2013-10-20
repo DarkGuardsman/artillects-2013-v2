@@ -135,10 +135,10 @@ public class Sentries extends GSMCore
         // AA Turret
         //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockTurret, 1, 2), new Object[] { "DDD", "CS ", "GS ", 'D', UniversalRecipes.SECONDARY_PLATE, 'S', UniversalRecipes.PRIMARY_PLATE, 'C', UniversalRecipes.CIRCUIT_T2, 'G', new ItemStack(blockTurret, 1, 0) }));
 
-        TerminalCommandRegistry.register(new CommandAccess());
-        TerminalCommandRegistry.register(new CommandDestroy());
-        TerminalCommandRegistry.register(new CommandGet());
-        TerminalCommandRegistry.register(new CommandTarget());
+        TerminalCommandRegistry.register(new CommandAccess(), "user");
+        TerminalCommandRegistry.register(new CommandDestroy(), "owner");
+        TerminalCommandRegistry.register(new CommandGet(), "user");
+        TerminalCommandRegistry.register(new CommandTarget(), "admin");
         proxy.init();
     }
 

@@ -1,15 +1,11 @@
 package dark.gsm.fortress.terminal.command;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import dark.api.ITerminal;
-import dark.api.access.AccessLevel;
 import dark.api.access.AccessUser;
-import dark.api.access.ISpecialAccess;
 import dark.api.access.ITerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
@@ -37,29 +33,6 @@ public class CommandAccess implements ITerminalCommand
             {
                 terminal.addToConsole("Group: " + userAccess.getGroup().name());
                 return true;
-            }
-            else if (args[1].equalsIgnoreCase("set") && args.length > 3 && userAccess.ordinal() >= AccessLevel.ADMIN.ordinal())
-            {
-                String username = args[2];
-                AccessLevel currentAccess = terminal.getUserAccess(username);
-
-                if (username.equalsIgnoreCase("~root"))
-                {
-                    terminal.addToConsole("WIP");
-                }
-                else if (currentAccess != AccessLevel.NONE)
-                {
-                    AccessLevel newAccess = AccessLevel.get(args[3]);
-
-                    if (currentAccess != AccessLevel.OWNER || turret.getUsersWithAcess(AccessLevel.OWNER).size() > 1)
-                    {
-                        if (newAccess != AccessLevel.NONE && terminal.addUserAccess(username, newAccess, true))
-                        {
-                            terminal.addToConsole(username + " set to " + newAccess.displayName);
-                            return true;
-                        }
-                    }
-                }
             }
         }
         return false;

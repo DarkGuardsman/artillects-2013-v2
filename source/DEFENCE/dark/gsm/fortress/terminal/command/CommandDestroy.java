@@ -1,13 +1,9 @@
 package dark.gsm.fortress.terminal.command;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import dark.api.ITerminal;
-import dark.api.access.AccessLevel;
-import dark.api.access.ISpecialAccess;
 import dark.api.access.ITerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 

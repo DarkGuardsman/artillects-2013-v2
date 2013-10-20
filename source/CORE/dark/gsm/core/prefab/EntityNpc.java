@@ -6,19 +6,14 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import dark.core.prefab.helpers.MathHelper;
-import dark.gsm.core.faction.FactionInstance;
-import dark.gsm.core.faction.FactionManager;
-import dark.gsm.core.faction.IFactionObject;
 
 /** NPC that simulate being players in an empire controlled environment
- * 
+ *
  * @author Darkguardsman */
-public class EntityNpc extends EntityCreature implements IFactionObject
+public class EntityNpc extends EntityCreature
 {
     protected Random random = new Random();
 
-    /* FACTION STUFF */
-    protected FactionInstance faction;
     protected String factionName = "NEUTRIAL";
 
     /* CHARACTER STUFF */
@@ -69,7 +64,6 @@ public class EntityNpc extends EntityCreature implements IFactionObject
     {
         super.writeEntityToNBT(nbt);
         nbt.setString("humanName", this.humanName);
-        nbt.setString("factionName", this.faction != null ? this.faction.name : "NEUTRIAL");
     }
 
     @Override
@@ -79,26 +73,4 @@ public class EntityNpc extends EntityCreature implements IFactionObject
         this.humanName = nbt.getString("humanName");
         this.factionName = nbt.getString("factionName");
     }
-
-    @Override
-    public FactionInstance getFaction()
-    {
-        if (this.faction == null || this.faction.isInvalid())
-        {
-            this.faction = FactionManager.loadFaction(this.factionName);
-        }
-        return this.faction != null ? this.faction : FactionManager.NEUTRIAL;
-    }
-
-    @Override
-    public boolean setFaction(FactionInstance faction, boolean override)
-    {
-        if (override || this.faction == null || this.faction.isInvalid())
-        {
-            this.faction = faction;
-            return true;
-        }
-        return false;
-    }
-
 }

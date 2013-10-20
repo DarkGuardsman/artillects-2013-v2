@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import dark.api.access.AccessLevel;
 import dark.gsm.core.common.GSMCore;
 import dark.gsm.core.renders.RenderTaggedTile;
 import dark.gsm.fortress.model.ModelAATurret;
@@ -66,14 +65,12 @@ public class RenderAATurret extends RenderTaggedTile
 
         if (tileEntity.getPlatform() != null)
         {
-            AccessLevel level = tileEntity.getPlatform().getUserAccess(player.username);
-
-            if (level == AccessLevel.ADMIN)
+            if (tileEntity.getPlatform().getOwnerGroup().isMemeber(player.username))
             {
                 this.bindTextureByName(GSMCore.DOMAIN, GSMCore.MODEL_DIRECTORY + TEXTURE_FILE);
                 return;
             }
-            else if (level.ordinal() >= AccessLevel.USER.ordinal())
+            else if (tileEntity.getPlatform().getUserAccess(player.username) != null && !tileEntity.getPlatform().getUserAccess(player.username).hasNode("faction.enemy"))
             {
                 this.bindTextureByName(GSMCore.DOMAIN, GSMCore.MODEL_DIRECTORY + TEXTURE_FILE_FRIENDLY);
                 return;

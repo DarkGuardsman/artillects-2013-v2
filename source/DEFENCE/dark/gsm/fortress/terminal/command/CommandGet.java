@@ -1,13 +1,11 @@
 package dark.gsm.fortress.terminal.command;
 
-import java.util.List;
 import java.util.Set;
 
 import net.minecraft.entity.player.EntityPlayer;
 import dark.api.ITerminal;
-import dark.api.access.AccessLevel;
+import dark.api.access.AccessUser;
 import dark.api.access.ITerminalCommand;
-import dark.api.access.UserAccess;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 public class CommandGet implements ITerminalCommand
@@ -26,13 +24,11 @@ public class CommandGet implements ITerminalCommand
             TileEntityTurretPlatform turret = (TileEntityTurretPlatform) TE;
             if (args[1].equalsIgnoreCase("owner"))
             {
-                List<UserAccess> userList = turret.getUsersWithAcess(AccessLevel.OWNER);
-
-                if (userList.size() > 0)
+                if (turret.getOwnerGroup().getMembers().size() > 0)
                 {
-                    for (UserAccess access : userList)
+                    for (AccessUser access : turret.getOwnerGroup().getMembers())
                     {
-                        TE.addToConsole(access.username);
+                        TE.addToConsole(access.getName());
                     }
                 }
                 else
