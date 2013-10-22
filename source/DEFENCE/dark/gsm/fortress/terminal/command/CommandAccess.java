@@ -10,7 +10,7 @@ import dark.api.access.ITerminalCommand;
 import dark.gsm.fortress.platform.TileEntityTurretPlatform;
 
 /** Manipulates the access level of the turret platform.
- *
+ * 
  * @author Darkguardsman, Calclavia */
 public class CommandAccess implements ITerminalCommand
 {

@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import dark.core.prefab.helpers.MathHelper;
 
 /** NPC that simulate being players in an empire controlled environment
- *
+ * 
  * @author Darkguardsman */
 public class EntityNpc extends EntityCreature
 {

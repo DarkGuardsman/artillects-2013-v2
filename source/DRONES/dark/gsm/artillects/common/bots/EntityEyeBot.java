@@ -218,7 +218,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker
     }
 
     /** Fire the built in weapon at the target
-     *
+     * 
      * @param x y z - taget location for arrows, fireballs, or dummy fire weapons */
     public void fireAtTarget(double x, double y, double z)
     {
@@ -229,7 +229,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker
     }
 
     /** Used to check if a point can be moved too
-     *
+     * 
      * @param point - point traveling too
      * @param par7 - unkown??
      * @return true if this point can be moved too */
@@ -328,7 +328,7 @@ public class EntityEyeBot extends EntityFlyingBot implements IAttacker
 
                         if (!player.capabilities.isCreativeMode)
                         {
-                                return true;
+                            return true;
                         }
                     }
                     else if (!(entity instanceof EntityEyeBot))
