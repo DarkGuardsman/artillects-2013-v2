@@ -445,9 +445,9 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     }
 
     @Override
-    public double getHeat(ForgeDirection side)
+    public float getHeat(ForgeDirection side)
     {
-        return this.heat;
+        return (float) this.heat;
     }
 
     @Override
@@ -461,9 +461,15 @@ public abstract class TileEntityTurretBase extends TileEntityAdvanced implements
     }
 
     @Override
-    public double getCoolingRate(ForgeDirection side)
+    public float getCoolingRate(ForgeDirection side)
     {
         return 20;
+    }
+
+    @Override
+    public boolean canTileConnect(Connection type, ForgeDirection dir)
+    {
+        return false;
     }
 
     /*
